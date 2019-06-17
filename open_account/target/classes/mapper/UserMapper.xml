@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shixun.open_account.dao.UserDao">
+    <insert id="addUser" >
+        insert into user(phone,password,status) values(#{phone}, #{password}, 0)
+    </insert>
+    <select id="checkLogin" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+       user u
+        WHERE u.phone = #{phone}
+        AND u.password=#{password}
+    </select>
+
+    <select id="checkPhone" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+       user u
+        WHERE u.phone = #{phone}
+    </select>
+    <!--update id="updateDemo" >
+        UPDATE demo d
+        <set>
+            d.name = #{name},
+            d.age = #{age},
+            d.id = #{id}
+        </set>
+        WHERE  d.id=#{id};
+    </update-->
+</mapper>
