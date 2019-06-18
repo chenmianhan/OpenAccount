@@ -11,7 +11,7 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 17/06/2019 19:04:08
+ Date: 18/06/2019 09:44:55
 */
 
 SET NAMES utf8mb4;
@@ -22,15 +22,16 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `account_info`;
 CREATE TABLE `account_info`  (
+  `account_info_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `account_info_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `ID_type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `ID_number` varchar(18) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `ID_issuance_date` datetime(0) DEFAULT NULL,
   `ID_overdue_date` datetime(0) DEFAULT NULL,
   `ID_licensing_authority` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `contact_address` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `postal_address` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `contact_address_id` int(11) DEFAULT NULL,
+  `postal_address_id` int(11) DEFAULT NULL,
   `trans_password` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `Fund_password` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `business_department` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
@@ -52,10 +53,10 @@ CREATE TABLE `account_info`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `address`;
 CREATE TABLE `address`  (
-  `aid` int(10) NOT NULL,
+  `aid` int(11) NOT NULL AUTO_INCREMENT,
   `province` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `city` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `street` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `city` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `street` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`aid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -75,8 +76,8 @@ CREATE TABLE `admin_manager`  (
 DROP TABLE IF EXISTS `auditor_manager`;
 CREATE TABLE `auditor_manager`  (
   `business_department` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `admin_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  PRIMARY KEY (`business_department`, `admin_id`) USING BTREE
+  `auditor_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`business_department`, `auditor_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
