@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c7922ade-254e-43f0-8308-aabf02cf37a8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shixun/open_account/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shixun/open_account/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shixun/open_account/util/CommonUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shixun/open_account/util/CommonUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shixun/open_account/util/constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shixun/open_account/util/constants/LoginConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/shixun/open_account/controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/shixun/open_account/controller/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/shixun/open_account/util/CommonUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/shixun/open_account/util/CommonUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/shixun/open_account/util/constants/Constants.class" beforeDir="false" />
-    </list>
+    <list default="true" id="c7922ade-254e-43f0-8308-aabf02cf37a8" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -168,7 +160,7 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="435" />
     <option name="y" value="50" />
     <option name="width" value="1400" />
@@ -377,7 +369,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2600536" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
