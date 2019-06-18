@@ -2,12 +2,7 @@ package com.shixun.open_account.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shixun.open_account.config.exception.CommonJsonException;
-import com.shixun.open_account.util.constants.Constants;
 import com.shixun.open_account.util.constants.ErrorEnum;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
-import java.util.List;
 
 /**
  * @author: hxy
@@ -19,20 +14,21 @@ public class CommonUtil {
 	/**
 	 * 返回一个info为空对象的成功消息的json
 	 */
-	public static JSONObject successJson() {
-		return successJson(new JSONObject());
+	/*public static JSONObject getJson() {
+		return getJson(new JSONObject());
 	}
-
+*/
 	/**
 	 * 返回一个返回码为100的json
 	 */
-	public static JSONObject successJson(Object info) {
+	public static JSONObject getJson(Object code) {
 		JSONObject resultJson = new JSONObject();
-		resultJson.put("code", Constants.SUCCESS_CODE);
-		resultJson.put("msg", Constants.SUCCESS_MSG);
-		resultJson.put("info", info);
+		resultJson.put("code", code);
+		//resultJson.put("msg", LoginConstants.SUCCESS_MSG);
+		//resultJson.put("info", info);
 		return resultJson;
 	}
+
 
 	/**
 	 * 返回错误信息JSON
