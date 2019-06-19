@@ -6,7 +6,6 @@ import com.shixun.open_account.entity.Address;
 import com.shixun.open_account.service.ServieImpl.AccountInfoServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +21,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
  */
 @RestController
 public class AccountInfoController {
-	@Autowired
-	private ValueOperations<Object, Object> redisOperations;
+//	@Autowired
+//	private ValueOperations<Object, Object> redisOperations;
 	@Autowired
     private AccountInfoServiceImpl accountInfoService;
     
