@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shixun.open_account.dao.AccountInfoDAO">
+	
+	<!-- addAccountInfo -->
+	<insert id="addAccountInfo" 
+	 useGeneratedKeys="true" keyProperty="account_info_id">
+		insert into account_info
+		( 
+		  user_id,name,ID_type,
+		  ID_number,
+		  ID_address_id,ID_issuance_date,ID_overdue_date,ID_licensing_authority,
+		  contact_address_id,
+		  postal_address_id,
+		  trans_password,
+		  Fund_password,
+		  n_security_id,
+		  s_security_id,
+		  deposit_bank,
+		  deposit_account,
+		  deposit_password,
+		  status,
+		  profession,
+		  education,
+		  email,
+		  ID_picture,
+		  ID_card_inverse_side,
+		  risk_assessment_mark
+		  )
+		  values(
+		      #{user_id},
+		  	  #{name},
+			  #{ID_type},
+			  #{ID_number},
+			  #{ID_address_id},
+			  #{ID_issuance_date},
+			  #{ID_overdue_date},
+			  #{ID_licensing_authority},
+			  #{contact_address_id},
+			  #{postal_address_id},
+			  #{trans_password},
+			  #{Fund_password},
+			  #{n_security_id},
+			  #{s_security_id},
+			  #{deposit_bank},
+			  #{deposit_account},
+			  #{deposit_password},
+			  #{status},
+			  #{profession},
+			  #{education},
+			  #{email},
+			  #{ID_picture},
+			  #{ID_card_inverse_side},
+			  #{risk_assessment_mark}
+			  )
+	</insert>
+	
+	<!-- getAccountInfoByUserId -->
+	<select id="getAccountInfoByUserId" 
+		resultType="com.shixun.open_account.entity.AccountInfo">
+		select * from account_info where user_id = #{user_id}
+	</select>
+	
+	<!-- updateAccountInfo -->
+ 	<update id="updateAccountInfo">
+		update account_info set 
+		user_id=#{user_id},
+		name=#{name},
+		ID_type=#{ID_type},
+		ID_number=#{ID_number},
+		ID_address_id=#{ID_address_id},
+		ID_issuance_date=#{ID_issuance_date},
+		ID_overdue_date=#{ID_overdue_date},
+		ID_licensing_authority=#{ID_licensing_authority},
+		contact_address_id=#{contact_address_id},
+		postal_address_id=#{postal_address_id},
+		trans_password=#{trans_password},
+		Fund_password=#{Fund_password},
+		n_security_id=#{n_security_id},
+		s_security_id=#{s_security_id},
+		deposit_bank=#{deposit_bank},
+		deposit_account=#{deposit_account},
+		deposit_password=#{deposit_password},
+		status=#{status},
+		profession=#{profession},
+		education=#{education},
+		email=#{email},
+		ID_picture=#{ID_picture},
+		ID_card_inverse_side=#{ID_card_inverse_side},
+		risk_assessment_mark=#{risk_assessment_mark}
+		where user_id=#{user_id}
+	</update>
+	
+	
+	
+	<!-- deleteAccountInfoByUserId -->
+	<delete id="deleteAccountInfoByUserId">
+		delete from account_info where user_id = #{user_id}
+	</delete>	
+
+	<!-- addAddress -->
+	<insert id="addAddress"
+		useGeneratedKeys="true" keyProperty="aid">
+		insert into address(province,city,street) 
+		values(#{province},#{city},#{street})
+	</insert>
+	
+	<!-- getAddressByAId -->
+	<select id="getAddressByAId" 
+		resultType="com.shixun.open_account.entity.Address">
+		select * from address where aid=#{aid}
+	</select>
+	
+	<delete id="deleteAddressByAid">
+		delete from address where aid=#{aid}
+	</delete>
+	
+	
+    
+</mapper>
+
+
