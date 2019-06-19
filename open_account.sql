@@ -20,34 +20,36 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 -- Table structure for account_info
 -- ----------------------------
-DROP TABLE IF EXISTS `account_info`;
-CREATE TABLE `account_info`  (
-  `account_info_id` int(12) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-  `user_id` int(12) NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `ID_type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `ID_number` varchar(18) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `ID_issuance_date` datetime(0) DEFAULT NULL,
-  `ID_overdue_date` datetime(0) DEFAULT NULL,
-  `ID_licensing_authority` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `contact_address_id` int(11) DEFAULT NULL,
-  `postal_address_id` int(11) DEFAULT NULL,
-  `trans_password` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Fund_password` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `n_security_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `s_security_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `deposit_bank` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `deposit_account` varchar(19) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `deposit_password` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `status` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `profession` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `education` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `ID_picture` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `ID_card_inverse_side` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `risk_assessment_mark` decimal(65, 0) DEFAULT NULL,
-  PRIMARY KEY (`account_info_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+DROP TABLE account_info;
+CREATE TABLE account_info (
+account_info_id INT AUTO_INCREMENT NOT NULL,
+user_id int NOT NULL,
+name VARCHAR(20),
+ID_type varchar(20),
+ID_number varchar(18),
+ID_address_id INT,
+ID_issuance_date datetime,
+ID_overdue_date datetime,
+ID_licensing_authority varchar(25),
+contact_address_id INT,
+postal_address_id INT,
+trans_password varchar(20),
+Fund_password varchar(20),
+n_security_id INT,
+s_security_id INT,
+deposit_bank varchar(20),
+deposit_account varchar(19),
+deposit_password varchar(20),
+status varchar(2),
+profession varchar(20),
+education varchar(20),
+email varchar(30),
+ID_picture varchar(50),
+ID_card_inverse_side varchar(50),
+risk_assessment_mark int(3),
+PRIMARY KEY(account_info_id)
+)
+
 
 -- ----------------------------
 -- Table structure for address
