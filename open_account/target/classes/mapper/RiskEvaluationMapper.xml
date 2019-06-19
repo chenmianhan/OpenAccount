@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shixun.open_account.dao.RiskEvaluationDao">
+    <insert id="addRiskEvaluation" >
+        insert into
+        risk_evaluation(RE_id, content, option_1, mark_1, option_2, mark_2, option_3, mark_3, option_4, mark_4, option_5, mark_5, is_radio, type)
+        values
+        (#{RE_id}, #{content}, #{option_1}, #{mark_1}, #{option_2}, #{mark_2}, #{option_3}, #{mark_3}, #{option_4}, #{mark_4}, #{option_5}, #{mark_5}, #{is_radio}, #{type})
+    </insert>
+
+    <delete id="deleteRiskEvaluation">
+        delete from risk_evaluation
+        where RE_id = #{RE_id}
+    </delete>
+
+    <select id="getRiskEvaluations" resultType="com.alibaba.fastjson.JSONObject">
+        select
+        re.RE_id,
+        re.content,
+        re.option_1,
+        re.option_2,
+        re.option_3,
+        re.option_4,
+        re.option_5,
+        re.is_radio,
+        re.type
+        from risk_evaluation re
+    </select>
+
+    <select id="getMark" resultType="int">
+        select
+        case #{option_id}
+        when 1 then mark_1
+        when 2 then mark_2
+        when 3 then mark_3
+        when 4 then mark_4
+        when 5 then mark_5
+        end
+        from risk_evaluation
+        where RE_id = #{RE_id}
+    </select>
+</mapper>

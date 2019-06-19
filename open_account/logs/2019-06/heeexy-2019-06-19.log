@@ -1,0 +1,51 @@
+2019-06-19 15:00:07.806 INFO  --- [StartupInfoLogger.java:50][restartedMain] - Starting OpenAccountApplication on LAPTOP-POLJFCA6 with PID 5652 (G:\github\temp\OpenAccount\open_account\target\classes started by lenovo in G:\github\temp\OpenAccount\open_account)
+2019-06-19 15:00:07.809 INFO  --- [SpringApplication.java:675][restartedMain] - No active profile set, falling back to default profiles: default
+2019-06-19 15:00:10.279 INFO  --- [StartupInfoLogger.java:59][restartedMain] - Started OpenAccountApplication in 2.801 seconds (JVM running for 5.17)
+2019-06-19 15:04:00.286 INFO  --- [StartupInfoLogger.java:50][restartedMain] - Starting OpenAccountApplication on LAPTOP-POLJFCA6 with PID 11944 (G:\github\temp\OpenAccount\open_account\target\classes started by lenovo in G:\github\temp\OpenAccount\open_account)
+2019-06-19 15:04:00.294 INFO  --- [SpringApplication.java:675][restartedMain] - No active profile set, falling back to default profiles: default
+2019-06-19 15:04:02.500 INFO  --- [StartupInfoLogger.java:59][restartedMain] - Started OpenAccountApplication in 2.835 seconds (JVM running for 4.733)
+2019-06-19 15:06:37.057 INFO  --- [StartupInfoLogger.java:50][restartedMain] - Starting OpenAccountApplication on LAPTOP-POLJFCA6 with PID 17248 (G:\github\temp\OpenAccount\open_account\target\classes started by lenovo in G:\github\temp\OpenAccount\open_account)
+2019-06-19 15:06:37.071 INFO  --- [SpringApplication.java:675][restartedMain] - No active profile set, falling back to default profiles: default
+2019-06-19 15:06:39.402 INFO  --- [StartupInfoLogger.java:59][restartedMain] - Started OpenAccountApplication in 2.844 seconds (JVM running for 4.882)
+2019-06-19 15:07:11.482 INFO  --- [HikariDataSource.java:110][http-nio-8080-exec-2] - HikariPool-1 - Starting...
+2019-06-19 15:07:11.783 INFO  --- [HikariDataSource.java:123][http-nio-8080-exec-2] - HikariPool-1 - Start completed.
+2019-06-19 15:07:11.833 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-2] - ==>  Preparing: SELECT count(*) FROM user u WHERE u.phone = ? 
+2019-06-19 15:07:11.864 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-2] - ==> Parameters: 15820138470(String)
+2019-06-19 15:07:11.888 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-2] - <==      Total: 1
+2019-06-19 15:07:11.893 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-2] - ==>  Preparing: insert into user(phone,password,status) values(?, ?, 0) 
+2019-06-19 15:07:11.894 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-2] - ==> Parameters: 15820138470(String), 123456(String)
+2019-06-19 15:07:11.897 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-2] - <==    Updates: 1
+2019-06-19 15:09:26.021 INFO  --- [StartupInfoLogger.java:50][restartedMain] - Starting OpenAccountApplication on LAPTOP-POLJFCA6 with PID 16104 (G:\github\temp\OpenAccount\open_account\target\classes started by lenovo in G:\github\temp\OpenAccount\open_account)
+2019-06-19 15:09:26.024 INFO  --- [SpringApplication.java:675][restartedMain] - No active profile set, falling back to default profiles: default
+2019-06-19 15:09:28.046 INFO  --- [StartupInfoLogger.java:59][restartedMain] - Started OpenAccountApplication in 2.396 seconds (JVM running for 4.089)
+2019-06-19 15:10:18.082 INFO  --- [HikariDataSource.java:110][http-nio-8080-exec-2] - HikariPool-1 - Starting...
+2019-06-19 15:10:18.197 INFO  --- [HikariDataSource.java:123][http-nio-8080-exec-2] - HikariPool-1 - Start completed.
+2019-06-19 15:10:18.233 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-2] - ==>  Preparing: SELECT count(*) FROM user u WHERE u.phone = ? 
+2019-06-19 15:10:18.252 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-2] - ==> Parameters: 123143777(String)
+2019-06-19 15:10:18.272 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-2] - <==      Total: 1
+2019-06-19 15:10:18.276 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-2] - ==>  Preparing: insert into user(phone,password,status) values(?, ?, 0) 
+2019-06-19 15:10:18.277 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-2] - ==> Parameters: 123143777(String), rwej(String)
+2019-06-19 15:10:18.281 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-2] - <==    Updates: 1
+2019-06-19 15:12:10.452 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-4] - ==>  Preparing: SELECT count(*) FROM user u WHERE u.phone = ? 
+2019-06-19 15:12:10.453 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-4] - ==> Parameters: 123143777(String)
+2019-06-19 15:12:10.454 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-4] - <==      Total: 1
+2019-06-19 15:12:10.457 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-4] - ==>  Preparing: SELECT count(*) FROM user u WHERE u.phone = ? AND u.password=? 
+2019-06-19 15:12:10.458 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-4] - ==> Parameters: 123143777(String), rwej(String)
+2019-06-19 15:12:10.459 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-4] - <==      Total: 1
+2019-06-19 15:30:20.360 INFO  --- [StartupInfoLogger.java:50][restartedMain] - Starting OpenAccountApplication on LAPTOP-POLJFCA6 with PID 7824 (G:\github\temp\OpenAccount\open_account\target\classes started by lenovo in G:\github\temp\OpenAccount\open_account)
+2019-06-19 15:30:20.365 INFO  --- [SpringApplication.java:675][restartedMain] - No active profile set, falling back to default profiles: default
+2019-06-19 15:30:22.488 INFO  --- [StartupInfoLogger.java:59][restartedMain] - Started OpenAccountApplication in 2.535 seconds (JVM running for 4.238)
+2019-06-19 15:32:49.236 INFO  --- [HikariDataSource.java:110][http-nio-8080-exec-1] - HikariPool-1 - Starting...
+2019-06-19 15:32:49.439 INFO  --- [HikariDataSource.java:123][http-nio-8080-exec-1] - HikariPool-1 - Start completed.
+2019-06-19 15:32:49.483 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-1] - ==>  Preparing: SELECT count(*) FROM user u WHERE u.phone = ? 
+2019-06-19 15:32:49.511 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-1] - ==> Parameters: 123143776(String)
+2019-06-19 15:32:49.538 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-1] - <==      Total: 1
+2019-06-19 15:32:49.542 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-1] - ==>  Preparing: insert into user(phone,password,status) values(?, ?, 0) 
+2019-06-19 15:32:49.543 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-1] - ==> Parameters: 123143776(String), rwej(String)
+2019-06-19 15:32:49.547 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-1] - <==    Updates: 1
+2019-06-19 15:38:59.205 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-3] - ==>  Preparing: SELECT count(*) FROM user u WHERE u.phone = ? 
+2019-06-19 15:38:59.207 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-3] - ==> Parameters: 15920138470(String)
+2019-06-19 15:38:59.211 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-3] - <==      Total: 1
+2019-06-19 15:38:59.215 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-3] - ==>  Preparing: insert into user(phone,password,status) values(?, ?, 0) 
+2019-06-19 15:38:59.217 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-3] - ==> Parameters: 15920138470(String), 123456(String)
+2019-06-19 15:38:59.224 DEBUG --- [BaseJdbcLogger.java:159][http-nio-8080-exec-3] - <==    Updates: 1
