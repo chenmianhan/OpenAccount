@@ -28,6 +28,10 @@ public class LoginController {
     public JSONObject login(@RequestParam(value = "phone") String phone,
                        @RequestParam(value = "password") String password,@RequestParam(value = "role") String role) throws Exception {
         //int result=userService.checkLogin(phone,password);
+      //  System.out.println("I'm called");
+        System.out.println("phone"+phone);
+        System.out.println("password"+password);
+        System.out.println("role"+role);
         if(role.equals("0")){
             int result=userService.checkPhone(phone);
             if(result==0){
