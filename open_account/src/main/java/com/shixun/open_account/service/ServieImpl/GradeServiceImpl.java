@@ -48,8 +48,7 @@ public class GradeServiceImpl implements GradeService{
         int maxmark = 0;
         for(int i = 0;i<answer.size();i++)
         {
-            JSONObject js = answer.getJSONObject(i);
-            int option = js.getInteger("ans");
+            int option = answer.getInteger(i);
             int rec=riskEvaluationDao.getMark(re_id,option);
             if(rec > maxmark) {
                 maxmark = rec;
