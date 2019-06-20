@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.xml.ws.RequestWrapper;
 
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /****
  *@author:hwy
@@ -53,9 +53,31 @@ public class RiskEvaluationController {
 
     @RequestMapping(value="risk_evaluation/get_questions", method=GET, produces = "application/json;charset=UTF-8")
     public JSONArray getRiskEvaluations() throws Exception {
-        List<JSONObject> js = riskEvaluationService.getRiskEvaluations();
+        List<JSONObject> jsList = riskEvaluationService.getRiskEvaluations();
         JSONArray res = new JSONArray();
-        res.addAll(js);
+        for (int i = 0; i < jsList.size(); i++) {
+            System.out.println(i);
+            JSONObject js = new JSONObject();
+            JSONObject rawJs = jsList.get(i);
+            js.put("RE_id", rawJs.getInteger("RE_id"));
+            js.put("content", rawJs.getString("content"));
+
+            JSONArray options = new JSONArray();
+            for (int j = 1; j <=5; j++) {
+                String key = "option_" + String.valueOf(j);
+                if (rawJs.containsKey(key)) {
+                    JSONObject optionObject = new JSONObject();
+                    optionObject.put("oid", j);
+                    optionObject.put("option",rawJs.getString(key));
+                    options.add(optionObject);
+                }
+            }
+            js.put("options", options);
+
+            js.put("is_radio", rawJs.getBoolean("is_radio"));
+            js.put("type", rawJs.getString("type"));
+            res.add(js);
+        }
         return res;
     }
 }
