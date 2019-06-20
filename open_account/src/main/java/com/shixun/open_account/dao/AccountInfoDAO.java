@@ -23,5 +23,6 @@ public interface AccountInfoDAO{
     int addAddress(Address address);
     Address getAddressByAId(Integer aid);
     int deleteAddressByAid(Integer aid);
+    int updateAddress(Address address);
     
 }

@@ -51,5 +51,9 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 	public int deleteAddressByAid(Integer aid) {
 		return accountInfoDAO.deleteAddressByAid(aid);
 	}
+	@Override
+	public int updateAddress(Address address) {
+		return accountInfoDAO.updateAddress(address);
+	}
 
 }

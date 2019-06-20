@@ -10,7 +10,6 @@ import com.shixun.open_account.entity.Address;
  */
 public interface AccountInfoService {
 	//	accountInfo CRUD
-	
 	//	add
     int addAccountInfo(AccountInfo accountInfo);
     //	get
@@ -19,14 +18,16 @@ public interface AccountInfoService {
     int updateAccountInfo(AccountInfo accountInfo);
     //	delete
     int deleteAccountInfoByUserId(Integer user_id);
-    // address CRUD
     
+    
+    //	address CRUD
     //	add
     int addAddress(Address address);
     //	get
     Address getAddressByAId(Integer aid);
     //	delete
     int deleteAddressByAid(Integer aid);
-    
+    //	update
+    int updateAddress(Address address);
     
 }
