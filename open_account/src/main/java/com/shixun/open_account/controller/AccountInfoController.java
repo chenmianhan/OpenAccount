@@ -88,7 +88,7 @@ public class AccountInfoController {
 		return 0;
     	}
     
-    @GetMapping(value = "getAccountInfo",produces = "application/json;charset=UTF-8")
+    @GetMapping(value = "/getAccountInfo",produces = "application/json;charset=UTF-8")
     public AccountInfoDto getAccountInfoByUserId
     	(@RequestParam("user_id")Integer user_id) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
     	//	get directly if in redis.
@@ -107,13 +107,13 @@ public class AccountInfoController {
 				);
     }
     
-    @PostMapping(value = "deleteAccountInfo",produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/deleteAccountInfo",produces = "application/json;charset=UTF-8")
     public int deleteAccountInfoByUserId
     	(@RequestParam("user_id")Integer user_id) {
     	return accountInfoService.deleteAccountInfoByUserId(user_id);
     }
     
-    @PostMapping(value = "updateAccountInfo",produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/updateAccountInfo",produces = "application/json;charset=UTF-8")
     public int updateAccountInfo(
     		Integer user_id,
     		String name,
