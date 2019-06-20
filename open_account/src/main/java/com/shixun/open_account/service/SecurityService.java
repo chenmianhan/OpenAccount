@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface SecurityService {
     public List<JSONObject> getSecurity(String province,String city);
+    public List<JSONObject> getSecurityAll();
 }

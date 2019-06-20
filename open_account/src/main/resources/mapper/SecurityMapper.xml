@@ -8,5 +8,8 @@
         from security s
         where s.province=#{province} and s.city=#{city}
     </select>
+    <select id="getSecurityAll" resultType="com.alibaba.fastjson.JSONObject">
+        select * from security ORDER BY province,city,type
+    </select>
     
 </mapper>

@@ -30,7 +30,12 @@ public class SecurityServiceImpl implements SecurityService{
     @Override
     public List<JSONObject> getSecurity(String province, String city)
     {
-        JSONObject tmp=new JSONObject();
         return securityDao.getSecurity(province,city);
+    }
+    
+    @Override
+    public List<JSONObject> getSecurityAll()
+    {
+        return securityDao.getSecurityAll();
     }
 }

@@ -56,7 +56,6 @@ public class RiskEvaluationController {
         List<JSONObject> jsList = riskEvaluationService.getRiskEvaluations();
         JSONArray res = new JSONArray();
         for (int i = 0; i < jsList.size(); i++) {
-            System.out.println(i);
             JSONObject js = new JSONObject();
             JSONObject rawJs = jsList.get(i);
             js.put("RE_id", rawJs.getInteger("RE_id"));

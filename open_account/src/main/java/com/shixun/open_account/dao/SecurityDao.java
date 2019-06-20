@@ -13,4 +13,5 @@ import java.util.List;
 
 public interface SecurityDao{
     List<JSONObject> getSecurity(@Param("province") String province, @Param("city") String city);
+    List<JSONObject> getSecurityAll();
 }
