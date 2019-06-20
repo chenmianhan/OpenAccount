@@ -11,7 +11,7 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 20/06/2019 15:08:43
+ Date: 20/06/2019 16:08:00
 */
 
 SET NAMES utf8mb4;
@@ -22,30 +22,30 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `account_info`;
 CREATE TABLE `account_info` (
-  `account_info_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `name` varchar(20) DEFAULT NULL,
-  `ID_type` varchar(20) DEFAULT NULL,
+  `account_info_id` int(10) NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `ID_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `ID_number` varchar(18) DEFAULT NULL,
-  `ID_address_id` int(11) DEFAULT NULL,
+  `ID_address_id` int(10) DEFAULT NULL,
   `ID_issuance_date` datetime DEFAULT NULL,
   `ID_overdue_date` datetime DEFAULT NULL,
-  `ID_licensing_authority` varchar(25) DEFAULT NULL,
-  `contact_address_id` int(11) DEFAULT NULL,
-  `postal_address_id` int(11) DEFAULT NULL,
-  `trans_password` varchar(20) DEFAULT NULL,
-  `Fund_password` varchar(20) DEFAULT NULL,
-  `n_security_id` int(11) DEFAULT NULL,
-  `s_security_id` int(11) DEFAULT NULL,
-  `deposit_bank` varchar(20) DEFAULT NULL,
-  `deposit_account` varchar(19) DEFAULT NULL,
-  `deposit_password` varchar(20) DEFAULT NULL,
-  `status` varchar(2) DEFAULT NULL,
-  `profession` varchar(20) DEFAULT NULL,
-  `education` varchar(20) DEFAULT NULL,
-  `email` varchar(30) DEFAULT NULL,
-  `ID_picture` varchar(50) DEFAULT NULL,
-  `ID_card_inverse_side` varchar(50) DEFAULT NULL,
+  `ID_licensing_authority` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `contact_address_id` int(10) DEFAULT NULL,
+  `postal_address_id` int(10) DEFAULT NULL,
+  `trans_password` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `Fund_password` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `n_security_id` int(10) DEFAULT NULL,
+  `s_security_id` int(10) DEFAULT NULL,
+  `deposit_bank` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `deposit_account` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `deposit_password` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `profession` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `education` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `ID_picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `ID_card_inverse_side` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `risk_assessment_mark` int(3) DEFAULT NULL,
   PRIMARY KEY (`account_info_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -54,19 +54,19 @@ CREATE TABLE `account_info` (
 -- Records of account_info
 -- ----------------------------
 BEGIN;
-INSERT INTO `account_info` VALUES (2, 7000, 'lastgg', ' 40', ' 2', NULL, '2018-01-01 00:00:00', '2018-01-01 00:00:00', '2', NULL, NULL, ' 2', '2', NULL, NULL, '2', '2', '2 ', ' 2', '2', '2', '2', '2', '2', 90);
+INSERT INTO `account_info` VALUES (2, 7000, 'lastgg', ' 40', ' 2', NULL, '2018-01-01 00:00:00', '2018-01-01 00:00:00', '2', NULL, NULL, ' 2', '2', NULL, NULL, '2', '2', '2 ', '2', '2', '2', '2', '2', '2', 90);
 INSERT INTO `account_info` VALUES (3, 8000, ' fdsnk', ' 40', ' 2', 82, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 83, 84, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
 INSERT INTO `account_info` VALUES (4, 9000, ' fdsnk', ' 40', ' 2', 85, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 86, 87, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
 INSERT INTO `account_info` VALUES (5, 20000, ' fdsnk', ' 40', ' 2', 88, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 89, 90, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
 INSERT INTO `account_info` VALUES (6, 20000, ' fdsnk', ' 40', ' 2', 91, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 92, 93, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
 INSERT INTO `account_info` VALUES (7, 30000, ' fdsnk', ' 40', ' 2', 94, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 95, 96, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
 INSERT INTO `account_info` VALUES (8, 40000, ' fdsnk', ' 40', ' 2', 97, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 98, 99, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
-INSERT INTO `account_info` VALUES (9, 50000, 'lastgg', ' 40', ' 2', 2, '2018-01-01 00:00:00', '2018-01-01 00:00:00', '2', NULL, NULL, ' 2', '2', 2, 2, '2', '2', '2 ', ' 2', '2', '2', '2', '2', '2', 100);
-INSERT INTO `account_info` VALUES (10, 60000, 'lastgg', ' 40', ' 2', 2, '2018-01-01 00:00:00', '2018-01-01 00:00:00', '2', NULL, NULL, ' 2', '2', 2, 2, '2', '2', '2 ', ' 2', '2', '2', '2', '2', '2', 100);
+INSERT INTO `account_info` VALUES (9, 50000, 'lastgg', ' 40', ' 2', 2, '2018-01-01 00:00:00', '2018-01-01 00:00:00', '2', NULL, NULL, ' 2', '2', 2, 2, '2', '2', '2 ', '2', '2', '2', '2', '2', '2', 100);
+INSERT INTO `account_info` VALUES (10, 60000, 'lastgg', ' 40', ' 2', 2, '2018-01-01 00:00:00', '2018-01-01 00:00:00', '2', NULL, NULL, ' 2', '2', 2, 2, '2', '2', '2 ', '2', '2', '2', '2', '2', '2', 100);
 INSERT INTO `account_info` VALUES (11, 70000, ' fdsnk', ' 40', ' 2', 106, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 107, 108, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
 INSERT INTO `account_info` VALUES (12, 80000, ' fdsnk', ' 40', ' 2', 1, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 2, 3, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
 INSERT INTO `account_info` VALUES (13, 80000, ' fdsnk', ' 40', ' 2', 4, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 5, 6, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
-INSERT INTO `account_info` VALUES (14, 90000, 'lastgg', ' 40', ' 2', 7, '2018-01-01 00:00:00', '2018-01-01 00:00:00', '2', 8, 9, ' 2', '2', 2, 2, '2', '2', '2 ', ' 2', '2', '2', '2', '2', '2', 100);
+INSERT INTO `account_info` VALUES (14, 90000, 'lastgg', ' 40', ' 2', 7, '2018-01-01 00:00:00', '2018-01-01 00:00:00', '2', 8, 9, ' 2', '2', 2, 2, '2', '2', '2 ', '2', '2', '2', '2', '2', '2', 100);
 INSERT INTO `account_info` VALUES (15, 100000, ' fdsnk', ' 40', ' 2', 10, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 11, 12, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
 INSERT INTO `account_info` VALUES (16, 100000, ' fdsnk', ' 40', ' 2', 13, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 14, 15, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
 COMMIT;
@@ -76,7 +76,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `address`;
 CREATE TABLE `address` (
-  `aid` int(11) NOT NULL AUTO_INCREMENT,
+  `aid` int(10) NOT NULL AUTO_INCREMENT,
   `province` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `street` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
@@ -109,8 +109,8 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `admin_manager`;
 CREATE TABLE `admin_manager` (
-  `security_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `admin_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `security_id` int(5) NOT NULL,
+  `admin_id` int(10) NOT NULL,
   PRIMARY KEY (`security_id`,`admin_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
@@ -119,8 +119,8 @@ CREATE TABLE `admin_manager` (
 -- ----------------------------
 DROP TABLE IF EXISTS `auditor_manager`;
 CREATE TABLE `auditor_manager` (
-  `security_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `auditor_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `security_id` int(5) NOT NULL,
+  `auditor_id` int(10) NOT NULL,
   PRIMARY KEY (`security_id`,`auditor_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
@@ -129,9 +129,9 @@ CREATE TABLE `auditor_manager` (
 -- ----------------------------
 DROP TABLE IF EXISTS `currency`;
 CREATE TABLE `currency` (
-  `Fund_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `Fund_id` int(10) NOT NULL,
   `currency_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `balance` decimal(65,0) NOT NULL,
+  `balance` decimal(10,2) NOT NULL,
   PRIMARY KEY (`Fund_id`,`currency_type`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
@@ -141,7 +141,7 @@ CREATE TABLE `currency` (
 DROP TABLE IF EXISTS `customer_account`;
 CREATE TABLE `customer_account` (
   `customer_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `account_info_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `user_id` int(10) DEFAULT NULL,
   `open_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `insurance_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`customer_id`) USING BTREE
@@ -152,7 +152,7 @@ CREATE TABLE `customer_account` (
 -- ----------------------------
 DROP TABLE IF EXISTS `employee`;
 CREATE TABLE `employee` (
-  `employee_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `employee_id` int(10) NOT NULL,
   `employee_account` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `employee_password` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `Employee_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
@@ -164,7 +164,7 @@ CREATE TABLE `employee` (
 -- ----------------------------
 DROP TABLE IF EXISTS `evaluation_grade`;
 CREATE TABLE `evaluation_grade` (
-  `grade` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `grade` char(3) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `mini_mark` decimal(65,0) DEFAULT NULL,
   `max_mark` decimal(65,0) DEFAULT NULL,
   PRIMARY KEY (`grade`) USING BTREE
@@ -174,11 +174,11 @@ CREATE TABLE `evaluation_grade` (
 -- Records of evaluation_grade
 -- ----------------------------
 BEGIN;
-INSERT INTO `evaluation_grade` VALUES ('A', 83, 100);
-INSERT INTO `evaluation_grade` VALUES ('B', 54, 82);
-INSERT INTO `evaluation_grade` VALUES ('C', 37, 53);
-INSERT INTO `evaluation_grade` VALUES ('D', 20, 36);
-INSERT INTO `evaluation_grade` VALUES ('E', 0, 19);
+INSERT INTO `evaluation_grade` VALUES ('保守型', 0, 19);
+INSERT INTO `evaluation_grade` VALUES ('激进型', 83, 100);
+INSERT INTO `evaluation_grade` VALUES ('积极型', 54, 82);
+INSERT INTO `evaluation_grade` VALUES ('稳健型', 37, 53);
+INSERT INTO `evaluation_grade` VALUES ('谨慎型', 20, 36);
 COMMIT;
 
 -- ----------------------------
@@ -191,7 +191,7 @@ CREATE TABLE `fund_account` (
   `bank_account` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `bank` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  PRIMARY KEY (`customer_id`) USING BTREE
+  PRIMARY KEY (`fund_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
@@ -247,7 +247,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `security`;
 CREATE TABLE `security` (
-  `security_id` int(12) NOT NULL AUTO_INCREMENT,
+  `security_id` int(5) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `type` int(1) DEFAULT NULL,
@@ -260,8 +260,8 @@ CREATE TABLE `security` (
 DROP TABLE IF EXISTS `trade_account`;
 CREATE TABLE `trade_account` (
   `customer_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `trade_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `network-dot` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `trade_id` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `security_id` int(5) NOT NULL,
   PRIMARY KEY (`customer_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
@@ -276,7 +276,6 @@ CREATE TABLE `user` (
   `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `customer_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`user_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
