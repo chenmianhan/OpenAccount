@@ -112,11 +112,19 @@
 		select * from address where aid=#{aid}
 	</select>
 	
+	<!-- deleteAddressByAid -->
 	<delete id="deleteAddressByAid">
 		delete from address where aid=#{aid}
 	</delete>
 	
-	
+	<!-- updateAddress -->
+	<update id="updateAddress">
+		update address set
+		province = #{province},
+		city = #{city},
+		street = #{street}
+		where aid = #{aid}
+	</update>
     
 </mapper>
 
