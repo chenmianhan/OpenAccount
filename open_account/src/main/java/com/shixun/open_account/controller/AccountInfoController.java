@@ -7,8 +7,8 @@ import com.shixun.open_account.entity.Address;
 import com.shixun.open_account.service.ServieImpl.AccountInfoServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.http.ResponseEntity;
+//import org.springframework.data.redis.core.ValueOperations;
+//import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
