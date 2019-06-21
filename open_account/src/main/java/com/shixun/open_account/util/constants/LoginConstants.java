@@ -13,9 +13,9 @@ public class LoginConstants {
 	public static final String ERROR_CODE="103";
 	//public static final String SUCCESS_MSG = "请求成功";
 	//public static final String FAIL_MSG = "请求失败";
-	/**
-	 * session中存放用户信息的key值xx
+
+	//session中存放用户信息的key值xx
 
 	public static final String SESSION_USER_INFO = "userInfo";
-	public static final String SESSION_USER_PERMISSION = "userPermission"; */
+	public static final String SESSION_USER_PERMISSION = "userPermission";
 }
