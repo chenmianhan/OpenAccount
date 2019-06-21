@@ -1,17 +1,17 @@
 /*
- Navicat MySQL Data Transfer
+ Navicat Premium Data Transfer
 
- Source Server         : local
+ Source Server         : webstore
  Source Server Type    : MySQL
- Source Server Version : 80016
+ Source Server Version : 80015
  Source Host           : localhost:3306
- Source Schema         : bgdb
+ Source Schema         : open_account
 
  Target Server Type    : MySQL
- Target Server Version : 80016
+ Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 20/06/2019 16:08:00
+ Date: 21/06/2019 09:54:06
 */
 
 SET NAMES utf8mb4;
@@ -21,15 +21,15 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for account_info
 -- ----------------------------
 DROP TABLE IF EXISTS `account_info`;
-CREATE TABLE `account_info` (
-  `account_info_id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `account_info`  (
+  `account_info_id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
   `user_id` int(10) NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `ID_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `ID_number` varchar(18) DEFAULT NULL,
+  `ID_number` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `ID_address_id` int(10) DEFAULT NULL,
-  `ID_issuance_date` datetime DEFAULT NULL,
-  `ID_overdue_date` datetime DEFAULT NULL,
+  `ID_issuance_date` datetime(0) DEFAULT NULL,
+  `ID_overdue_date` datetime(0) DEFAULT NULL,
   `ID_licensing_authority` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `contact_address_id` int(10) DEFAULT NULL,
   `postal_address_id` int(10) DEFAULT NULL,
@@ -47,46 +47,43 @@ CREATE TABLE `account_info` (
   `ID_picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `ID_card_inverse_side` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `risk_assessment_mark` int(3) DEFAULT NULL,
-  PRIMARY KEY (`account_info_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`account_info_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of account_info
 -- ----------------------------
-BEGIN;
-INSERT INTO `account_info` VALUES (2, 7000, 'lastgg', ' 40', ' 2', NULL, '2018-01-01 00:00:00', '2018-01-01 00:00:00', '2', NULL, NULL, ' 2', '2', NULL, NULL, '2', '2', '2 ', '2', '2', '2', '2', '2', '2', 90);
-INSERT INTO `account_info` VALUES (3, 8000, ' fdsnk', ' 40', ' 2', 82, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 83, 84, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
-INSERT INTO `account_info` VALUES (4, 9000, ' fdsnk', ' 40', ' 2', 85, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 86, 87, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
-INSERT INTO `account_info` VALUES (5, 20000, ' fdsnk', ' 40', ' 2', 88, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 89, 90, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
-INSERT INTO `account_info` VALUES (6, 20000, ' fdsnk', ' 40', ' 2', 91, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 92, 93, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
-INSERT INTO `account_info` VALUES (7, 30000, ' fdsnk', ' 40', ' 2', 94, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 95, 96, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
-INSERT INTO `account_info` VALUES (8, 40000, ' fdsnk', ' 40', ' 2', 97, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 98, 99, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
-INSERT INTO `account_info` VALUES (9, 50000, 'lastgg', ' 40', ' 2', 2, '2018-01-01 00:00:00', '2018-01-01 00:00:00', '2', NULL, NULL, ' 2', '2', 2, 2, '2', '2', '2 ', '2', '2', '2', '2', '2', '2', 100);
-INSERT INTO `account_info` VALUES (10, 60000, 'lastgg', ' 40', ' 2', 2, '2018-01-01 00:00:00', '2018-01-01 00:00:00', '2', NULL, NULL, ' 2', '2', 2, 2, '2', '2', '2 ', '2', '2', '2', '2', '2', '2', 100);
-INSERT INTO `account_info` VALUES (11, 70000, ' fdsnk', ' 40', ' 2', 106, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 107, 108, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
-INSERT INTO `account_info` VALUES (12, 80000, ' fdsnk', ' 40', ' 2', 1, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 2, 3, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
-INSERT INTO `account_info` VALUES (13, 80000, ' fdsnk', ' 40', ' 2', 4, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 5, 6, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
-INSERT INTO `account_info` VALUES (14, 90000, 'lastgg', ' 40', ' 2', 7, '2018-01-01 00:00:00', '2018-01-01 00:00:00', '2', 8, 9, ' 2', '2', 2, 2, '2', '2', '2 ', '2', '2', '2', '2', '2', '2', 100);
-INSERT INTO `account_info` VALUES (15, 100000, ' fdsnk', ' 40', ' 2', 10, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 11, 12, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
-INSERT INTO `account_info` VALUES (16, 100000, ' fdsnk', ' 40', ' 2', 13, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 14, 15, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
-COMMIT;
+INSERT INTO `account_info` VALUES (0000000002, 7000, 'lastgg', ' 40', ' 2', NULL, '2018-01-01 00:00:00', '2018-01-01 00:00:00', '2', NULL, NULL, ' 2', '2', NULL, NULL, '2', '2', '2 ', '2', '2', '2', '2', '2', '2', 90);
+INSERT INTO `account_info` VALUES (0000000003, 8000, ' fdsnk', ' 40', ' 2', 82, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 83, 84, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
+INSERT INTO `account_info` VALUES (0000000004, 9000, ' fdsnk', ' 40', ' 2', 85, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 86, 87, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
+INSERT INTO `account_info` VALUES (0000000005, 20000, ' fdsnk', ' 40', ' 2', 88, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 89, 90, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
+INSERT INTO `account_info` VALUES (0000000006, 20000, ' fdsnk', ' 40', ' 2', 91, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 92, 93, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
+INSERT INTO `account_info` VALUES (0000000007, 30000, ' fdsnk', ' 40', ' 2', 94, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 95, 96, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
+INSERT INTO `account_info` VALUES (0000000008, 40000, ' fdsnk', ' 40', ' 2', 97, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 98, 99, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
+INSERT INTO `account_info` VALUES (0000000009, 50000, 'lastgg', ' 40', ' 2', 2, '2018-01-01 00:00:00', '2018-01-01 00:00:00', '2', NULL, NULL, ' 2', '2', 2, 2, '2', '2', '2 ', '2', '2', '2', '2', '2', '2', 100);
+INSERT INTO `account_info` VALUES (0000000010, 60000, 'lastgg', ' 40', ' 2', 2, '2018-01-01 00:00:00', '2018-01-01 00:00:00', '2', NULL, NULL, ' 2', '2', 2, 2, '2', '2', '2 ', '2', '2', '2', '2', '2', '2', 100);
+INSERT INTO `account_info` VALUES (0000000011, 70000, ' fdsnk', ' 40', ' 2', 106, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 107, 108, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
+INSERT INTO `account_info` VALUES (0000000012, 80000, ' fdsnk', ' 40', ' 2', 1, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 2, 3, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
+INSERT INTO `account_info` VALUES (0000000013, 80000, ' fdsnk', ' 40', ' 2', 4, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 5, 6, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
+INSERT INTO `account_info` VALUES (0000000014, 90000, 'lastgg', ' 40', ' 2', 7, '2018-01-01 00:00:00', '2018-01-01 00:00:00', '2', 8, 9, ' 2', '2', 2, 2, '2', '2', '2 ', '2', '2', '2', '2', '2', '2', 100);
+INSERT INTO `account_info` VALUES (0000000015, 100000, ' fdsnk', ' 40', ' 2', 10, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 11, 12, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
+INSERT INTO `account_info` VALUES (0000000016, 100000, ' fdsnk', ' 40', ' 2', 13, '2018-01-01 05:11:12', '2018-01-01 05:11:14', '2', 14, 15, '2', '2', 2, 2, '2', '2', '2 ', '2', ' 2', '2', '2', '2', '2', NULL);
 
 -- ----------------------------
 -- Table structure for address
 -- ----------------------------
 DROP TABLE IF EXISTS `address`;
-CREATE TABLE `address` (
+CREATE TABLE `address`  (
   `aid` int(10) NOT NULL AUTO_INCREMENT,
   `province` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `street` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`aid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of address
 -- ----------------------------
-BEGIN;
 INSERT INTO `address` VALUES (1, 'gz', 'gz', 'py');
 INSERT INTO `address` VALUES (2, 'gd', 'gz', 'py');
 INSERT INTO `address` VALUES (3, 'gd', 'gz', 'py');
@@ -102,111 +99,108 @@ INSERT INTO `address` VALUES (12, 'gd', 'gz', 'py');
 INSERT INTO `address` VALUES (13, 'gz', 'gz', 'py');
 INSERT INTO `address` VALUES (14, 'gd', 'gz', 'py');
 INSERT INTO `address` VALUES (15, 'gd', 'gz', 'py');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for admin_manager
 -- ----------------------------
 DROP TABLE IF EXISTS `admin_manager`;
-CREATE TABLE `admin_manager` (
+CREATE TABLE `admin_manager`  (
   `security_id` int(5) NOT NULL,
   `admin_id` int(10) NOT NULL,
-  PRIMARY KEY (`security_id`,`admin_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+  PRIMARY KEY (`security_id`, `admin_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for auditor_manager
 -- ----------------------------
 DROP TABLE IF EXISTS `auditor_manager`;
-CREATE TABLE `auditor_manager` (
+CREATE TABLE `auditor_manager`  (
   `security_id` int(5) NOT NULL,
   `auditor_id` int(10) NOT NULL,
-  PRIMARY KEY (`security_id`,`auditor_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+  PRIMARY KEY (`security_id`, `auditor_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for currency
 -- ----------------------------
 DROP TABLE IF EXISTS `currency`;
-CREATE TABLE `currency` (
+CREATE TABLE `currency`  (
   `Fund_id` int(10) NOT NULL,
   `currency_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `balance` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`Fund_id`,`currency_type`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+  `balance` decimal(10, 2) NOT NULL,
+  PRIMARY KEY (`Fund_id`, `currency_type`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for customer_account
 -- ----------------------------
 DROP TABLE IF EXISTS `customer_account`;
-CREATE TABLE `customer_account` (
+CREATE TABLE `customer_account`  (
   `customer_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `user_id` int(10) DEFAULT NULL,
-  `open_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `insurance_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `open_date` datetime(0) DEFAULT CURRENT_TIMESTAMP,
+  `insurance_date` datetime(0) DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`customer_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for employee
 -- ----------------------------
 DROP TABLE IF EXISTS `employee`;
-CREATE TABLE `employee` (
+CREATE TABLE `employee`  (
   `employee_id` int(10) NOT NULL,
   `employee_account` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `employee_password` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `Employee_type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`employee_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for evaluation_grade
 -- ----------------------------
 DROP TABLE IF EXISTS `evaluation_grade`;
-CREATE TABLE `evaluation_grade` (
+CREATE TABLE `evaluation_grade`  (
   `grade` char(3) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `mini_mark` decimal(65,0) DEFAULT NULL,
-  `max_mark` decimal(65,0) DEFAULT NULL,
+  `mini_mark` decimal(65, 0) DEFAULT NULL,
+  `max_mark` decimal(65, 0) DEFAULT NULL,
   PRIMARY KEY (`grade`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of evaluation_grade
 -- ----------------------------
-BEGIN;
 INSERT INTO `evaluation_grade` VALUES ('保守型', 0, 19);
 INSERT INTO `evaluation_grade` VALUES ('激进型', 83, 100);
 INSERT INTO `evaluation_grade` VALUES ('积极型', 54, 82);
 INSERT INTO `evaluation_grade` VALUES ('稳健型', 37, 53);
 INSERT INTO `evaluation_grade` VALUES ('谨慎型', 20, 36);
-COMMIT;
 
 -- ----------------------------
 -- Table structure for fund_account
 -- ----------------------------
 DROP TABLE IF EXISTS `fund_account`;
-CREATE TABLE `fund_account` (
+CREATE TABLE `fund_account`  (
   `customer_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `fund_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `bank_account` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `bank` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`fund_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for risk_evaluation
 -- ----------------------------
 DROP TABLE IF EXISTS `risk_evaluation`;
-CREATE TABLE `risk_evaluation` (
+CREATE TABLE `risk_evaluation`  (
   `RE_id` int(12) NOT NULL AUTO_INCREMENT,
   `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `option_1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `mark_1` decimal(65,0) DEFAULT NULL,
-  `mark_2` decimal(65,0) DEFAULT NULL,
-  `mark_3` decimal(65,0) DEFAULT NULL,
-  `mark_4` decimal(65,0) DEFAULT NULL,
-  `mark_5` decimal(65,0) DEFAULT NULL,
+  `mark_1` decimal(65, 0) DEFAULT NULL,
+  `mark_2` decimal(65, 0) DEFAULT NULL,
+  `mark_3` decimal(65, 0) DEFAULT NULL,
+  `mark_4` decimal(65, 0) DEFAULT NULL,
+  `mark_5` decimal(65, 0) DEFAULT NULL,
   `option_2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `option_3` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `option_4` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
@@ -214,12 +208,11 @@ CREATE TABLE `risk_evaluation` (
   `is_radio` tinyint(1) DEFAULT NULL,
   `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`RE_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of risk_evaluation
 -- ----------------------------
-BEGIN;
 INSERT INTO `risk_evaluation` VALUES (1, '1.您的主要收入来源是：( )', 'A. 工资、劳务报酬', 3, 2, 1, 1, 0, 'B. 生产经营所得', 'C. 利息、股息、转让证券等金融性资产收入', 'D. 出租、出售房地产等非金融性资产收入', 'E. 无固定收入，或者个人或家庭人均收入低于当地城乡居民最低生活保障标准', 1, '财务状况');
 INSERT INTO `risk_evaluation` VALUES (2, '2.最近您家庭预计进行证券投资的资金占家庭现有总资产(不含自住、自用房产及汽车等固定资产)的比例是：( )', 'A．70%以上', 1, 3, 4, 5, 6, 'B．50%-70% ', 'C．30%－50%', 'D．10%－30%', 'E．10%以下', 1, '财务状况');
 INSERT INTO `risk_evaluation` VALUES (3, '3.您是否有尚未清偿的数额较大的债务，如有，其性质是：（ ）', 'A. 没有', 3, 2, 1, 0, NULL, 'B. 有，住房抵押贷款等长期定额债务', 'C. 有，信用卡欠款、消费信贷等短期信用债务', 'D. 有，亲朋之间借款', NULL, 1, '财务状况');
@@ -240,43 +233,292 @@ INSERT INTO `risk_evaluation` VALUES (17, '17.您的年龄是：（ ）', 'A. 18
 INSERT INTO `risk_evaluation` VALUES (18, '18.今后五年时间内，您的父母、配偶以及未成年子女等需负法定抚养、扶养和赡养义务的人数为：（ ）', 'A.1-2人', 5, 3, 1, NULL, NULL, 'B.3-4人', 'C.5人以上', NULL, NULL, 1, '其他信息');
 INSERT INTO `risk_evaluation` VALUES (19, '19.您的最高学历是：（ ）', 'A. 高中或以下', 1, 2, 4, 5, NULL, 'B. 大学专科', 'C. 大学本科', 'D. 硕士及以上', NULL, 1, '其他信息');
 INSERT INTO `risk_evaluation` VALUES (20, '20.您家庭的就业状况是：（ ）', 'A. 您与配偶均有稳定收入的工作', 4, 3, 2, 1, 0, 'B. 您与配偶其中一人有稳定收入的工作', 'C. 您与配偶均没有稳定收入的工作或者已退休', 'D. 未婚，但有稳定收入的工作', 'E. 未婚，目前暂无稳定收入的工作', 1, '其他信息');
-COMMIT;
 
 -- ----------------------------
 -- Table structure for security
 -- ----------------------------
 DROP TABLE IF EXISTS `security`;
-CREATE TABLE `security` (
+CREATE TABLE `security`  (
   `security_id` int(5) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `province` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `type` int(1) DEFAULT NULL,
   PRIMARY KEY (`security_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 234 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of security
+-- ----------------------------
+INSERT INTO `security` VALUES (1, '爱建证券有限责任公司', '上海', '上海', 0);
+INSERT INTO `security` VALUES (2, '安信证券股份有限公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (3, '北京高华证券有限责任公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (4, '渤海证券股份有限公司', '天津', '天津', 0);
+INSERT INTO `security` VALUES (5, '财达证券股份有限公司', '河北', '石家庄', 0);
+INSERT INTO `security` VALUES (6, '财富证券有限责任公司', '湖南', '长沙', 0);
+INSERT INTO `security` VALUES (7, '财通证券股份有限公司', '浙江', '杭州', 0);
+INSERT INTO `security` VALUES (8, '长城国瑞证券有限公司', '福建', '厦门', 0);
+INSERT INTO `security` VALUES (9, '长城证券股份有限公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (10, '长江证券承销保荐有限公司', '上海', '上海', 0);
+INSERT INTO `security` VALUES (11, '长江证券股份有限公司', '湖北', '武汉', 0);
+INSERT INTO `security` VALUES (12, '川财证券有限责任公司', '四川', '成都', 0);
+INSERT INTO `security` VALUES (13, '大通证券股份有限公司', '辽宁', '大连', 0);
+INSERT INTO `security` VALUES (14, '大同证券有限责任公司', '山西', '太原', 0);
+INSERT INTO `security` VALUES (15, '德邦证券股份有限公司', '上海', '上海', 0);
+INSERT INTO `security` VALUES (16, '第一创业证券承销保荐有限责任公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (17, '第一创业证券股份有限公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (18, '东北证券股份有限公司', '吉林', '长春', 0);
+INSERT INTO `security` VALUES (19, '东方花旗证券有限公司', '上海', '上海', 0);
+INSERT INTO `security` VALUES (20, '东方证券股份有限公司', '上海', '上海', 0);
+INSERT INTO `security` VALUES (21, '东海证券股份有限公司', '江苏', '常州', 0);
+INSERT INTO `security` VALUES (22, '东吴证券股份有限公司', '江苏', '苏州', 0);
+INSERT INTO `security` VALUES (23, '东兴证券股份有限公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (24, '东亚前海证券有限责任公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (25, '东莞证券股份有限公司', '广东', '东莞', 0);
+INSERT INTO `security` VALUES (26, '方正证券股份有限公司', '湖南', '长沙', 0);
+INSERT INTO `security` VALUES (27, '高盛高华证券有限责任公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (28, '光大证券股份有限公司', '上海', '上海', 0);
+INSERT INTO `security` VALUES (29, '广发证券股份有限公司', '广东', '广州', 0);
+INSERT INTO `security` VALUES (30, '广州证券股份有限公司', '广东', '广州', 0);
+INSERT INTO `security` VALUES (31, '国都证券股份有限公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (32, '国海证券股份有限公司', '广西', '桂林', 0);
+INSERT INTO `security` VALUES (33, '国金证券股份有限公司', '四川', '成都', 0);
+INSERT INTO `security` VALUES (34, '国开证券股份有限公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (35, '国联证券股份有限公司', '江苏', '无锡', 0);
+INSERT INTO `security` VALUES (36, '国融证券股份有限公司', '内蒙古', '呼和浩特', 0);
+INSERT INTO `security` VALUES (37, '国盛证券有限责任公司', '江西', '南昌', 0);
+INSERT INTO `security` VALUES (38, '国泰君安证券股份有限公司', '上海', '上海', 0);
+INSERT INTO `security` VALUES (39, '国信证券股份有限公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (40, '国元证券股份有限公司', '安徽', '合肥', 0);
+INSERT INTO `security` VALUES (41, '海通证券股份有限公司', '上海', '上海', 0);
+INSERT INTO `security` VALUES (42, '恒泰长财证券有限责任公司', '吉林', '长春', 0);
+INSERT INTO `security` VALUES (43, '恒泰证券股份有限公司', '内蒙古', '呼和浩特', 0);
+INSERT INTO `security` VALUES (44, '宏信证券有限责任公司', '四川', '成都', 0);
+INSERT INTO `security` VALUES (45, '红塔证券股份有限公司', '云南', '昆明', 0);
+INSERT INTO `security` VALUES (46, '华安证券股份有限公司', '安徽', '合肥', 0);
+INSERT INTO `security` VALUES (47, '华宝证券有限责任公司', '上海', '上海', 0);
+INSERT INTO `security` VALUES (48, '华创证券有限责任公司', '贵州', '贵阳', 0);
+INSERT INTO `security` VALUES (49, '华福证券有限责任公司', '福建', '福州', 0);
+INSERT INTO `security` VALUES (50, '华金证券股份有限公司', '上海', '上海', 0);
+INSERT INTO `security` VALUES (51, '华林证券股份有限公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (52, '华龙证券股份有限公司', '甘肃', '兰州', 0);
+INSERT INTO `security` VALUES (53, '华融证券股份有限公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (54, '华泰联合证券有限责任公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (55, '华泰证券股份有限公司', '江苏', '南京', 0);
+INSERT INTO `security` VALUES (56, '华西证券股份有限公司', '四川', '成都', 0);
+INSERT INTO `security` VALUES (57, '华英证券有限责任公司', '江苏', '无锡', 0);
+INSERT INTO `security` VALUES (58, '华菁证券有限公司', '上海', '上海', 0);
+INSERT INTO `security` VALUES (59, '华鑫证券有限责任公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (60, '汇丰前海证券有限责任公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (61, '江海证券有限公司', '黑龙江', '哈尔滨', 0);
+INSERT INTO `security` VALUES (62, '金通证券有限责任公司', '浙江', '杭州', 0);
+INSERT INTO `security` VALUES (63, '金元证券股份有限公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (64, '九州证券股份有限公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (65, '开源证券股份有限公司', '陕西', '西安', 0);
+INSERT INTO `security` VALUES (66, '联储证券有限责任公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (67, '联讯证券股份有限公司', '广东', '惠州', 0);
+INSERT INTO `security` VALUES (68, '民生证券股份有限公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (69, '摩根士丹利华鑫证券有限责任公司', '上海', '上海', 0);
+INSERT INTO `security` VALUES (70, '南京证券股份有限公司', '江苏', '南京', 0);
+INSERT INTO `security` VALUES (71, '平安证券股份有限公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (72, '瑞信方正证券有限责任公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (73, '瑞银证券有限责任公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (74, '山西证券股份有限公司', '山西', '太原', 0);
+INSERT INTO `security` VALUES (75, '上海华信证券有限责任公司', '上海', '上海', 0);
+INSERT INTO `security` VALUES (76, '上海证券有限责任公司', '上海', '上海', 0);
+INSERT INTO `security` VALUES (77, '申港证券股份有限公司', '上海', '上海', 0);
+INSERT INTO `security` VALUES (78, '申万宏源西部证券有限公司', '新疆', '乌鲁木齐', 0);
+INSERT INTO `security` VALUES (79, '申万宏源证券承销保荐有限责任公司', '新疆', '乌鲁木齐', 0);
+INSERT INTO `security` VALUES (80, '申万宏源证券有限公司', '上海', '上海', 0);
+INSERT INTO `security` VALUES (81, '世纪证券有限责任公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (82, '首创证券有限责任公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (83, '太平洋证券股份有限公司', '云南', '昆明', 0);
+INSERT INTO `security` VALUES (84, '天风证券股份有限公司', '湖北', '武汉', 0);
+INSERT INTO `security` VALUES (85, '万和证券股份有限公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (86, '万联证券股份有限公司', '广东', '广州', 0);
+INSERT INTO `security` VALUES (87, '网信证券有限责任公司', '辽宁', '沈阳', 0);
+INSERT INTO `security` VALUES (88, '五矿证券有限公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (89, '西部证券股份有限公司', '陕西', '西安', 0);
+INSERT INTO `security` VALUES (90, '西藏东方财富证券股份有限公司', '上海', '上海', 0);
+INSERT INTO `security` VALUES (91, '西南证券股份有限公司', '重庆', '重庆', 0);
+INSERT INTO `security` VALUES (92, '湘财证券股份有限公司', '湖南', '长沙', 0);
+INSERT INTO `security` VALUES (93, '新时代证券股份有限公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (94, '信达证券股份有限公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (95, '兴业证券股份有限公司', '福建', '福州', 0);
+INSERT INTO `security` VALUES (96, '银泰证券有限责任公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (97, '英大证券有限责任公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (98, '招商证券股份有限公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (99, '浙商证券股份有限公司', '浙江', '杭州', 0);
+INSERT INTO `security` VALUES (100, '中德证券有限责任公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (101, '中国国际金融股份有限公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (102, '中国民族证券有限责任公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (103, '中国银河证券股份有限公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (104, '中国证券金融股份有限公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (105, '中国中投证券有限责任公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (106, '中航证券有限公司', '江西', '南昌', 0);
+INSERT INTO `security` VALUES (107, '中山证券有限责任公司', '广东', '深圳', 0);
+INSERT INTO `security` VALUES (108, '中泰证券股份有限公司', '山东', '济南', 0);
+INSERT INTO `security` VALUES (109, '中天国富证券有限公司', '贵州', '贵阳', 0);
+INSERT INTO `security` VALUES (110, '中天证券股份有限公司', '辽宁', '沈阳', 0);
+INSERT INTO `security` VALUES (111, '中信建投证券股份有限公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (112, '中信证券(山东)有限责任公司', '山东', '青岛', 0);
+INSERT INTO `security` VALUES (113, '中信证券股份有限公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (114, '中银国际证券股份有限公司', '上海', '上海', 0);
+INSERT INTO `security` VALUES (115, '中邮证券有限责任公司', '北京', '北京', 0);
+INSERT INTO `security` VALUES (116, '中原证券股份有限公司', '河南', '郑州', 0);
+INSERT INTO `security` VALUES (118, '国信证券股份有限公司', '广东', '深圳', 1);
+INSERT INTO `security` VALUES (119, '招商证券股份有限公司', '广东', '深圳', 1);
+INSERT INTO `security` VALUES (120, '平安证券股份有限公司', '广东', '深圳', 1);
+INSERT INTO `security` VALUES (121, '长城证券股份有限公司', '广东', '深圳', 1);
+INSERT INTO `security` VALUES (122, '光大证券股份有限公司', '上海', '上海', 1);
+INSERT INTO `security` VALUES (123, '方正证券股份有限公司', '湖南', '长沙', 1);
+INSERT INTO `security` VALUES (124, '华泰证券股份有限公司', '江苏', '南京', 1);
+INSERT INTO `security` VALUES (125, '广发证券股份有限公司', '广东', '广州', 1);
+INSERT INTO `security` VALUES (126, '广州证券股份有限公司', '广东', '广州', 1);
+INSERT INTO `security` VALUES (127, '世纪证券有限责任公司', '广东', '深圳', 1);
+INSERT INTO `security` VALUES (128, '华西证券股份有限公司', '四川', '成都', 1);
+INSERT INTO `security` VALUES (129, '国海证券股份有限公司', '广西', '南宁', 1);
+INSERT INTO `security` VALUES (130, '联讯证券股份有限公司', '广东', '惠州', 1);
+INSERT INTO `security` VALUES (131, '南京证券股份有限公司', '江苏', '南京', 1);
+INSERT INTO `security` VALUES (132, '华鑫证券有限责任公司', '广东', '深圳', 1);
+INSERT INTO `security` VALUES (133, '华林证券股份有限公司', '西藏', '拉萨', 1);
+INSERT INTO `security` VALUES (134, '长城国瑞证券有限公司', '福建', '厦门', 1);
+INSERT INTO `security` VALUES (135, '中国民族证券有限责任公司', '北京', '北京', 1);
+INSERT INTO `security` VALUES (136, '申万宏源证券有限公司', '上海', '上海', 1);
+INSERT INTO `security` VALUES (137, '中信证券（山东）有限责任公司', '山东', '青岛', 1);
+INSERT INTO `security` VALUES (138, '海通证券股份有限公司', '上海', '上海', 1);
+INSERT INTO `security` VALUES (139, '山西证券股份有限公司', '山西', '太原', 1);
+INSERT INTO `security` VALUES (140, '民生证券股份有限公司', '北京', '北京', 1);
+INSERT INTO `security` VALUES (141, '兴业证券股份有限公司', '福建', '福州', 1);
+INSERT INTO `security` VALUES (142, '华福证券有限责任公司', '福建', '福州', 1);
+INSERT INTO `security` VALUES (143, '长江证券股份有限公司', '湖北', '武汉', 1);
+INSERT INTO `security` VALUES (144, '东莞证券股份有限公司', '广东', '东莞', 1);
+INSERT INTO `security` VALUES (145, '国联证券股份有限公司', '江苏', '无锡', 1);
+INSERT INTO `security` VALUES (146, '国金证券股份有限公司', '四川', '成都', 1);
+INSERT INTO `security` VALUES (147, '东北证券股份有限公司', '吉林', '长春', 1);
+INSERT INTO `security` VALUES (148, '恒泰证券股份有限公司', '内蒙古', '呼和浩特', 1);
+INSERT INTO `security` VALUES (149, '华安证券股份有限公司', '安徽', '合肥', 1);
+INSERT INTO `security` VALUES (150, '东海证券股份有限公司', '江苏', '常州', 1);
+INSERT INTO `security` VALUES (151, '中信证券股份有限公司', '广东', '深圳', 1);
+INSERT INTO `security` VALUES (152, '东吴证券股份有限公司', '江苏', '苏州', 1);
+INSERT INTO `security` VALUES (153, '中山证券有限责任公司', '广东', '深圳', 1);
+INSERT INTO `security` VALUES (154, '第一创业证券股份有限公司', '广东', '深圳', 1);
+INSERT INTO `security` VALUES (155, '大同证券有限责任公司', '山西', '太原', 1);
+INSERT INTO `security` VALUES (156, '申万宏源西部证券有限公司', '新疆', '乌鲁木齐', 1);
+INSERT INTO `security` VALUES (157, '西藏东方财富证券股份有限公司', '西藏', '拉萨', 1);
+INSERT INTO `security` VALUES (158, '英大证券有限责任公司', '广东', '深圳', 1);
+INSERT INTO `security` VALUES (159, '湘财证券股份有限公司', '湖南', '长沙', 1);
+INSERT INTO `security` VALUES (160, '国开证券股份有限公司', '北京', '北京', 1);
+INSERT INTO `security` VALUES (161, '中国国际金融股份有限公司', '北京', '北京', 1);
+INSERT INTO `security` VALUES (162, '华泰联合证券有限责任公司', '广东', '深圳', 1);
+INSERT INTO `security` VALUES (163, '东方证券股份有限公司', '上海', '上海', 1);
+INSERT INTO `security` VALUES (164, '国泰君安证券股份有限公司', '上海', '上海', 1);
+INSERT INTO `security` VALUES (165, '首创证券有限责任公司', '北京', '北京', 1);
+INSERT INTO `security` VALUES (166, '西南证券股份有限公司', '重庆', '重庆', 1);
+INSERT INTO `security` VALUES (167, '天风证券股份有限公司', '湖北', '武汉', 1);
+INSERT INTO `security` VALUES (168, '五矿证券有限公司', '广东', '深圳', 1);
+INSERT INTO `security` VALUES (169, '华金证券股份有限公司', '上海', '上海', 1);
+INSERT INTO `security` VALUES (170, '中国银河证券股份有限公司', '北京', '北京', 1);
+INSERT INTO `security` VALUES (171, '西部证券股份有限公司', '陕西', '西安', 1);
+INSERT INTO `security` VALUES (172, '渤海证券股份有限公司', '天津', '天津', 1);
+INSERT INTO `security` VALUES (173, '上海证券有限责任公司', '上海', '上海', 1);
+INSERT INTO `security` VALUES (174, '开源证券股份有限公司', '陕西', '西安', 1);
+INSERT INTO `security` VALUES (175, '华龙证券股份有限公司', '甘肃', '兰州', 1);
+INSERT INTO `security` VALUES (176, '大通证券股份有限公司', '辽宁', '大连', 1);
+INSERT INTO `security` VALUES (177, '万联证券股份有限公司', '广东', '广州', 1);
+INSERT INTO `security` VALUES (178, '中泰证券股份有限公司', '山东', '济南', 1);
+INSERT INTO `security` VALUES (179, '国元证券股份有限公司', '安徽', '合肥', 1);
+INSERT INTO `security` VALUES (180, '联储证券有限责任公司', '广东', '深圳', 1);
+INSERT INTO `security` VALUES (181, '国都证券股份有限公司', '北京', '北京', 1);
+INSERT INTO `security` VALUES (182, '中银国际证券股份有限公司', '上海', '上海', 1);
+INSERT INTO `security` VALUES (183, '华创证券有限责任公司', '贵州', '贵阳', 1);
+INSERT INTO `security` VALUES (184, '华宝证券有限责任公司', '上海', '上海', 1);
+INSERT INTO `security` VALUES (185, '红塔证券股份有限公司', '云南', '昆明', 1);
+INSERT INTO `security` VALUES (186, '万和证券股份有限公司', '海南', '海口', 1);
+INSERT INTO `security` VALUES (187, '国融证券股份有限公司', '内蒙古', '呼和浩特', 1);
+INSERT INTO `security` VALUES (188, '川财证券有限责任公司', '四川', '成都', 1);
+INSERT INTO `security` VALUES (189, '恒泰长财证券有限责任公司', '吉林', '长春', 1);
+INSERT INTO `security` VALUES (190, '财达证券股份有限公司', '河北', '石家庄', 1);
+INSERT INTO `security` VALUES (191, '浙商证券股份有限公司', '浙江', '杭州', 1);
+INSERT INTO `security` VALUES (192, '爱建证券有限责任公司', '上海', '上海', 1);
+INSERT INTO `security` VALUES (193, '宏信证券有限责任公司', '四川', '成都', 1);
+INSERT INTO `security` VALUES (194, '中航证券有限公司', '江西', '南昌', 1);
+INSERT INTO `security` VALUES (195, '财富证券有限责任公司', '湖南', '长沙', 1);
+INSERT INTO `security` VALUES (196, '金元证券股份有限公司', '海南', '海口', 1);
+INSERT INTO `security` VALUES (197, '中邮证券有限责任公司', '陕西', '西安', 1);
+INSERT INTO `security` VALUES (198, '九州证券股份有限公司', '青海', '西宁', 1);
+INSERT INTO `security` VALUES (199, '国盛证券有限责任公司', '江西', '南昌', 1);
+INSERT INTO `security` VALUES (200, '中原证券股份有限公司', '河南', '郑州', 1);
+INSERT INTO `security` VALUES (201, '德邦证券股份有限公司', '上海', '上海', 1);
+INSERT INTO `security` VALUES (202, '财通证券股份有限公司', '浙江', '杭州', 1);
+INSERT INTO `security` VALUES (203, '新时代证券股份有限公司', '北京', '北京', 1);
+INSERT INTO `security` VALUES (204, '上海华信证券有限责任公司', '上海', '上海', 1);
+INSERT INTO `security` VALUES (205, '网信证券有限责任公司', '辽宁', '沈阳', 1);
+INSERT INTO `security` VALUES (206, '太平洋证券股份有限公司', '云南', '昆明', 1);
+INSERT INTO `security` VALUES (207, '长江证券承销保荐有限公司', '上海', '上海', 1);
+INSERT INTO `security` VALUES (208, '江海证券有限公司', '黑龙江', '哈尔滨', 1);
+INSERT INTO `security` VALUES (209, '中天证券股份有限公司', '辽宁', '沈阳', 1);
+INSERT INTO `security` VALUES (210, '北京高华证券有限责任公司', '北京', '北京', 1);
+INSERT INTO `security` VALUES (211, '中天国富证券有限公司', '贵州', '贵阳', 1);
+INSERT INTO `security` VALUES (212, '高盛高华证券有限责任公司', '北京', '北京', 1);
+INSERT INTO `security` VALUES (213, '中国中投证券有限责任公司', '广东', '深圳', 1);
+INSERT INTO `security` VALUES (214, '中信建投证券股份有限公司', '北京', '北京', 1);
+INSERT INTO `security` VALUES (215, '安信证券股份有限公司', '广东', '深圳', 1);
+INSERT INTO `security` VALUES (216, '银泰证券有限责任公司', '广东', '深圳', 1);
+INSERT INTO `security` VALUES (217, '瑞银证券有限责任公司', '北京', '北京', 1);
+INSERT INTO `security` VALUES (218, '信达证券股份有限公司', '北京', '北京', 1);
+INSERT INTO `security` VALUES (219, '华融证券股份有限公司', '北京', '北京', 1);
+INSERT INTO `security` VALUES (220, '东兴证券股份有限公司', '北京', '北京', 1);
+INSERT INTO `security` VALUES (221, '瑞信方正证券有限责任公司', '北京', '北京', 1);
+INSERT INTO `security` VALUES (222, '中德证券有限责任公司', '北京', '北京', 1);
+INSERT INTO `security` VALUES (223, '华英证券有限责任公司', '江苏', '无锡', 1);
+INSERT INTO `security` VALUES (224, '第一创业证券承销保荐有限责任公司', '北京', '北京', 1);
+INSERT INTO `security` VALUES (225, '摩根士丹利华鑫证券有限责任公司', '上海', '上海', 1);
+INSERT INTO `security` VALUES (226, '东方花旗证券有限公司', '上海', '上海', 1);
+INSERT INTO `security` VALUES (227, '金通证券有限责任公司', '浙江', '杭州', 1);
+INSERT INTO `security` VALUES (228, '申万宏源证券承销保荐有限责任公司', '新疆', '乌鲁木齐', 1);
+INSERT INTO `security` VALUES (229, '申港证券股份有限公司', '上海', '上海', 1);
+INSERT INTO `security` VALUES (230, '华菁证券有限公司', '上海', '上海', 1);
+INSERT INTO `security` VALUES (231, '汇丰前海证券有限责任公司', '广东', '深圳', 1);
+INSERT INTO `security` VALUES (232, '东亚前海证券有限责任公司', '广东', '深圳', 1);
+INSERT INTO `security` VALUES (233, '中国证券金融股份有限公司', '北京', '北京', 1);
 
 -- ----------------------------
 -- Table structure for trade_account
 -- ----------------------------
 DROP TABLE IF EXISTS `trade_account`;
-CREATE TABLE `trade_account` (
+CREATE TABLE `trade_account`  (
   `customer_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `trade_id` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `security_id` int(5) NOT NULL,
   PRIMARY KEY (`customer_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for transactions
+-- ----------------------------
+DROP TABLE IF EXISTS `transactions`;
+CREATE TABLE `transactions`  (
+  `transaction_id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+  `customer_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `value` decimal(10, 2) DEFAULT NULL,
+  `message` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `createtime` datetime(0) DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`transaction_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `user_id` int(12) unsigned zerofill NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user`  (
+  `user_id` int(12) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
   `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `password` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `create_time` datetime(0) DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime(0) DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
