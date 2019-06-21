@@ -70,21 +70,22 @@ public class SecurityController{
 
                 if(tmp1.getString("city").equals(tmp2.getString("city")))
                 {
-                    Anssonson.put("security_id",tmp1.getString("security_id"));
-                    Anssonson.put("name",tmp1.getString("name"));
+                    Anssonson.put("value",tmp1.getString("security_id"));
+                    Anssonson.put("label",tmp1.getString("name"));
                     Anssonson.put("type",tmp1.getString("type"));
                     anssonson.add(Anssonson);
                     Anssonson=new JSONObject();
                 }            
                 else
                 {
-                    Anssonson.put("security_id",tmp1.getString("security_id"));
-                    Anssonson.put("name",tmp1.getString("name"));
+                    Anssonson.put("value",tmp1.getString("security_id"));
+                    Anssonson.put("label",tmp1.getString("name"));
                     Anssonson.put("type",tmp1.getString("type"));
                     anssonson.add(Anssonson);
                     Anssonson=new JSONObject();
-                    Ansson.put("city_name",tmp1.getString("city"));
-                    Ansson.put("securities",anssonson);
+                    Ansson.put("label",tmp1.getString("city"));
+                    Ansson.put("value",tmp1.getString("city"));
+                    Ansson.put("children",anssonson);
                     ansson.add(Ansson);
                     anssonson=new JSONArray();
                     Ansson=new JSONObject();
@@ -92,8 +93,9 @@ public class SecurityController{
         if(tmp1.getString("province").equals(tmp2.getString("province")))
         {}
             else
-            {   Ans.put("province_name",tmp1.getString("province"));
-                Ans.put("cities",ansson);
+            {   Ans.put("label",tmp1.getString("province"));
+                Ans.put("value",tmp1.getString("province"));
+                Ans.put("children",ansson);
                 ans.add(Ans);
                 Ans=new JSONObject();
                 ansson=new JSONArray();
