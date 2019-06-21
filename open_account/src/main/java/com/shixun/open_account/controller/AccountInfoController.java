@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.time.Duration;
+
+import javax.servlet.http.HttpServletRequest;
 
 /****
  *@author:cmh
@@ -33,6 +37,7 @@ public class AccountInfoController {
     
     @RequestMapping(value = "/addAccountInfo", method=POST,produces = "application/json;charset=UTF-8")
     public int addAccountInfo(
+//    		@RequestBody AccountInfoDto accountInfoDto
     		Integer user_id,
     		String name,
     		String ID_type, 
@@ -81,11 +86,11 @@ public class AccountInfoController {
 		accountInfoService.addAccountInfo(temp);
 		
 		//	if successfully insert, then set redis
-		if(temp.getAccount_info_id()!=null) {
+//		if(temp.getAccount_info_id()!=null) {
 //			redisOperations.set("account_info:"+user_id, temp, Duration.ofHours(24L));
 			return 1;
-			}
-		return 0;
+//			}
+//		return 0;
     	}
     
     @GetMapping(value = "/getAccountInfo",produces = "application/json;charset=UTF-8")
@@ -165,11 +170,33 @@ public class AccountInfoController {
     	AccountInfo temp = new AccountInfo(null, user_id, name, ID_type, ID_number, ID_address_id, ID_issuance_date, ID_overdue_date, ID_licensing_authority, contact_address_id, postal_address_id, trans_password, Fund_password, n_security_id, s_security_id, deposit_bank, deposit_account, deposit_password, status, profession, education, email, ID_picture, ID_card_inverse_side, risk_assessment_mark);
     	if(accountInfoService.updateAccountInfo(temp)==1) {
     		// update success then update redis
-//    		redisOperations.set("account_info:"+"account_info:"+temp.getUser_id(),
+//    		redisOperations.set("account_info:"+temp.getUser_id(),
 //    				accountInfoService.getAccountInfoByUserId(user_id),
 //    				Duration.ofHours(24L));
     		return 1;
     	}
     	else return 0;
+	}
+
+
+	@PutMapping(value = "/updateSecurity",produces = "application/json;charset=UTF-8")
+	public int updateSecurity(
+			Integer user_id, Integer n_security_id, Integer s_security_id) {
+		if(accountInfoService.updateSecurity(user_id, n_security_id, s_security_id)==1) {
+			
+//			redisOperations.set("account_info:"+user_id, value);
+			return 1;
+		}
+		return 0;
+	}
+	
+	@PutMapping(value = "/updateDeposit",produces = "application/json;charset=UTF-8")
+	public int updateDeposit(
+			Integer user_id, String deposit_bank, String deposit_account, String deposit_password)
+	{
+		if(accountInfoService.updateDeposit(user_id, deposit_bank, deposit_account, deposit_password)==1) {
+			return 1;
+		}
+		else return 0;
 	}
 }
