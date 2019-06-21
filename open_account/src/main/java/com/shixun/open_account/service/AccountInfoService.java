@@ -14,8 +14,12 @@ public interface AccountInfoService {
     int addAccountInfo(AccountInfo accountInfo);
     //	get
     AccountInfo getAccountInfoByUserId(Integer user_id);
-    //	update
+    //	updateAll
     int updateAccountInfo(AccountInfo accountInfo);
+    //	updateSecurity
+    int updateSecurity(Integer user_id, Integer n_security_id, Integer s_security_id);
+    //	updateDeposit
+    int updateDeposit(Integer user_id, String deposit_bank, String deposit_account, String deposit_password);
     //	delete
     int deleteAccountInfoByUserId(Integer user_id);
     

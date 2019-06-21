@@ -33,6 +33,14 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 		return accountInfoDAO.updateAccountInfo(accountInfo);
 	}
 	@Override
+	public int updateSecurity(Integer user_id, Integer n_security_id, Integer s_security_id) {
+		return accountInfoDAO.updateSecurity(user_id, n_security_id, s_security_id);
+	}
+	@Override
+	public int updateDeposit(Integer user_id, String deposit_bank, String deposit_account, String deposit_password) {
+		return accountInfoDAO.updateDeposit(user_id, deposit_bank, deposit_account, deposit_password);
+	}
+	@Override
 	public int deleteAccountInfoByUserId(Integer user_id) {
 		return accountInfoDAO.deleteAccountInfoByUserId(user_id);
 	}

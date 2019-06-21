@@ -17,6 +17,10 @@ public interface AccountInfoDAO{
     
     int updateAccountInfo(AccountInfo accountInfo);
     
+    int updateSecurity(Integer user_id, Integer n_security_id, Integer s_security_id);
+    
+    int updateDeposit(Integer user_id, String deposit_bank, String deposit_account, String deposit_password);
+    
     int deleteAccountInfoByUserId(Integer user_id);
     
     // Address CRUD
