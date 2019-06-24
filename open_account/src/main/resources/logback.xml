@@ -65,5 +65,5 @@
     <logger name="org.apache" level="WARN"/>
     <!--如果需要打印SQL,可以把下面的级别设置为DEBUG -->
     <logger name="com.shixun.open_account.dao" level="DEBUG"/>
-
+    <logger name="com.shixun.open_account.service" level="INFO"/>
 </configuration>

@@ -13,7 +13,17 @@
         WHERE u.phone = #{phone}
         AND u.password=#{password}
     </select>
-
+    <select id="getUser" resultType="com.alibaba.fastjson.JSONObject">
+        SELECT
+            u.user_id      user_id,
+            u.phone phone,
+            u.password password,
+            u.status status
+        FROM
+            user u
+        WHERE u.phone = #{phone}
+          AND u.password = #{password}
+    </select>
     <select id="checkPhone" resultType="java.lang.Integer">
         SELECT
         count(*)

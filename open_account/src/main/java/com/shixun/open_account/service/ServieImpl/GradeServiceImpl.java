@@ -1,12 +1,8 @@
 package com.shixun.open_account.service.ServieImpl;
 
-import com.alibaba.fastjson.JSONObject;
-import com.shixun.open_account.dao.DemoDao;
 import com.shixun.open_account.dao.GradeDao;
 import com.shixun.open_account.dao.RiskEvaluationDao;
-import com.shixun.open_account.service.DemoService;
 import com.shixun.open_account.service.GradeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONArray;

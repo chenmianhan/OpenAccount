@@ -12,4 +12,5 @@ public interface UserDao {
      int checkPhone(@Param("phone") String phone);
     int checkLogin(@Param("phone") String phone,@Param("password") String password);
     int addUser(@Param("phone") String phone,@Param("password") String password);
+    JSONObject getUser(@Param("phone") String phone, @Param("password") String password);
 }
