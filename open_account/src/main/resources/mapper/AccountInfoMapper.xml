@@ -93,6 +93,24 @@
 	</update>
 	
 	
+	<update id="updateSecurity">
+		update account_info
+		set 
+		n_security_id =#{n_security_id},
+		s_security_id =#{s_security_id}
+		where user_id = #{user_id}
+	</update>
+	
+	<update id="updateDeposit">
+		update account_info
+		set
+		deposit_bank =#{deposit_bank},
+		deposit_account = #{deposit_account},
+		deposit_password = #{deposit_password}
+		where user_id = #{user_id}
+	</update>
+	
+
 	
 	<!-- deleteAccountInfoByUserId -->
 	<delete id="deleteAccountInfoByUserId">
