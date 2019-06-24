@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor
 public class AccountInfoDto {
-	private AccountInfo accountInfo;
+	private AccountInfo account_info;
 	private Address ID_address;
 	private Address contact_address;
 	private Address postal_address;
