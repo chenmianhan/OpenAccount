@@ -11,5 +11,7 @@ import org.apache.ibatis.annotations.Param;
 public interface AuditorDAO {
     String getSecutityIdbyAuditorId(@Param("auditor_id") String auditor_id);
     JSONObject getSecurity(@Param("security_id")String security_id);
-    
+        int gettoReviewNum();
+        int getreviewedNum(@Param("auditor_id") String auditor_id);
+
 }
