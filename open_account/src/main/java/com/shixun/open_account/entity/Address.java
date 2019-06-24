@@ -10,35 +10,17 @@ public class Address {
 	private String province;
 	private String city;
 	private String street;
-//	public Address(Integer aid, String province, String city, String street) {
-//		super();
-//		this.aid = aid;
-//		this.province = province;
-//		this.city = city;
-//		this.street = street;
-//	}
-//	public Integer getAid() {
-//		return aid;
-//	}
-//	public void setAid(Integer aid) {
-//		this.aid = aid;
-//	}
-//	public String getProvince() {
-//		return province;
-//	}
-//	public void setProvince(String province) {
-//		this.province = province;
-//	}
-//	public String getCity() {
-//		return city;
-//	}
-//	public void setCity(String city) {
-//		this.city = city;
-//	}
-//	public String getStreet() {
-//		return street;
-//	}
-//	public void setStreet(String street) {
-//		this.street = street;
-//	}
+	public Address(String[] address) throws Exception {
+		if(address.length<3) throw new Exception("length of address json array is not enough");
+		this.province = address[0];
+		this.city = address[1];
+		this.street = address[2];
+	}
+	public Address(Integer aid,String[] address) throws Exception {
+		if(address.length<3) throw new Exception("length of address json array is not enough");
+		this.aid = aid;
+		this.province = address[0];
+		this.city = address[1];
+		this.street = address[2];
+	}
 }

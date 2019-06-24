@@ -1,4 +1,4 @@
- package com.shixun.open_account.dto;
+package com.shixun.open_account.dto;
 
 import com.shixun.open_account.entity.AccountInfo;
 import com.shixun.open_account.entity.Address;

@@ -1,6 +1,7 @@
 package com.shixun.open_account.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.shixun.open_account.dto.AccountInfoDto;
 import com.shixun.open_account.entity.AccountInfo;
 import com.shixun.open_account.entity.Address;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.time.Duration;
+import java.util.Map;
 
 /****
  *@author:cmh
@@ -34,42 +36,18 @@ public class AccountInfoController {
     private AccountInfoServiceImpl accountInfoService;
     
     @RequestMapping(value = "/addAccountInfo", method=POST,produces = "application/json;charset=UTF-8")
-    public int addAccountInfo(
-    		@RequestBody AccountInfoDto accountInfoDto
-//    		Integer user_id,
-//    		String name,
-//    		String id_type, 
-//			String id_number,
-//			String id_address_province,
-//			String id_address_city,
-//			String id_address_street,
-//			String id_issuance_date,
-//			String id_overdue_date,
-//			String id_licensing_authority, 
-//			String contact_address_province,
-//			String contact_address_city,
-//			String contact_address_street,
-//			String postal_address_province,
-//			String postal_address_city,
-//			String postal_address_street,
-//			String trans_password, 
-//			String fund_password, 
-//			Integer n_security_id,
-//			Integer s_security_id,
-//			String deposit_bank,
-//			String deposit_account,
-//			String deposit_password, 
-//			String status, 
-//			String profession, 
-//			String education, 
-//			String email,
-//			String id_picture, 
-//			String id_card_inverse_side
-    		) 
+    public int addAccountInfo(@RequestBody JSONObject jsonObject
+    		) throws Exception 
     {
+    	AccountInfoDto accountInfoDto = new AccountInfoDto
+    			(jsonObject.getObject("account_info",AccountInfo.class), 
+		  		 new Address(jsonObject.getObject("id_address",String[].class)),
+		  		 new Address(jsonObject.getObject("contact_address",String[].class)),
+		  		 new Address(jsonObject.getObject("postal_address",String[].class))
+		   		 );
     	// create address first
-    	accountInfoService.addAddress(accountInfoDto.getID_address());
-    	Integer id_address_id = accountInfoDto.getID_address().getAid();
+    	accountInfoService.addAddress(accountInfoDto.getId_address());
+    	Integer id_address_id = accountInfoDto.getId_address().getAid();
     
     	accountInfoService.addAddress(accountInfoDto.getContact_address());
     	Integer contact_address_id = accountInfoDto.getContact_address().getAid();
@@ -117,56 +95,30 @@ public class AccountInfoController {
     }
     
     @PostMapping(value = "/updateAccountInfo",produces = "application/json;charset=UTF-8")
-    public int updateAccountInfo(
-    		Integer user_id,
-    		String name,
-    		String id_type, 
-			String id_number,
-			String id_address_province,
-			String id_address_city,
-			String id_address_street,
-			String id_issuance_date,
-			String id_overdue_date, 
-			String id_licensing_authority, 
-			String contact_address_province,
-			String contact_address_city,
-			String contact_address_street,
-			String postal_address_province,
-			String postal_address_city,
-			String postal_address_street,
-			String trans_password, 
-			String fund_password, 
-			Integer n_security_id,
-			Integer s_security_id,
-			String deposit_bank,
-			String deposit_account,
-			String deposit_password, 
-			String status, 
-			String profession, 
-			String education, 
-			String email,
-			String id_picture, 
-			String id_card_inverse_side,
-			Integer risk_assessment_mark
-    		)
+    public int updateAccountInfo(@RequestBody JSONObject jsonObject) throws Exception
 	{
+    	//	get modify AccountInfo
+    	AccountInfo modify = jsonObject.getObject("account_info", AccountInfo.class);
     	//	get address_id first
-    	AccountInfo before = 
-//    			redisOperations.get("account_info:"+user_id)!=null?
-//    					(AccountInfo)redisOperations.get("account_info:"+user_id):
-    			accountInfoService.getAccountInfoByUserId(user_id);
+    	AccountInfo before = accountInfoService.getAccountInfoByUserId(modify.getUser_id());
+//    			redisOperations.get("account_info:"+user_id)!=null?(AccountInfo)redisOperations.get("account_info:"+user_id):
     	Integer id_address_id = before.getId_address_id();
     	Integer contact_address_id = before.getContact_address_id();
     	Integer postal_address_id = before.getPostal_address_id();
     	
-    	//	then update address
-    	accountInfoService.updateAddress(new Address(id_address_id, id_address_province, id_address_city, id_address_street));
-    	accountInfoService.updateAddress(new Address(contact_address_id, contact_address_province, contact_address_city, contact_address_street));
-    	accountInfoService.updateAddress(new Address(postal_address_id, postal_address_province, postal_address_city, postal_address_street));
-
-    	//	update account_info
-    	AccountInfo temp = new AccountInfo(null, user_id, name, id_type, id_number, id_address_id, id_issuance_date, id_overdue_date, id_licensing_authority, id_picture, id_card_inverse_side, contact_address_id, postal_address_id, trans_password, fund_password, n_security_id, s_security_id, deposit_bank, deposit_account, deposit_password, status, profession, education, email, risk_assessment_mark);
-    	if(accountInfoService.updateAccountInfo(temp)==1) {
+    	//	update address
+		if(
+				!(accountInfoService.updateAddress(new Address(id_address_id,jsonObject.getObject("id_address",String[].class)))>0
+    		&&accountInfoService.updateAddress(new Address(contact_address_id, jsonObject.getObject("contact_address",String[].class)))>0
+			&&accountInfoService.updateAddress(new Address(postal_address_id, jsonObject.getObject("postal_address",String[].class)))>0
+			))
+			throw new Exception("update Address failed");
+		//	update address_id of modify
+		modify.setId_address_id(id_address_id);
+		modify.setContact_address_id(contact_address_id);
+		modify.setPostal_address_id(postal_address_id);
+    	//	update account_info by modify
+    	if(accountInfoService.updateAccountInfo(modify)==1) {
     		// update success then update redis
 //    		redisOperations.set("account_info:"+temp.getUser_id(),
 //    				accountInfoService.getAccountInfoByUserId(user_id),
@@ -181,7 +133,6 @@ public class AccountInfoController {
 	public int updateSecurity(
 			Integer user_id, Integer n_security_id, Integer s_security_id) {
 		if(accountInfoService.updateSecurity(user_id, n_security_id, s_security_id)==1) {
-			
 //			redisOperations.set("account_info:"+user_id, value);
 			return 1;
 		}

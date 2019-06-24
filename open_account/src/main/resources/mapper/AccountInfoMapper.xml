@@ -64,8 +64,7 @@
 	
 	<!-- updateAccountInfo -->
  	<update id="updateAccountInfo">
-		update account_info set 
-		user_id=#{user_id},
+		update account_info set
 		name=#{name},
 		id_type=#{id_type},
 		id_number=#{id_number},
