@@ -8,13 +8,13 @@
 	 useGeneratedKeys="true" keyProperty="account_info_id">
 		insert into account_info
 		( 
-		  user_id,name,ID_type,
-		  ID_number,
-		  ID_address_id,ID_issuance_date,ID_overdue_date,ID_licensing_authority,
+		  user_id,name,id_type,
+		  id_number,
+		  id_address_id,id_issuance_date,id_overdue_date,id_licensing_authority,
 		  contact_address_id,
 		  postal_address_id,
 		  trans_password,
-		  Fund_password,
+		  fund_password,
 		  n_security_id,
 		  s_security_id,
 		  deposit_bank,
@@ -24,23 +24,23 @@
 		  profession,
 		  education,
 		  email,
-		  ID_picture,
-		  ID_card_inverse_side,
+		  id_picture,
+		  id_card_inverse_side,
 		  risk_assessment_mark
 		  )
 		  values(
 		      #{user_id},
 		  	  #{name},
-			  #{ID_type},
-			  #{ID_number},
-			  #{ID_address_id},
-			  #{ID_issuance_date},
-			  #{ID_overdue_date},
-			  #{ID_licensing_authority},
+			  #{id_type},
+			  #{id_number},
+			  #{id_address_id},
+			  #{id_issuance_date},
+			  #{id_overdue_date},
+			  #{id_licensing_authority},
 			  #{contact_address_id},
 			  #{postal_address_id},
 			  #{trans_password},
-			  #{Fund_password},
+			  #{fund_password},
 			  #{n_security_id},
 			  #{s_security_id},
 			  #{deposit_bank},
@@ -50,8 +50,8 @@
 			  #{profession},
 			  #{education},
 			  #{email},
-			  #{ID_picture},
-			  #{ID_card_inverse_side},
+			  #{id_picture},
+			  #{id_card_inverse_side},
 			  #{risk_assessment_mark}
 			  )
 	</insert>
@@ -67,16 +67,16 @@
 		update account_info set 
 		user_id=#{user_id},
 		name=#{name},
-		ID_type=#{ID_type},
-		ID_number=#{ID_number},
-		ID_address_id=#{ID_address_id},
-		ID_issuance_date=#{ID_issuance_date},
-		ID_overdue_date=#{ID_overdue_date},
-		ID_licensing_authority=#{ID_licensing_authority},
+		id_type=#{id_type},
+		id_number=#{id_number},
+		id_address_id=#{id_address_id},
+		id_issuance_date=#{id_issuance_date},
+		id_overdue_date=#{id_overdue_date},
+		id_licensing_authority=#{id_licensing_authority},
 		contact_address_id=#{contact_address_id},
 		postal_address_id=#{postal_address_id},
 		trans_password=#{trans_password},
-		Fund_password=#{Fund_password},
+		fund_password=#{fund_password},
 		n_security_id=#{n_security_id},
 		s_security_id=#{s_security_id},
 		deposit_bank=#{deposit_bank},
@@ -86,12 +86,11 @@
 		profession=#{profession},
 		education=#{education},
 		email=#{email},
-		ID_picture=#{ID_picture},
-		ID_card_inverse_side=#{ID_card_inverse_side},
+		id_picture=#{id_picture},
+		id_card_inverse_side=#{id_card_inverse_side},
 		risk_assessment_mark=#{risk_assessment_mark}
 		where user_id=#{user_id}
 	</update>
-	
 	
 	<update id="updateSecurity">
 		update account_info
@@ -109,8 +108,6 @@
 		deposit_password = #{deposit_password}
 		where user_id = #{user_id}
 	</update>
-	
-
 	
 	<!-- deleteAccountInfoByUserId -->
 	<delete id="deleteAccountInfoByUserId">
