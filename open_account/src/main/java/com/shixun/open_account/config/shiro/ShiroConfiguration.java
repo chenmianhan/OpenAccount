@@ -74,12 +74,6 @@ public class ShiroConfiguration {
 
 		return securityManager;
 	}
-	public MyModularRealmAuthenticator  myModularRealmAuthenticator(){
-		MyModularRealmAuthenticator authenticator = new MyModularRealmAuthenticator();
-		FirstSuccessfulStrategy strategy = new FirstSuccessfulStrategy();
-		authenticator.setAuthenticationStrategy(strategy);
-		return authenticator;
-	}
 	/**
 	 * Shiro Realm 继承自AuthorizingRealm的自定义Realm,即指定Shiro验证用户登录的类为自定义的
 	 */
