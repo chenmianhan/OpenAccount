@@ -31,5 +31,26 @@
             security s
         WHERE s.security_id = #{security_id}
     </select>
+    <select id="getUserIdByTime" resultType="java.util.HashMap">
+		select user_id  from
+		customer_account ca
+		WHERE ca.auditor_id = #{auditor_id}
+		AND  ca.open_date
+		BETWEEN #{start}  AND #{end};
+	</select>
 
+    <!--select id="getUserInfo" resultType="com.alibaba.fastjson.JSONObject">
+		select
+		ai.user_id
+		ai.name
+		ai.id_type
+		ai.id_number
+		ai.id_address_id
+		ai.id_issuance_date
+		ai.
+		from
+		account_info ai
+		WHERE ai.auditor_id = #{auditor_id}
+
+	</select-->
 </mapper>

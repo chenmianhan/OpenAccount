@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /****
  *@author:cmh
@@ -42,4 +44,12 @@ public class AuditorServiceImpl implements AuditorService {
         return auditorDAO.getreviewedNum(auditor_id);
     }
 
+    @Override
+    @Transactional
+    public List<Map<String,Object>>  getUserIdByTime(String auditor_id,
+                                       String start,
+                                       String end)
+    {
+        return auditorDAO.getUserIdByTime(auditor_id,start,end);
+    }
 }
