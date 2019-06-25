@@ -8,6 +8,7 @@ import com.shixun.open_account.entity.Address;
 import com.shixun.open_account.service.ServieImpl.AccountInfoServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ValueOperations;
 //import org.springframework.data.redis.core.ValueOperations;
 //import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +40,7 @@ public class AccountInfoController {
     public int addAccountInfo(@RequestBody JSONObject jsonObject
     		) throws Exception 
     {
+    	System.out.println(jsonObject);
     	AccountInfoDto accountInfoDto = new AccountInfoDto
     			(jsonObject.getObject("account_info",AccountInfo.class), 
 		  		 new Address(jsonObject.getObject("id_address",String[].class)),
