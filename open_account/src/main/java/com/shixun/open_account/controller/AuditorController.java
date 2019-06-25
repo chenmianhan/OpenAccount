@@ -1,6 +1,7 @@
 package com.shixun.open_account.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.shixun.open_account.dao.AuditorDAO;
 
@@ -55,16 +56,22 @@ public class AuditorController {
             return js;
         }
     @RequestMapping(value="/api/statisitcData/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
-    public JSONObject getUserInfo(@RequestParam(value = "reviewerId") String reviewerId,
+    public JSONArray getUserInfo(@RequestParam(value = "reviewerId") String reviewerId,
                                       @RequestParam(value = "start") String start,
                                       @RequestParam(value = "end") String end) throws Exception {
+        JSONArray jsonArray=new JSONArray();
        String startTimeStamp= getSQLDateTime(start);
         String endTimeStamp= getSQLDateTime(end);
         List<Map<String,Object>> lsm= auditorService.getUserIdByTime(reviewerId,startTimeStamp,endTimeStamp);
         ArrayList<String> user_id_list=new ArrayList<>();
         getUseridList(lsm, user_id_list);
-
-        return   null;
+        for(int j=0;j<user_id_list.size();j++)
+        {
+           // System.out.println(user_id_list.get(j));
+            jsonArray.add(auditorService.getUserInfo(user_id_list.get(j)));
+        }
+        System.out.println(jsonArray.toJSONString());
+        return   jsonArray;
     }
 
     private void getUseridList(List<Map<String, Object>> lsm, ArrayList<String> user_id_list) {

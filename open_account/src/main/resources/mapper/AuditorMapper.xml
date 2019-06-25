@@ -39,18 +39,27 @@
 		BETWEEN #{start}  AND #{end};
 	</select>
 
-    <!--select id="getUserInfo" resultType="com.alibaba.fastjson.JSONObject">
+    <select id="getUserInfo" resultType="com.alibaba.fastjson.JSONObject">
 		select
-		ai.user_id
-		ai.name
-		ai.id_type
-		ai.id_number
-		ai.id_address_id
-		ai.id_issuance_date
-		ai.
+		ai.name userName,
+		ai.id_number idCardNum,
+		ai.id_issuance_date idValDate,
+		ai.id_licensing_authority idInstitute,
+		ai.profession userJob,
+		ai.education education,
+		ai.email email,
+		ai.deposit_bank bankName,
+		ai.deposit_account bankCardNum
 		from
 		account_info ai
-		WHERE ai.auditor_id = #{auditor_id}
+		WHERE ai.user_id = #{user_id}
+	</select>
+    <select id="getOpenDate" resultType="java.lang.String">
+        SELECT
+        ca.open_date open_date
+        FROM
+       customer_account ca
+        WHERE ca.user_id= #{user_id}
+    </select>
 
-	</select-->
 </mapper>

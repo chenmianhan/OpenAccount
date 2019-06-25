@@ -20,6 +20,6 @@ public interface AuditorDAO {
                                        @Param("start")String start,
                                        @Param("end")String end);
     JSONObject getUserInfo(@Param("user_id")String user_id);
-
+    String getOpenDate(@Param("user_id")String user_id);
 
 }

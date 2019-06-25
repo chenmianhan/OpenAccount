@@ -52,4 +52,19 @@ public class AuditorServiceImpl implements AuditorService {
     {
         return auditorDAO.getUserIdByTime(auditor_id,start,end);
     }
+
+    @Override
+    @Transactional
+    public JSONObject getUserInfo(String user_id)
+    {
+        //System.out.println(user_id);
+        JSONObject temp=auditorDAO.getUserInfo(user_id);
+       // System.out.println();
+        String openDate=auditorDAO.getOpenDate(user_id);
+
+        temp.put("accTime",openDate);
+       // System.out.println(temp);
+        return temp;
+
+    }
 }

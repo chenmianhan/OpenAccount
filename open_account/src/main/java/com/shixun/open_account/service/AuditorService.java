@@ -19,4 +19,5 @@ public interface AuditorService  {
     List<Map<String,Object>>  getUserIdByTime(String auditor_id,
                                        String start,
                                        String end);
+    JSONObject getUserInfo(String user_id);
 }
