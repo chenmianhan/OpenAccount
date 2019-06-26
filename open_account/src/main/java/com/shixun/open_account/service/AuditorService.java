@@ -14,10 +14,11 @@ import java.util.Map;
 public interface AuditorService  {
     String getSecutityIdbyAuditorId( String auditor_id);
     JSONObject getSecurity(String security_id);
-    int gettoReviewNum();
+    int gettoReviewNum(Integer type,String name);
     int getreviewedNum( String auditor_id);
     List<Map<String,Object>>  getUserIdByTime(String auditor_id,
                                        String start,
                                        String end);
     JSONObject getUserInfo(String user_id);
+    JSONObject getUserInfoUnreviewed(String user_id);
 }

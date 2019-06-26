@@ -2,6 +2,7 @@ package com.shixun.open_account.service.ServieImpl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shixun.open_account.dao.AuditorDAO;
+import com.shixun.open_account.dao.GradeDao;
 import com.shixun.open_account.service.AuditorService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,8 @@ import java.util.Map;
 public class AuditorServiceImpl implements AuditorService {
     @Resource
     private AuditorDAO auditorDAO;
+    @Resource
+    private GradeDao gradeDao;
     @Override
     @Transactional
     public String getSecutityIdbyAuditorId( String auditor_id)
@@ -33,9 +36,11 @@ public class AuditorServiceImpl implements AuditorService {
     }
     @Override
     @Transactional
-    public  int gettoReviewNum()
+    public  int gettoReviewNum(Integer type,String security_id)
     {
-        return auditorDAO.gettoReviewNum();
+        if(type==0)
+            return auditorDAO.gettoReviewNum_N(security_id);
+        else  return auditorDAO.gettoReviewNum_S(security_id);
     }
     @Override
     @Transactional
@@ -57,14 +62,21 @@ public class AuditorServiceImpl implements AuditorService {
     @Transactional
     public JSONObject getUserInfo(String user_id)
     {
-        //System.out.println(user_id);
         JSONObject temp=auditorDAO.getUserInfo(user_id);
-       // System.out.println();
         String openDate=auditorDAO.getOpenDate(user_id);
-
         temp.put("accTime",openDate);
-       // System.out.println(temp);
         return temp;
+
+    }
+    @Override
+    @Transactional
+    public JSONObject getUserInfoUnreviewed(String user_id)
+    {
+
+        JSONObject temp1=auditorDAO.getOtherInfo(user_id);
+        String grade=gradeDao.getGradeName(Integer.parseInt(temp1.getString("userGrade"),10));
+        temp1.put("userType",grade);
+        return temp1;
 
     }
 }

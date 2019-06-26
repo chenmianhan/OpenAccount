@@ -38,8 +38,6 @@ public class AuditorController {
         @RequestMapping(value="/api/statisticData/getReviewerInfo", method=POST, produces = "application/json;charset=UTF-8")
         public JSONObject getReviewerInfo(@RequestParam(value = "reviewerId") String reviewerId) throws Exception
         {
-            int getreviewedNum=auditorService.getreviewedNum(reviewerId);
-            int gettoReviewNum=auditorService.gettoReviewNum();
             String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
             JSONObject security=auditorService.getSecurity(security_id);
             JSONObject js=new JSONObject();
@@ -50,12 +48,15 @@ public class AuditorController {
             else {
                 js.put("exchangeName","深圳证券交易所");
             }
+            int getreviewedNum=auditorService.getreviewedNum(reviewerId);
+            int gettoReviewNum=auditorService.gettoReviewNum((Integer)(security.get("type")),security_id);
+
             js.put("branchNetName",security.get("name"));
             js.put("toReviewNum",gettoReviewNum);
             js.put("reviewedNum",getreviewedNum);
             return js;
         }
-    @RequestMapping(value="/api/statisitcData/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value="/api/statisticData/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
     public JSONArray getUserInfo(@RequestParam(value = "reviewerId") String reviewerId,
                                       @RequestParam(value = "start") String start,
                                       @RequestParam(value = "end") String end) throws Exception {
@@ -70,8 +71,63 @@ public class AuditorController {
            // System.out.println(user_id_list.get(j));
             jsonArray.add(auditorService.getUserInfo(user_id_list.get(j)));
         }
-        System.out.println(jsonArray.toJSONString());
+        //System.out.println(jsonArray.toJSONString());
         return   jsonArray;
+    }
+    @RequestMapping(value="/api/reviewUser/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONObject getUserInfo(@RequestParam(value = "reviewerId") String reviewerId)
+    {
+        String user_id=reviewerId;
+        JSONObject userInfoTemp =auditorService.getUserInfo(user_id);
+        JSONArray userInfo=new JSONArray();
+        parseUserInfo(user_id, userInfoTemp, userInfo);
+        JSONObject jsonObject=auditorService.getUserInfoUnreviewed(user_id);
+        jsonObject.put("userInfo",userInfo);
+        return jsonObject;
+    }
+
+    private void parseUserInfo(String user_id, JSONObject userInfoTemp, JSONArray userInfo) {
+        JSONObject temp=new JSONObject();
+        temp.put("title","用户ID");
+        temp.put("content",user_id);
+        userInfo.add(temp);
+        System.out.println(userInfo);
+        temp=new JSONObject();
+        temp.put("title","姓名");
+        temp.put("content",userInfoTemp.get("userName"));
+        userInfo.add(temp);
+        temp=new JSONObject();
+        temp.put("title","身份证号码");
+        temp.put("content",userInfoTemp.get("idCardNum"));
+        userInfo.add(temp);
+        System.out.println(userInfo);
+        temp=new JSONObject();
+        temp.put("title","证件有效期");
+        temp.put("content",userInfoTemp.get("idValDate"));
+        userInfo.add(temp);
+        temp=new JSONObject();
+        temp.put("title","发证机关");
+        temp.put("content",userInfoTemp.get("idInstitute"));
+        userInfo.add(temp);
+        temp=new JSONObject();
+        temp.put("title","职业");
+        temp.put("content",userInfoTemp.get("userJob"));
+        userInfo.add(temp);
+        temp.put("title","学历");
+        temp.put("content",userInfoTemp.get("education"));
+        userInfo.add(temp);
+        temp=new JSONObject();
+        temp.put("title","联系邮箱");
+        temp.put("content",userInfoTemp.get("email"));
+        userInfo.add(temp);
+        temp=new JSONObject();
+        temp.put("title","银行");
+        temp.put("content",userInfoTemp.get("bankName"));
+        userInfo.add(temp);
+        temp=new JSONObject();
+        temp.put("title","银行卡号");
+        temp.put("content",userInfoTemp.get("bankCardNum"));
+        userInfo.add(temp);
     }
 
     private void getUseridList(List<Map<String, Object>> lsm, ArrayList<String> user_id_list) {
