@@ -24,5 +24,6 @@ public interface AuditorDAO {
     JSONObject getOtherInfo(@Param("user_id")String user_id);
     String getOpenDate(@Param("user_id")String user_id);
     //JSONObject getUserInfoUnreviewed(@Param("user_id")String user_id);
-
+    List<Map<String,Object>>  gettoReviewUser_List_N(@Param("security_id")String security_id);
+    List<Map<String,Object>>  gettoReviewUser_List_S(@Param("security_id") String security_id);
 }

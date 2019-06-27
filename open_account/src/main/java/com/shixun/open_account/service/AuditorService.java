@@ -21,4 +21,6 @@ public interface AuditorService  {
                                        String end);
     JSONObject getUserInfo(String user_id);
     JSONObject getUserInfoUnreviewed(String user_id);
+    List<Map<String,Object>>  gettoReviewUser_List(Integer type,String security_id);
+
 }

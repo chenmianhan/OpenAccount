@@ -7,7 +7,7 @@
         count(*)
         FROM
        account_info ai
-        WHERE ai.status = 5
+        WHERE ai.status = 4
         AND ai.n_security_id= #{security_id}
     </select>
     <select id="gettoReviewNum_S" resultType="java.lang.Integer">
@@ -15,7 +15,7 @@
         count(*)
         FROM
        account_info ai
-        WHERE ai.status = 5
+        WHERE ai.status = 4
         AND ai.s_security_id= #{security_id}
     </select>
 
@@ -83,4 +83,23 @@
 		account_info ai
 		WHERE ai.user_id = #{user_id}
 	</select>
+
+    <select id="gettoReviewUser_List_N" resultType="java.util.HashMap">
+        SELECT
+        ai.user_id user_id
+        FROM
+       account_info ai
+        WHERE ai.status = 4
+        AND ai.n_security_id= #{security_id}
+    </select>
+    <select id="gettoReviewUser_List_S" resultType="java.util.HashMap">
+        SELECT
+       ai.user_id user_id
+        FROM
+       account_info ai
+        WHERE ai.status = 4
+        AND ai.s_security_id= #{security_id}
+    </select>
+
+
 </mapper>

@@ -31,8 +31,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
  */
 @RestController
 public class AuditorController {
-        @Resource
-    AuditorDAO auditorDAO;
+        //@Resource
+        //AuditorDAO auditorDAO;
         @Resource
         private AuditorService auditorService;
         @RequestMapping(value="/api/statisticData/getReviewerInfo", method=POST, produces = "application/json;charset=UTF-8")
@@ -56,8 +56,8 @@ public class AuditorController {
             js.put("reviewedNum",getreviewedNum);
             return js;
         }
-    @RequestMapping(value="/api/statisticData/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
-    public JSONArray getUserInfo(@RequestParam(value = "reviewerId") String reviewerId,
+        @RequestMapping(value="/api/statisticData/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
+        public JSONArray getUserInfo(@RequestParam(value = "reviewerId") String reviewerId,
                                       @RequestParam(value = "start") String start,
                                       @RequestParam(value = "end") String end) throws Exception {
         JSONArray jsonArray=new JSONArray();
@@ -68,16 +68,23 @@ public class AuditorController {
         getUseridList(lsm, user_id_list);
         for(int j=0;j<user_id_list.size();j++)
         {
-           // System.out.println(user_id_list.get(j));
+
             jsonArray.add(auditorService.getUserInfo(user_id_list.get(j)));
         }
-        //System.out.println(jsonArray.toJSONString());
+
         return   jsonArray;
     }
     @RequestMapping(value="/api/reviewUser/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject getUserInfo(@RequestParam(value = "reviewerId") String reviewerId)
     {
-        String user_id=reviewerId;
+        String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
+        JSONObject security=auditorService.getSecurity(security_id);
+        JSONObject js=new JSONObject();
+        List<Map<String,Object>> lsm=auditorService.gettoReviewUser_List((Integer)(security.get("type")),security_id);
+        ArrayList<String> user_id_list=new ArrayList<>();
+        getUseridList(lsm, user_id_list);
+        System.out.println(user_id_list);
+        String user_id=user_id_list.get(0);
         JSONObject userInfoTemp =auditorService.getUserInfo(user_id);
         JSONArray userInfo=new JSONArray();
         parseUserInfo(user_id, userInfoTemp, userInfo);
@@ -155,4 +162,6 @@ public class AuditorController {
         }
         return null;
     }
+
+
 }

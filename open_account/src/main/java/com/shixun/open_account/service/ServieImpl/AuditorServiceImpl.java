@@ -79,4 +79,14 @@ public class AuditorServiceImpl implements AuditorService {
         return temp1;
 
     }
+    @Override
+    @Transactional
+    public List<Map<String,Object>>  gettoReviewUser_List(Integer type,String security_id)
+    {
+        if(type==0)
+            return auditorDAO.gettoReviewUser_List_N(security_id);
+        else
+            return  auditorDAO.gettoReviewUser_List_S(security_id);
+    }
+
 }
