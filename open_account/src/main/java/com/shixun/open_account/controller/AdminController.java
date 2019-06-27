@@ -6,7 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,8 +29,7 @@ public class AdminController {
 	@Autowired
     private AuditorService auditorService;
     
-    @PostMapping(value = "/admin/get_securityUnderAdmin", produces = "application/json;charset=UTF-8")
-
+    @GetMapping(value = "/admin/get_securityUnderAdmin", produces = "application/json;charset=UTF-8")
     public JSONArray getSecurity(@RequestParam Integer admin_id)
     {
     	List<Integer> list = adminService.getSecurityIdByAdminId(admin_id);
@@ -53,5 +54,17 @@ public class AdminController {
 				jsonObject.getIntValue("security_id"),
 				auditor_id
 				);
+	}
+	@PutMapping(value = "/admin/modifyAuditor")
+	public int updateEmployee(@RequestBody JSONObject jsonObject) {
+		return auditorService.updateEmployee(
+				jsonObject.getIntValue("auditor_id"), 
+				jsonObject.getString("account"), 
+				jsonObject.getString("password"), 
+				"2", 
+				jsonObject.getString("name"))&auditorService.updateAuditor(
+						jsonObject.getIntValue("security_id"), 
+						jsonObject.getIntValue("auditor_id"));
+		
 	}
 }
