@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.shixun.open_account.entity.Employee;
 import com.shixun.open_account.service.AdminService;
 import com.shixun.open_account.service.AuditorService;
 import com.shixun.open_account.service.SecurityService;
@@ -24,7 +25,6 @@ public class AdminController {
     private AuditorService auditorService;
     
     @GetMapping(value = "/admin/get_securityUnderAdmin", produces = "application/json;charset=UTF-8")
-
     public JSONArray getSecurity(@RequestParam Integer admin_id)
     {
     	List<Integer> list = adminService.getSecurityIdByAdminId(admin_id);
@@ -39,15 +39,11 @@ public class AdminController {
 
 	@PostMapping(value = "/admin/addAuditor")
 	public int addAuditor(@RequestBody JSONObject jsonObject) {
-		int auditor_id = auditorService.insertEmployee(
-				jsonObject.getString("account"), 
-				jsonObject.getString("password"), 
-				"2", 
-				jsonObject.getString("name")
-				);
+		Employee employee = new Employee(null, jsonObject.getString("account"), jsonObject.getString("password"), "2", jsonObject.getString("name"));
+		auditorService.insertEmployee(employee);
 		return auditorService.insertAuditor(
 				jsonObject.getIntValue("security_id"),
-				auditor_id
+				employee.getEmployee_id()
 				);
 	}
 	@PutMapping(value = "/admin/modifyAuditor")
