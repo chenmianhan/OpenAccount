@@ -104,8 +104,14 @@
     set
     status=#{status},
     result_review=#{result_review}
+    where user_id = #{user_id};
+    update  account_info
+    set
+    status=#{status}
     where user_id = #{user_id}
 </update>
+
+
     <insert id="insertEmployee" 
     	useGeneratedKeys="true" keyProperty="employee_id">
     	insert into employee
