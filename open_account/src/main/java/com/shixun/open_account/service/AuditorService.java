@@ -23,7 +23,7 @@ public interface AuditorService  {
 
     JSONObject getUserInfoUnreviewed(String user_id);
     List<Map<String,Object>>  gettoReviewUser_List(Integer type,String security_id);
-
+    int setUserStatus(String user_id,String status,String result_review);
 
     int insertEmployee(
     		String employee_account, 
@@ -32,5 +32,12 @@ public interface AuditorService  {
     		String employee_name
     		);
     int insertAuditor(int security_id, int auditor_id);
-
+    int updateEmployee(
+            int employee_id,
+            String employee_account,
+            String employee_password,
+            String employee_type,
+            String employee_name
+    );
+    int updateAuditor(int security_id, int auditor_id);
 }

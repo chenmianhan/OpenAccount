@@ -99,7 +99,13 @@
         WHERE ai.status = 4
         AND ai.s_security_id= #{security_id}
     </select>
-
+    <update id="setUserStatus">
+    update  user
+    set
+    status=#{status},
+    result_review=#{result_review}
+    where user_id = #{user_id}
+</update>
 
     
     <insert id="insertEmployee" 
@@ -126,7 +132,23 @@
     	 #{auditor_id}
     	)
     </insert>
-    
+
+    <update id="updateEmployee">
+    	update employee
+    	set
+    	employee_account=#{employee_account},
+    	employee_password=#{employee_password},
+    	Employee_type=#{employee_type},
+    	employee_name=#{employee_name}
+    	where employee_id=#{employee_id}
+    </update>
+
+    <update id="updateAuditor">
+    	update auditor_manager
+    	set
+    	security_id=#{security_id}
+    	where auditor_id=#{auditor_id}
+    </update>
 
 
 </mapper>

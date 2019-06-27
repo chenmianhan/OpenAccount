@@ -7,6 +7,8 @@ import com.shixun.open_account.dao.AuditorDAO;
 
 import com.shixun.open_account.service.AuditorService;
 
+import com.shixun.open_account.util.CommonUtil;
+import com.shixun.open_account.util.constants.AuditorConstants;
 import net.sf.jsqlparser.parser.ParseException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -81,14 +83,49 @@ public class AuditorController {
         getUseridList(lsm, user_id_list);
 
         String user_id=user_id_list.get(0);
-        JSONObject userInfoTemp =auditorService.getUserInfo(user_id);
-        JSONArray userInfo=new JSONArray();
-        parseUserInfo(user_id, userInfoTemp, userInfo);
-        JSONObject jsonObject=auditorService.getUserInfoUnreviewed(user_id);
-        jsonObject.put("userInfo",userInfo);
-        return jsonObject;
+int result=auditorService.setUserStatus(user_id,"5","审核中");
+if(result==1){JSONObject userInfoTemp =auditorService.getUserInfo(user_id);
+    JSONArray userInfo=new JSONArray();
+    parseUserInfo(user_id, userInfoTemp, userInfo);
+    JSONObject jsonObject=auditorService.getUserInfoUnreviewed(user_id);
+    jsonObject.put("userInfo",userInfo);
+    return jsonObject;}
+else return new JSONObject();
     }
 
+    @RequestMapping(value="/reviewUser/postResult", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONObject postResult(@RequestParam(value = "userId") String userId,
+                                 @RequestParam(value = "infoResult") String infoResult,
+                                 @RequestParam(value = "gradeResult") String gradeResult,
+                                 @RequestParam(value = "imageResult") String imageResult
+                                 )
+    {
+        String result_review;
+        String status;
+        if(imageResult.equals("true")&&infoResult.equals("true")&&gradeResult.equals("true"))
+        {
+            status="7";
+            result_review="审核通过";
+        }
+        else {
+            status="6";
+            result_review="审核未通过：";}
+        if(imageResult.equals("false")){
+            result_review+="照片审核不通过；";
+        }
+        if(infoResult.equals("false"))
+        {
+            result_review+="个人信息填写不通过；";
+        }
+        if(gradeResult.equals("false"))
+        {
+            result_review+="风险测评不通过：";
+        }
+        int result=auditorService.setUserStatus(userId,status,result_review);
+        if(result==1)
+            return CommonUtil.getJson(AuditorConstants.SUCCESS_MSG);
+        else return CommonUtil.getJson(AuditorConstants.FAIL_MSG);
+    }
     private void parseUserInfo(String user_id, JSONObject userInfoTemp, JSONArray userInfo) {
         JSONObject temp=new JSONObject();
         temp.put("title","用户ID");
@@ -159,6 +196,5 @@ public class AuditorController {
         }
         return null;
     }
-
 
 }

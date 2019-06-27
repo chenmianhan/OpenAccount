@@ -26,6 +26,7 @@ public interface AuditorDAO {
     List<Map<String,Object>>  gettoReviewUser_List_N(@Param("security_id")String security_id);
     List<Map<String,Object>>  gettoReviewUser_List_S(@Param("security_id") String security_id);
 
+    int setUserStatus(@Param("user_id")String user_id,@Param("status")String status,@Param("result_review")String result_review);
     int insertEmployee(
     		String employee_account, 
     		String employee_password,
@@ -33,7 +34,14 @@ public interface AuditorDAO {
     		String employee_name
     		);
     int insertAuditor(int security_id, int auditor_id);
-    
+    int updateEmployee(
+            int employee_id,
+            String employee_account,
+            String employee_password,
+            String employee_type,
+            String employee_name
+    );
+    int updateAuditor(int security_id, int auditor_id);
 
 
 }
