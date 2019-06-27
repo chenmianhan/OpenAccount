@@ -31,48 +31,42 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
  */
 @RestController
 public class AuditorController {
-        //@Resource
-        //AuditorDAO auditorDAO;
-        @Resource
-        private AuditorService auditorService;
-        @RequestMapping(value="/api/statisticData/getReviewerInfo", method=POST, produces = "application/json;charset=UTF-8")
-        public JSONObject getReviewerInfo(@RequestParam(value = "reviewerId") String reviewerId) throws Exception
+    @Resource
+    private AuditorService auditorService;
+    @RequestMapping(value="/api/statisticData/getReviewerInfo", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONObject getReviewerInfo(@RequestParam(value = "reviewerId") String reviewerId) throws Exception
+    {
+        String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
+        JSONObject security=auditorService.getSecurity(security_id);
+        int getreviewedNum=auditorService.getreviewedNum(reviewerId);
+        int gettoReviewNum=auditorService.gettoReviewNum(security_id);
+        JSONObject js=new JSONObject();
+        if((Integer)(security.get("type"))==0)
         {
-
-            String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
-            JSONObject security=auditorService.getSecurity(security_id);
-            int getreviewedNum=auditorService.getreviewedNum(reviewerId);
-            int gettoReviewNum=auditorService.gettoReviewNum(security_id);
-           // System.out.println("gettoReviewNum"+gettoReviewNum);
-            JSONObject js=new JSONObject();
-            if((Integer)(security.get("type"))==0)
+            js.put("exchangeName","上海证券交易所");
+        }
+        else
             {
-                js.put("exchangeName","上海证券交易所");
-            }
-            else {
-                js.put("exchangeName","深圳证券交易所");
-            }
-            js.put("branchNetName",security.get("name"));
-            js.put("toReviewNum",gettoReviewNum);
-            js.put("reviewedNum",getreviewedNum);
-            return js;
+                js.put("exchangeName","深圳证券交易所"); }
+        js.put("branchNetName",security.get("name"));
+        js.put("toReviewNum",gettoReviewNum);
+        js.put("reviewedNum",getreviewedNum);
+        return js;
         }
     @RequestMapping(value="/api/statisticData/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
     public JSONArray getUserInfo(@RequestParam(value = "reviewerId") String reviewerId,
                                       @RequestParam(value = "start") String start,
                                       @RequestParam(value = "end") String end) throws Exception {
         JSONArray jsonArray=new JSONArray();
-       String startTimeStamp= getSQLDateTime(start);
+        String startTimeStamp= getSQLDateTime(start);
         String endTimeStamp= getSQLDateTime(end);
         List<Map<String,Object>> lsm= auditorService.getUserIdByTime(reviewerId,startTimeStamp,endTimeStamp);
         ArrayList<String> user_id_list=new ArrayList<>();
         getUseridList(lsm, user_id_list);
         for(int j=0;j<user_id_list.size();j++)
         {
-
             jsonArray.add(auditorService.getUserInfo(user_id_list.get(j)));
         }
-
         return   jsonArray;
     }
     @RequestMapping(value="/api/reviewUser/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
@@ -82,10 +76,10 @@ public class AuditorController {
         JSONObject security=auditorService.getSecurity(security_id);
         JSONObject js=new JSONObject();
         List<Map<String,Object>> lsm=auditorService.gettoReviewUser_List((Integer)(security.get("type")),security_id);
-       // System.out.println("lsm"+lsm);
+
         ArrayList<String> user_id_list=new ArrayList<>();
         getUseridList(lsm, user_id_list);
-       // System.out.println(user_id_list);
+
         String user_id=user_id_list.get(0);
         JSONObject userInfoTemp =auditorService.getUserInfo(user_id);
         JSONArray userInfo=new JSONArray();
