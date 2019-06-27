@@ -36,10 +36,11 @@ public class AuditorServiceImpl implements AuditorService {
     }
     @Override
     @Transactional
-    public  int gettoReviewNum(String security_id)
+    public  int gettoReviewNum(String security_id,Integer type)
     {
-        return auditorDAO.gettoReviewNum( security_id);
-
+        if(type==0)
+        return auditorDAO.gettoReviewNum_N( security_id);
+    else return auditorDAO.gettoReviewNum_S( security_id);
     }
     @Override
     @Transactional

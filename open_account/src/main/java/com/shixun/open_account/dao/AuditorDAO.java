@@ -14,7 +14,8 @@ import java.util.Map;
 public interface AuditorDAO {
     String getSecutityIdbyAuditorId(@Param("auditor_id") String auditor_id);
     JSONObject getSecurity(@Param("security_id")String security_id);
-        int gettoReviewNum(@Param("security_id")String security_id);
+        int gettoReviewNum_S(@Param("security_id")String security_id);
+    int gettoReviewNum_N(@Param("security_id")String security_id);
         int getreviewedNum(@Param("auditor_id") String auditor_id);
     List<Map<String,Object>> getUserIdByTime(@Param("auditor_id")String auditor_id,
                                        @Param("start")String start,

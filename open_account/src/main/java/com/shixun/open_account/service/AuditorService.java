@@ -14,7 +14,7 @@ import java.util.Map;
 public interface AuditorService  {
     String getSecutityIdbyAuditorId( String auditor_id);
     JSONObject getSecurity(String security_id);
-    int gettoReviewNum(String security_id);
+    int gettoReviewNum(String security_id,Integer type);
     int getreviewedNum( String auditor_id);
     List<Map<String,Object>>  getUserIdByTime(String auditor_id,
                                        String start,

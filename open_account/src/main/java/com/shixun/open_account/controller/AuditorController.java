@@ -41,7 +41,7 @@ public class AuditorController {
         String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
         JSONObject security=auditorService.getSecurity(security_id);
         int getreviewedNum=auditorService.getreviewedNum(reviewerId);
-        int gettoReviewNum=auditorService.gettoReviewNum(security_id);
+        int gettoReviewNum=auditorService.gettoReviewNum(security_id,(Integer)(security.get("type")));
         JSONObject js=new JSONObject();
         if((Integer)(security.get("type"))==0)
         {
