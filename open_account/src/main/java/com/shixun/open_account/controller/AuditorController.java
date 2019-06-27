@@ -38,10 +38,12 @@ public class AuditorController {
         @RequestMapping(value="/api/statisticData/getReviewerInfo", method=POST, produces = "application/json;charset=UTF-8")
         public JSONObject getReviewerInfo(@RequestParam(value = "reviewerId") String reviewerId) throws Exception
         {
-            int getreviewedNum=auditorService.getreviewedNum(reviewerId);
-            int gettoReviewNum=auditorService.gettoReviewNum();
+
             String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
             JSONObject security=auditorService.getSecurity(security_id);
+            int getreviewedNum=auditorService.getreviewedNum(reviewerId);
+            int gettoReviewNum=auditorService.gettoReviewNum(security_id);
+           // System.out.println("gettoReviewNum"+gettoReviewNum);
             JSONObject js=new JSONObject();
             if((Integer)(security.get("type"))==0)
             {
@@ -55,10 +57,7 @@ public class AuditorController {
             js.put("reviewedNum",getreviewedNum);
             return js;
         }
-        @RequestMapping(value="/api/statisticData/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
-        public JSONArray getUserInfo(@RequestParam(value = "reviewerId") String reviewerId,
-
-    @RequestMapping(value="/api/statisitcData/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value="/api/statisticData/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
     public JSONArray getUserInfo(@RequestParam(value = "reviewerId") String reviewerId,
                                       @RequestParam(value = "start") String start,
                                       @RequestParam(value = "end") String end) throws Exception {
@@ -83,9 +82,10 @@ public class AuditorController {
         JSONObject security=auditorService.getSecurity(security_id);
         JSONObject js=new JSONObject();
         List<Map<String,Object>> lsm=auditorService.gettoReviewUser_List((Integer)(security.get("type")),security_id);
+       // System.out.println("lsm"+lsm);
         ArrayList<String> user_id_list=new ArrayList<>();
         getUseridList(lsm, user_id_list);
-        System.out.println(user_id_list);
+       // System.out.println(user_id_list);
         String user_id=user_id_list.get(0);
         JSONObject userInfoTemp =auditorService.getUserInfo(user_id);
         JSONArray userInfo=new JSONArray();
@@ -100,7 +100,7 @@ public class AuditorController {
         temp.put("title","用户ID");
         temp.put("content",user_id);
         userInfo.add(temp);
-        System.out.println(userInfo);
+       // System.out.println(userInfo);
         temp=new JSONObject();
         temp.put("title","姓名");
         temp.put("content",userInfoTemp.get("userName"));
@@ -139,9 +139,6 @@ public class AuditorController {
         userInfo.add(temp);
     }
 
-        System.out.println(jsonArray.toJSONString());
-        return   jsonArray;
-    }
 
     private void getUseridList(List<Map<String, Object>> lsm, ArrayList<String> user_id_list) {
         for(int i=0;i<lsm.size();i++)

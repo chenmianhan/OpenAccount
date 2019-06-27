@@ -18,12 +18,6 @@
         WHERE ai.status = 4
         AND ai.s_security_id= #{security_id}
     </select>
-
-
-       user u
-        WHERE u.status = 5
-    </select>
-
     <select id="getreviewedNum" resultType="java.lang.Integer">
         SELECT
         count(*)
