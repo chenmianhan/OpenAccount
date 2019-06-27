@@ -6,17 +6,8 @@
         SELECT
         count(*)
         FROM
-       account_info ai
-        WHERE ai.status = 4
-        AND ai.n_security_id= #{security_id}
-    </select>
-    <select id="gettoReviewNum_S" resultType="java.lang.Integer">
-        SELECT
-        count(*)
-        FROM
-       account_info ai
-        WHERE ai.status = 4
-        AND ai.s_security_id= #{security_id}
+       user u
+        WHERE u.status = 5
     </select>
     <select id="getreviewedNum" resultType="java.lang.Integer">
         SELECT
@@ -70,46 +61,9 @@
        customer_account ca
         WHERE ca.user_id= #{user_id}
     </select>
-
-    <select id="getOtherInfo" resultType="com.alibaba.fastjson.JSONObject">
-		select
-		ai.id_picture imageUrl_1,
-		ai.id_card_inverse_side imageUrl_2,
-		ai.id_card_inverse_side imageUrl_2,
-		ai.heashot imageUrl_3,
-		ai.risk_assessment_mark userGrade
-		from
-		account_info ai
-		WHERE ai.user_id = #{user_id}
-	</select>
-
-    <select id="gettoReviewUser_List_N" resultType="java.util.HashMap">
-        SELECT
-        ai.user_id user_id
-        FROM
-       account_info ai
-        WHERE ai.status = 4
-        AND ai.n_security_id= #{security_id}
-    </select>
-    <select id="gettoReviewUser_List_S" resultType="java.util.HashMap">
-        SELECT
-       ai.user_id user_id
-        FROM
-       account_info ai
-        WHERE ai.status = 4
-        AND ai.s_security_id= #{security_id}
-    </select>
-    <update id="setUserStatus">
-    update  user
-    set
-    status=#{status},
-    result_review=#{result_review}
-    where user_id = #{user_id}
-</update>
-
     
     <insert id="insertEmployee" 
-    	useGeneratedKeys="true" keyProperty="account_info_id">
+    	useGeneratedKeys="true" keyProperty="employee_id">
     	insert into employee
     	(employee_account, 
     	employee_password,
@@ -132,9 +86,9 @@
     	 #{auditor_id}
     	)
     </insert>
-
-    <update id="updateEmployee">
-    	update employee
+    
+   <update id="updateEmployee">
+    	update employee 
     	set
     	employee_account=#{employee_account},
     	employee_password=#{employee_password},
@@ -142,13 +96,12 @@
     	employee_name=#{employee_name}
     	where employee_id=#{employee_id}
     </update>
-
+    
     <update id="updateAuditor">
     	update auditor_manager
     	set
     	security_id=#{security_id}
     	where auditor_id=#{auditor_id}
     </update>
-
 
 </mapper>
