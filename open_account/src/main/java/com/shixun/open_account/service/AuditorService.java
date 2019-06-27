@@ -1,7 +1,7 @@
 package com.shixun.open_account.service;
 
 import com.alibaba.fastjson.JSONObject;
-
+import com.shixun.open_account.entity.Employee;
 
 import java.util.List;
 import java.util.Map;
@@ -25,12 +25,7 @@ public interface AuditorService  {
     List<Map<String,Object>>  gettoReviewUser_List(Integer type,String security_id);
     int setUserStatus(String user_id,String status,String result_review);
 
-    int insertEmployee(
-    		String employee_account, 
-    		String employee_password,
-    		String employee_type,
-    		String employee_name
-    		);
+    int insertEmployee(Employee employee);
     int insertAuditor(int security_id, int auditor_id);
     int updateEmployee(
             int employee_id,

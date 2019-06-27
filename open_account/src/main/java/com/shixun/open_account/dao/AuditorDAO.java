@@ -1,6 +1,8 @@
 package com.shixun.open_account.dao;
 
 import com.alibaba.fastjson.JSONObject;
+import com.shixun.open_account.entity.Employee;
+
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -28,12 +30,7 @@ public interface AuditorDAO {
     List<Map<String,Object>>  gettoReviewUser_List_S(@Param("security_id") String security_id);
 
     int setUserStatus(@Param("user_id")String user_id,@Param("status")String status,@Param("result_review")String result_review);
-    int insertEmployee(
-    		String employee_account, 
-    		String employee_password,
-    		String employee_type,
-    		String employee_name
-    		);
+    int insertEmployee(Employee employee);
     int insertAuditor(int security_id, int auditor_id);
     int updateEmployee(
             int employee_id,

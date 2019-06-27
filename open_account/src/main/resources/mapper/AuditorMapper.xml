@@ -112,7 +112,7 @@
 </update>
 
 
-    <insert id="insertEmployee" 
+    <insert id="insertEmployee"
     	useGeneratedKeys="true" keyProperty="employee_id">
     	insert into employee
     	(employee_account, 
