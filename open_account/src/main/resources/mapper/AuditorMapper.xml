@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.shixun.open_account.dao.AuditorDAO">
-    <select id="gettoReviewNum_N" resultType="java.lang.Integer">
+    <select id="gettoReviewNum" resultType="java.lang.Integer">
         SELECT
         count(*)
         FROM
@@ -19,6 +19,10 @@
         AND ai.s_security_id= #{security_id}
     </select>
 
+
+       user u
+        WHERE u.status = 5
+    </select>
 
     <select id="getreviewedNum" resultType="java.lang.Integer">
         SELECT
@@ -72,6 +76,7 @@
        customer_account ca
         WHERE ca.user_id= #{user_id}
     </select>
+
     <select id="getOtherInfo" resultType="com.alibaba.fastjson.JSONObject">
 		select
 		ai.id_picture imageUrl_1,
@@ -100,6 +105,34 @@
         WHERE ai.status = 4
         AND ai.s_security_id= #{security_id}
     </select>
+
+
+    
+    <insert id="insertEmployee" 
+    	useGeneratedKeys="true" keyProperty="account_info_id">
+    	insert into employee
+    	(employee_account, 
+    	employee_password,
+    	Employee_type,
+    	employee_name)
+    	values
+    	(
+    		#{employee_account},
+    		#{employee_password},
+    		#{employee_type},
+    		#{employee_name}
+    	)
+    </insert>
+    
+    <insert id="insertAuditor">
+    	insert into auditor_manager
+    	(security_id,auditor_id)
+    	values(
+    	 #{security_id},
+    	 #{auditor_id}
+    	)
+    </insert>
+    
 
 
 </mapper>

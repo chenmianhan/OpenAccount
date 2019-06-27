@@ -3,13 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.shixun.open_account.dao.SecurityDao">
 
-    <select id="getSecurity" resultType="com.alibaba.fastjson.JSONObject">
-        select name,type,security_id
-        from security s
-        where s.province=#{province} and s.city=#{city}
+    <select id="getSecurityBySecurityId" resultType="com.alibaba.fastjson.JSONObject">
+        select security_id,name,type,province,city from security s where s.security_id = #{security_id}
     </select>
     <select id="getSecurityAll" resultType="com.alibaba.fastjson.JSONObject">
         select * from security ORDER BY province,city,type
     </select>
-    
 </mapper>

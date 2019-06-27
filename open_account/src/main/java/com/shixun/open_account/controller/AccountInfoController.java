@@ -5,12 +5,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.shixun.open_account.dto.AccountInfoDto;
 import com.shixun.open_account.entity.AccountInfo;
 import com.shixun.open_account.entity.Address;
+//import com.shixun.open_account.redisUtils.RedisOperation;
 import com.shixun.open_account.service.ServieImpl.AccountInfoServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.redis.core.ValueOperations;
-//import org.springframework.data.redis.core.ValueOperations;
-//import org.springframework.http.ResponseEntity;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -36,6 +35,11 @@ public class AccountInfoController {
 	@Autowired
     private AccountInfoServiceImpl accountInfoService;
     
+	//	上传
+//	@PostMapping(value="/savePic")
+//	public void savePic()
+//	
+	//	添加用户信息
     @RequestMapping(value = "/addAccountInfo", method=POST,produces = "application/json;charset=UTF-8")
     public int addAccountInfo(@RequestBody JSONObject jsonObject
     		) throws Exception 
@@ -47,8 +51,9 @@ public class AccountInfoController {
 		  		 new Address(jsonObject.getObject("contact_address",String[].class)),
 		  		 new Address(jsonObject.getObject("postal_address",String[].class))
 		   		 );
-    	// create address first
+    	// insert address first
     	accountInfoService.addAddress(accountInfoDto.getId_address());
+//    	redisOperations.set(accountInfoDto.getId_address(), value);
     	Integer id_address_id = accountInfoDto.getId_address().getAid();
     
     	accountInfoService.addAddress(accountInfoDto.getContact_address());
@@ -134,7 +139,8 @@ public class AccountInfoController {
 	@PutMapping(value = "/updateSecurity",produces = "application/json;charset=UTF-8")
 	public int updateSecurity(
 			Integer user_id, Integer n_security_id, Integer s_security_id) {
-		if(accountInfoService.updateSecurity(user_id, n_security_id, s_security_id)==1) {
+		if(accountInfoService.updateSecurity(user_id, n_security_id, s_security_id)==1) 
+		{
 //			redisOperations.set("account_info:"+user_id, value);
 			return 1;
 		}
@@ -146,8 +152,13 @@ public class AccountInfoController {
 			Integer user_id, String deposit_bank, String deposit_account, String deposit_password)
 	{
 		if(accountInfoService.updateDeposit(user_id, deposit_bank, deposit_account, deposit_password)==1) {
+//			if(redisOperations.get(key))
+			
 			return 1;
 		}
 		else return 0;
 	}
 }
+
+
+// 22 11

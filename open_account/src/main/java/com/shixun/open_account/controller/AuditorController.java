@@ -38,6 +38,8 @@ public class AuditorController {
         @RequestMapping(value="/api/statisticData/getReviewerInfo", method=POST, produces = "application/json;charset=UTF-8")
         public JSONObject getReviewerInfo(@RequestParam(value = "reviewerId") String reviewerId) throws Exception
         {
+            int getreviewedNum=auditorService.getreviewedNum(reviewerId);
+            int gettoReviewNum=auditorService.gettoReviewNum();
             String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
             JSONObject security=auditorService.getSecurity(security_id);
             JSONObject js=new JSONObject();
@@ -48,9 +50,6 @@ public class AuditorController {
             else {
                 js.put("exchangeName","深圳证券交易所");
             }
-            int getreviewedNum=auditorService.getreviewedNum(reviewerId);
-            int gettoReviewNum=auditorService.gettoReviewNum((Integer)(security.get("type")),security_id);
-
             js.put("branchNetName",security.get("name"));
             js.put("toReviewNum",gettoReviewNum);
             js.put("reviewedNum",getreviewedNum);
@@ -58,6 +57,9 @@ public class AuditorController {
         }
         @RequestMapping(value="/api/statisticData/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
         public JSONArray getUserInfo(@RequestParam(value = "reviewerId") String reviewerId,
+
+    @RequestMapping(value="/api/statisitcData/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONArray getUserInfo(@RequestParam(value = "reviewerId") String reviewerId,
                                       @RequestParam(value = "start") String start,
                                       @RequestParam(value = "end") String end) throws Exception {
         JSONArray jsonArray=new JSONArray();
@@ -135,6 +137,10 @@ public class AuditorController {
         temp.put("title","银行卡号");
         temp.put("content",userInfoTemp.get("bankCardNum"));
         userInfo.add(temp);
+    }
+
+        System.out.println(jsonArray.toJSONString());
+        return   jsonArray;
     }
 
     private void getUseridList(List<Map<String, Object>> lsm, ArrayList<String> user_id_list) {
