@@ -9,8 +9,8 @@ import com.shixun.open_account.entity.Address;
  *@descrption:
  */
 public interface AccountInfoService {
-	//	accountInfo CRUD
-	//	add
+    //	accountInfo CRUD
+    //	add
     int addAccountInfo(AccountInfo accountInfo);
     //	get
     AccountInfo getAccountInfoByUserId(Integer user_id);
@@ -22,8 +22,8 @@ public interface AccountInfoService {
     int updateDeposit(Integer user_id, String deposit_bank, String deposit_account, String deposit_password);
     //	delete
     int deleteAccountInfoByUserId(Integer user_id);
-    
-    
+
+
     //	address CRUD
     //	add
     int addAddress(Address address);
@@ -33,5 +33,5 @@ public interface AccountInfoService {
     int deleteAddressByAid(Integer aid);
     //	update
     int updateAddress(Address address);
-    
+
 }

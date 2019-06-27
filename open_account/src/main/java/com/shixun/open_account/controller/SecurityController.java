@@ -49,7 +49,7 @@ public class SecurityController{
         {
             JSONObject tmp1=result.getJSONObject(i);
             JSONObject tmp2=result.getJSONObject(i+1);
-            System.out.println(tmp1);
+
 
 
                 if(tmp1.getString("city").equals(tmp2.getString("city")))
