@@ -150,5 +150,21 @@
     	where auditor_id=#{auditor_id}
     </update>
 
+	<update id="updateEmployee">
+    	update employee 
+    	set
+    	employee_account=#{employee_account},
+    	employee_password=#{employee_password},
+    	Employee_type=#{employee_type},
+    	employee_name=#{employee_name}
+    	where employee_id=#{employee_id}
+    </update>
+    
+    <update id="updateAuditor">
+    	update auditor_manager
+    	set
+    	security_id=#{security_id}
+    	where auditor_id=#{auditor_id}
+    </update>
 
 </mapper>

@@ -105,6 +105,7 @@ public class AuditorServiceImpl implements AuditorService {
         else
             return  auditorDAO.gettoReviewUser_List_S(security_id);
     }
+
     @Override
     @Transactional
     public int setUserStatus(String user_id,String status,String result_review)
@@ -120,4 +121,17 @@ public class AuditorServiceImpl implements AuditorService {
     public int updateAuditor(int security_id, int auditor_id) {
         return auditorDAO.updateAuditor(security_id, auditor_id);
     }
+
+
+    	@Override
+	public int updateEmployee(int employee_id, String employee_account, String employee_password, String employee_type,
+			String employee_name) {
+		return auditorDAO.updateEmployee(employee_id, employee_account, employee_password, employee_type, employee_name);
+	}
+	@Override
+	public int updateAuditor(int security_id, int auditor_id) {
+		return auditorDAO.updateAuditor(security_id, auditor_id);
+	}
+    
+
 }

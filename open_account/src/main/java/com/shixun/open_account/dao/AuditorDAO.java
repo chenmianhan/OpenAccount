@@ -34,6 +34,7 @@ public interface AuditorDAO {
     		String employee_name
     		);
     int insertAuditor(int security_id, int auditor_id);
+
     int updateEmployee(
             int employee_id,
             String employee_account,
@@ -43,5 +44,15 @@ public interface AuditorDAO {
     );
     int updateAuditor(int security_id, int auditor_id);
 
+
+    
+    int updateEmployee(
+    		int employee_id,
+    		String employee_account, 
+    		String employee_password,
+    		String employee_type,
+    		String employee_name
+    		);
+    int updateAuditor(int security_id, int auditor_id);
 
 }
