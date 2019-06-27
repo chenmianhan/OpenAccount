@@ -18,12 +18,11 @@ import java.util.List;
 public class SecurityServiceImpl implements SecurityService{
     @Resource
     private SecurityDao securityDao;
-
    
     @Override
-    public List<JSONObject> getSecurity(String province, String city)
+    public JSONObject getSecurityBySecurityId(Integer security_id)
     {
-        return securityDao.getSecurity(province,city);
+        return securityDao.getSecurityBySecurityId(security_id);
     }
     
     @Override
