@@ -63,9 +63,9 @@ public class AuditorController {
                                       @RequestParam(value = "start") String start,
                                       @RequestParam(value = "end") String end) throws Exception {
         JSONArray jsonArray=new JSONArray();
-        String startTimeStamp= getSQLDateTime(start);
-        String endTimeStamp= getSQLDateTime(end);
-        List<Map<String,Object>> lsm= auditorService.getUserIdByTime(reviewerId,startTimeStamp,endTimeStamp);
+      //  String startTimeStamp= getSQLDateTime(start);
+       // String endTimeStamp= getSQLDateTime(end);
+        List<Map<String,Object>> lsm= auditorService.getUserIdByTime(reviewerId,start,end);
         ArrayList<String> user_id_list=new ArrayList<>();
         getUseridList(lsm, user_id_list);
         for(int j=0;j<user_id_list.size();j++)
