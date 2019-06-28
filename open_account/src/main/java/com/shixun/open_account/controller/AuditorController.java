@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.shixun.open_account.dao.AuditorDAO;
 
+import com.shixun.open_account.service.AccountAllocService;
 import com.shixun.open_account.service.AuditorService;
 
 import com.shixun.open_account.util.CommonUtil;
@@ -35,6 +36,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class AuditorController {
     @Resource
     private AuditorService auditorService;
+    @Resource
+    private AccountAllocService accountAllocService;
     @RequestMapping(value="/api/statisticData/getReviewerInfo", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject getReviewerInfo(@RequestParam(value = "reviewerId") String reviewerId) throws Exception
     {
@@ -106,6 +109,13 @@ else return new JSONObject();
         {
             status="7";
             result_review="审核通过";
+         boolean result =   accountAllocService.openAccount(Integer.parseInt(userId,10),1000);
+         if(!result){
+             status="4";
+             result_review="开户系统出错";
+             auditorService.setUserStatus(userId,status,result_review);
+             return CommonUtil.getJson(AuditorConstants.ERROR_MSG);
+         }
         }
         else {
             status="6";
