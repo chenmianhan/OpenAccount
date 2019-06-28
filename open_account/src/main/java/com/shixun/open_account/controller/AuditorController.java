@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.shixun.open_account.dao.AuditorDAO;
 
+import com.shixun.open_account.service.AccountAllocService;
 import com.shixun.open_account.service.AuditorService;
 
 import com.shixun.open_account.util.CommonUtil;
@@ -35,6 +36,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class AuditorController {
     @Resource
     private AuditorService auditorService;
+    @Resource
+    private AccountAllocService accountAllocService;
     @RequestMapping(value="/api/statisticData/getReviewerInfo", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject getReviewerInfo(@RequestParam(value = "reviewerId") String reviewerId) throws Exception
     {
@@ -81,7 +84,16 @@ public class AuditorController {
 
         ArrayList<String> user_id_list=new ArrayList<>();
         getUseridList(lsm, user_id_list);
-
+        if(user_id_list.size()==0){
+            js.put("userInfo",new JSONArray());
+            js.put("imageUrl_1","");
+            js.put("imageUrl_2","");
+            js.put("imageUrl_3","");
+            js.put("userType","");
+            js.put("userGrade","");
+            js.put("code",AuditorConstants.NONE_MSG);
+            return js;
+}
         String user_id=user_id_list.get(0);
 int result=auditorService.setUserStatus(user_id,"5","审核中");
 if(result==1){JSONObject userInfoTemp =auditorService.getUserInfo(user_id);
@@ -89,6 +101,7 @@ if(result==1){JSONObject userInfoTemp =auditorService.getUserInfo(user_id);
     parseUserInfo(user_id, userInfoTemp, userInfo);
     JSONObject jsonObject=auditorService.getUserInfoUnreviewed(user_id);
     jsonObject.put("userInfo",userInfo);
+    jsonObject.put("code",AuditorConstants.MUCH_MSG);
     return jsonObject;}
 else return new JSONObject();
     }
@@ -106,6 +119,13 @@ else return new JSONObject();
         {
             status="7";
             result_review="审核通过";
+         boolean result =   accountAllocService.openAccount(Integer.parseInt(userId,10),1000);
+         if(!result){
+             status="4";
+             result_review="开户系统出错";
+             auditorService.setUserStatus(userId,status,result_review);
+             return CommonUtil.getJson(AuditorConstants.ERROR_MSG);
+         }
         }
         else {
             status="6";
