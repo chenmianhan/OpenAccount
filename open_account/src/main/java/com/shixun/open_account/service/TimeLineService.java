@@ -13,4 +13,5 @@ import java.util.List;
 
 public interface TimeLineService {
     JSONArray getTimeLine(String cusId);
+    JSONArray getOptionalTimeLine(String cusId,String startTime,String endTime);
 }

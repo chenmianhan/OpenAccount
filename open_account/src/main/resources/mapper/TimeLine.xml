@@ -8,5 +8,9 @@
         from transactions
         where customer_id=#{cusId}
     </select>
-
+    <select id="getOptionalTimeLine" resultType="com.alibaba.fastjson.JSONObject">
+        select createtime,message,value
+        from transactions
+        where customer_id=#{cusId}and (unix_timestamp(createtime) between unix_timestamp(#{startTime})and  unix_timestamp(#{endTime}))
+    </select>
 </mapper>

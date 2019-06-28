@@ -37,4 +37,12 @@ public class TimeLineController {
         String cusId=js.getString("customer_id");
         return timeLineService.getTimeLine(cusId);
     }
+    @RequestMapping(value="/timeline/get_optional_timeline",method = POST,produces = "application/json;charset=UTF-8")
+    public JSONArray getOptionalTimeLine(@RequestBody JSONObject js)
+    {
+        String cusId=js.getString("customer_id");
+        String startTime=js.getString("starttime");
+        String endTime=js.getString("endtime");
+        return timeLineService.getOptionalTimeLine(cusId,startTime,endTime);
+    }
 }
