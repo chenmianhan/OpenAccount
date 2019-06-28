@@ -26,15 +26,15 @@ public class LoginController {
     @Resource
     private UserService userService;
     @RequestMapping(value="/login", method=POST, produces = "application/json;charset=UTF-8")
-    public JSONObject login(@RequestParam(value = "phone") String phone,
+    public JSONObject login(@RequestParam(value = "account") String account,
                        @RequestParam(value = "password") String password,@RequestParam(value = "role") String role) throws Exception {
 
         if(role.equals("0")){
-            int result=userService.checkPhone(phone);
+            int result=userService.checkPhone(account);
             if(result==0){
                 try{
-                    userService.addUser(phone,password);
-                    userService.checkLogin(phone,password);
+                    userService.addUser(account,password);
+                    userService.checkLogin(account,password);
                   //System.out.println(SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO));
                     return CommonUtil.getJson(LoginConstants.NEW_CODE);
                 }
@@ -44,7 +44,7 @@ public class LoginController {
             }
             else {
 
-                result=userService.checkLogin(phone,password);
+                result=userService.checkLogin(account,password);
                 if(result!=0)
                 {
                     return CommonUtil.getJson(LoginConstants.OLD_CODE);
