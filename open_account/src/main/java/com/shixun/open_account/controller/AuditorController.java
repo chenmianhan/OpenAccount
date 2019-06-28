@@ -84,7 +84,16 @@ public class AuditorController {
 
         ArrayList<String> user_id_list=new ArrayList<>();
         getUseridList(lsm, user_id_list);
-
+        if(user_id_list.size()==0){
+            js.put("userInfo",new JSONArray());
+            js.put("imageUrl_1","");
+            js.put("imageUrl_2","");
+            js.put("imageUrl_3","");
+            js.put("userType","");
+            js.put("userGrade","");
+            js.put("code",AuditorConstants.NONE_MSG);
+            return js;
+}
         String user_id=user_id_list.get(0);
 int result=auditorService.setUserStatus(user_id,"5","审核中");
 if(result==1){JSONObject userInfoTemp =auditorService.getUserInfo(user_id);
@@ -92,6 +101,7 @@ if(result==1){JSONObject userInfoTemp =auditorService.getUserInfo(user_id);
     parseUserInfo(user_id, userInfoTemp, userInfo);
     JSONObject jsonObject=auditorService.getUserInfoUnreviewed(user_id);
     jsonObject.put("userInfo",userInfo);
+    jsonObject.put("code",AuditorConstants.MUCH_MSG);
     return jsonObject;}
 else return new JSONObject();
     }
