@@ -1,4 +1,4 @@
-package com.shixun.open_account.config.shiro;
+package com.shixun.open_account.config.shiro.realm;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shixun.open_account.service.UserService;
@@ -33,9 +33,6 @@ public class UserRealm extends AuthorizingRealm {
 		Session session = SecurityUtils.getSubject().getSession();
 		//查询用户的权限
 		JSONObject permission = (JSONObject) session.getAttribute(LoginConstants.SESSION_USER_PERMISSION);
-		//logger.info("permission的值为:" + permission);
-	//	logger.info("本用户权限为:" + permission.get("permissionList"));
-		//为当前用户设置角色和权限
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		authorizationInfo.addStringPermissions((Collection<String>) permission.get("permissionList"));
 		return authorizationInfo;
@@ -55,10 +52,9 @@ public class UserRealm extends AuthorizingRealm {
 	//	System.out.println("password");
 		JSONObject user = userService.getUser(phone, password);
 		if (user == null) {
-			//没找到帐号
-
 			throw new UnknownAccountException();
 		}
+		//System.out.println("sysy");
 		//交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，如果觉得人家的不好可以自定义实现
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
 				user.getString("phone"),

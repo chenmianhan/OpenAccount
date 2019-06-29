@@ -1,11 +1,12 @@
 package com.shixun.open_account.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.shixun.open_account.dao.UserDao;
+import com.shixun.open_account.service.EmployeeService;
 import com.shixun.open_account.service.UserService;
 import com.shixun.open_account.util.CommonUtil;
 import com.shixun.open_account.util.constants.LoginConstants;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,15 +23,15 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 public class LoginController {
     @Resource
-    UserDao userDao;
-    @Resource
     private UserService userService;
+    @Resource
+    private EmployeeService employeeService;
     @RequestMapping(value="/login", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject login(@RequestParam(value = "account") String account,
                        @RequestParam(value = "password") String password,@RequestParam(value = "role") String role) throws Exception {
-
+        int result;
         if(role.equals("0")){
-            int result=userService.checkPhone(account);
+           result =userService.checkPhone(account);
             if(result==0){
                 try{
                     userService.addUser(account,password);
@@ -57,8 +58,24 @@ public class LoginController {
         }
         else
         {
-          return CommonUtil.getJson(LoginConstants.OLD_CODE);
+            result=employeeService.login(account,password,role);
+            if(result!=0)
+            {
+                return CommonUtil.getJson(LoginConstants.OLD_CODE);
+            }
+            else
+            {
+                return CommonUtil.getJson(LoginConstants.FAIL_CODE);
+            }
         }
 
+
     }
+
+   /* @RequestMapping(value="/test", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONObject test()
+    {
+        Session session = SecurityUtils.getSubject().getSession();
+        return (JSONObject) session.getAttribute(LoginConstants.SESSION_USER_INFO);
+    }*/
 }

@@ -31,6 +31,19 @@
        user u
         WHERE u.phone = #{phone}
     </select>
+    <select id="getEmployee" resultType="com.alibaba.fastjson.JSONObject">
+        SELECT
+            e.employee_id      employee_id,
+            e.employee_account  employee_account,
+            e.employee_password employee_password,
+            e.Employee_type      Employee_type,
+            e.employee_name      employee_name
+        FROM
+            employee e
+        WHERE e.employee_account = #{employee_account}
+          AND e.employee_password = #{employee_password}
+          AND e.Employee_type = #{employee_type}
+    </select>
     <!--update id="updateDemo" >
         UPDATE demo d
         <set>
