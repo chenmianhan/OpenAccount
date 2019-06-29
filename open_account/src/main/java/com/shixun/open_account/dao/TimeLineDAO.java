@@ -14,4 +14,5 @@ import java.util.List;
 public interface TimeLineDAO{
     List<JSONObject> getTimeLine(@Param("cusId") String customerId);
     List<JSONObject> getOptionalTimeLine(@Param("cusId") String customerId,@Param("startTime") java.sql.Date startTime,@Param("endTime") java.sql.Date endTime);
+    String getCusId(@Param("usrId") String usrId);
 }

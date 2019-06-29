@@ -24,9 +24,10 @@ public class TimeLineServiceImpl implements TimeLineService{
     private TimeLineDAO timeLineDao;
 
     @Override
-    public JSONArray getTimeLine(String cusId)
+    public JSONArray getTimeLine(String usrId)
     {
         JSONArray arr=new JSONArray();
+        String cusId=timeLineDao.getCusId(usrId);
         arr.addAll(timeLineDao.getTimeLine(cusId));
         JSONObject tmp=new JSONObject();
         JSONArray ans=new JSONArray();
@@ -48,7 +49,7 @@ public class TimeLineServiceImpl implements TimeLineService{
     }
 
     @Override
-    public JSONArray getOptionalTimeLine(String cusId,String startTime,String endTime)
+    public JSONArray getOptionalTimeLine(String usrId,String startTime,String endTime)
     {
 
         JSONArray arr=new JSONArray();
@@ -64,6 +65,7 @@ public class TimeLineServiceImpl implements TimeLineService{
         }
         java.sql.Date sstart=new java.sql.Date(start.getTime());
         java.sql.Date eend=new java.sql.Date(end.getTime());
+        String cusId=timeLineDao.getCusId(usrId);
         arr.addAll(timeLineDao.getOptionalTimeLine(cusId,sstart,eend));
         JSONObject tmp=new JSONObject();
         JSONArray ans=new JSONArray();

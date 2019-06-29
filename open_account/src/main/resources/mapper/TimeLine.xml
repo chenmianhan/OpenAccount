@@ -13,4 +13,9 @@
         from transactions
         where customer_id=#{cusId}and (unix_timestamp(createtime) between unix_timestamp(#{startTime})and  unix_timestamp(#{endTime}))
     </select>
+    <select id="getCusId" resultType="java.lang.String">
+            select customer_id
+            from customer_account
+            where user_id = #{usrId}
+    </select>
 </mapper>
