@@ -5,6 +5,7 @@ import com.shixun.open_account.service.EmployeeService;
 import com.shixun.open_account.service.ReviewService;
 import com.shixun.open_account.service.UserService;
 import com.shixun.open_account.util.CommonUtil;
+import com.shixun.open_account.util.SessionUtil;
 import com.shixun.open_account.util.constants.LoginConstants;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -33,8 +34,7 @@ public class LoginController {
     @RequestMapping(value="/login", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject login(@RequestParam(value = "account") String account,
                             @RequestParam(value = "password") String password,
-                            @RequestParam(value = "role") String role) throws Exception
-    {
+                            @RequestParam(value = "role") String role) throws Exception {
         Subject currentUser = SecurityUtils.getSubject();
         Session session = currentUser.getSession();
         //System.out.println("session.getAttribute(LoginConstants.SESSION_USER_INFO)"+session.getAttribute(LoginConstants.SESSION_USER_INFO));
@@ -87,7 +87,6 @@ public class LoginController {
 
 
     }
-
     @RequestMapping(value="/logout", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject logout()
     {
@@ -100,9 +99,7 @@ public class LoginController {
 }
     @RequestMapping(value="/getReviewResult", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject getReviewResult() {
-        Subject currentUser = SecurityUtils.getSubject();
-        Session session = currentUser.getSession();
-        String user_id=((JSONObject)session.getAttribute(LoginConstants.SESSION_USER_INFO)).getString("user_id");
+        String user_id= SessionUtil.getSessionAttribute().getString("user_id");
        return reviewService.getReviewResult(user_id);
     }
 

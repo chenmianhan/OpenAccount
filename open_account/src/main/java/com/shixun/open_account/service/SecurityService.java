@@ -12,6 +12,6 @@ import java.util.List;
  *@descrption:
  */
 public interface SecurityService {
-	public JSONObject getSecurityBySecurityId(Integer security_id);
-    public List<JSONObject> getSecurityAll();
+    JSONObject getSecurityBySecurityId(Integer security_id);
+    List<JSONObject> getSecurityAll();
 }

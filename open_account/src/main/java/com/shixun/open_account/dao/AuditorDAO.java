@@ -40,6 +40,5 @@ public interface AuditorDAO {
             String employee_name
     );
     int updateAuditor(int security_id, int auditor_id);
-
-
+    JSONObject getOneUsertoReview();
 }

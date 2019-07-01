@@ -70,7 +70,7 @@ public class AuditorRealm extends AuthorizingRealm {
                 getName()
         );
         //session中不需要保存密码
-        auditor.remove("password");
+        auditor.remove("employee_password");
         //将用户信息放入session中
         SecurityUtils.getSubject().getSession().setAttribute(LoginConstants.SESSION_USER_INFO, auditor);
         return authenticationInfo;

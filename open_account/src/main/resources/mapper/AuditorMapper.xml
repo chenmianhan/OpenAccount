@@ -110,7 +110,10 @@
     status=#{status}
     where user_id = #{user_id}
 </update>
+<select id=" getOneUsertoReview" resultType="com.alibaba.fastjson.JSONObject">
 
+
+</select>
 
     <insert id="insertEmployee"
     	useGeneratedKeys="true" keyProperty="employee_id">

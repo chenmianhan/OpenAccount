@@ -8,7 +8,9 @@ import com.shixun.open_account.dao.AuditorDAO;
 import com.shixun.open_account.service.AccountAllocService;
 import com.shixun.open_account.service.AuditorService;
 
+import com.shixun.open_account.service.SecurityService;
 import com.shixun.open_account.util.CommonUtil;
+import com.shixun.open_account.util.SessionUtil;
 import com.shixun.open_account.util.constants.AuditorConstants;
 import net.sf.jsqlparser.parser.ParseException;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,27 +39,26 @@ public class AuditorController {
     @Resource
     private AuditorService auditorService;
     @Resource
+    private SecurityService securityService;
+    @Resource
     private AccountAllocService accountAllocService;
-    @RequestMapping(value="/api/statisticData/getReviewerInfo", method=POST, produces = "application/json;charset=UTF-8")
-    public JSONObject getReviewerInfo(@RequestParam(value = "reviewerId") String reviewerId) throws Exception
-    {
+    @RequestMapping(value="/reviewer", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONObject reviewer(){
+        String reviewerId= SessionUtil.getSessionAttribute().getString("employee_id");
         String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
-        JSONObject security=auditorService.getSecurity(security_id);
-        int getreviewedNum=auditorService.getreviewedNum(reviewerId);
-        int gettoReviewNum=auditorService.gettoReviewNum(security_id,(Integer)(security.get("type")));
+        JSONObject security=securityService.getSecurityBySecurityId(Integer.parseInt(security_id,10));
+        String netName=security.getString("name");
+        String reviewerName=SessionUtil.getSessionAttribute().getString("employee_name");
         JSONObject js=new JSONObject();
-        if((Integer)(security.get("type"))==0)
-        {
-            js.put("exchangeName","上海证券交易所");
-        }
-        else
-            {
-                js.put("exchangeName","深圳证券交易所"); }
-        js.put("branchNetName",security.get("name"));
-        js.put("toReviewNum",gettoReviewNum);
-        js.put("reviewedNum",getreviewedNum);
+        js.put("netName",netName);
+        js.put("reviewerName",reviewerName);
         return js;
         }
+
+
+
+
+
     @RequestMapping(value="/api/statisticData/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
     public JSONArray getUserInfo(@RequestParam(value = "reviewerId") String reviewerId,
                                       @RequestParam(value = "start") String start,
@@ -81,7 +82,6 @@ public class AuditorController {
         JSONObject security=auditorService.getSecurity(security_id);
         JSONObject js=new JSONObject();
         List<Map<String,Object>> lsm=auditorService.gettoReviewUser_List((Integer)(security.get("type")),security_id);
-
         ArrayList<String> user_id_list=new ArrayList<>();
         getUseridList(lsm, user_id_list);
         if(user_id_list.size()==0){
@@ -106,7 +106,7 @@ if(result==1){JSONObject userInfoTemp =auditorService.getUserInfo(user_id);
 else return new JSONObject();
     }
 
-    @RequestMapping(value="/reviewUser/postResult", method=POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value="/reviewer/postResult", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject postResult(@RequestParam(value = "userId") String userId,
                                  @RequestParam(value = "infoResult") String infoResult,
                                  @RequestParam(value = "gradeResult") String gradeResult,
@@ -119,7 +119,7 @@ else return new JSONObject();
         {
             status="7";
             result_review="审核通过";
-         boolean result =   accountAllocService.openAccount(Integer.parseInt(userId,10),1000);
+         boolean result = accountAllocService.openAccount(Integer.parseInt(userId,10),1000);
          if(!result){
              status="8";
              result_review="开户系统出错";
@@ -189,8 +189,6 @@ else return new JSONObject();
         temp.put("content",userInfoTemp.get("bankCardNum"));
         userInfo.add(temp);
     }
-
-
     private void getUseridList(List<Map<String, Object>> lsm, ArrayList<String> user_id_list) {
         for(int i=0;i<lsm.size();i++)
         {
@@ -200,7 +198,7 @@ else return new JSONObject();
         }
     }
 
-    private String getSQLDateTime( String start) {
+    /*private String getSQLDateTime( String start) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         java.sql.Date sdate = null;
         Timestamp timestamp ;//初始化  
@@ -215,6 +213,6 @@ else return new JSONObject();
             e.printStackTrace();
         }
         return null;
-    }
+    }*/
 
 }

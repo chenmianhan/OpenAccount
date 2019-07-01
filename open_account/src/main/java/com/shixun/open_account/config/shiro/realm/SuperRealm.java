@@ -71,7 +71,7 @@ public class SuperRealm extends AuthorizingRealm {
                 getName()
         );
         //session中不需要保存密码
-        superAdmin.remove("password");
+        superAdmin.remove("employee_password");
         //将用户信息放入session中
         SecurityUtils.getSubject().getSession().setAttribute(LoginConstants.SESSION_USER_INFO, superAdmin);
         return authenticationInfo;

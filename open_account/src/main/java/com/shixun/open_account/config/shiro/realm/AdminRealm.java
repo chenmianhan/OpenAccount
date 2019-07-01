@@ -70,7 +70,7 @@ public class AdminRealm extends AuthorizingRealm {
                 getName()
         );
         //session中不需要保存密码
-        admin.remove("password");
+        admin.remove("employee_password");
         //将用户信息放入session中
         SecurityUtils.getSubject().getSession().setAttribute(LoginConstants.SESSION_USER_INFO, admin);
         return authenticationInfo;

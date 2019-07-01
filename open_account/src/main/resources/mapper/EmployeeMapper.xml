@@ -7,7 +7,7 @@
             e.employee_id      employee_id,
             e.employee_account  employee_account,
             e.employee_password employee_password,
-            e.Employee_type      Employee_type,
+            e.employee_type      employee_type,
             e.employee_name      employee_name
         FROM
             employee e
