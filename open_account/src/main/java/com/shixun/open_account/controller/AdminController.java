@@ -27,47 +27,15 @@ public class AdminController {
 	@Autowired
     private AuditorService auditorService;
     
-//    @GetMapping(value = "/admin/get_securityUnderAdmin", produces = "application/json;charset=UTF-8")
-//    public JSONArray getSecurity(@RequestParam Integer admin_id)
-//    {
+    @GetMapping(value = "/superadmin/get_securityUnderAdmin", produces = "application/json;charset=UTF-8")
+    public JSONArray getSecurityIdBySuperAdmin()
+    {
     	//	get Security_id under one specific admin
-//    	List<Integer> list = adminService.getSecurityIdByAdminId(admin_id);
-//    	ArrayList<JSONObject> js = new ArrayList<>(50);
-//    	//	get security details
-//    	for(Integer i:list)	js.add(securityService.getSecurityBySecurityId(i));
-//    	//	result instance
-//    	JSONArray res = new JSONArray(list.size());
-//    	
-    	
-    	
-    	//
-//    	int index = 0;
-//    	while(true) {
-//    		if(js.get(index).getString("province")
-//    				.equals(js.get(index+1).getString("province"))) {
-//    			while(true) {
-//    				if(js.get(index).getString("city")
-//    						.equals(js.get(index+1).getString("city"))) {
-//    					JSONArray citySecurity = new JSONArray();
-//    					while(true) {
-//    						JSONObject singleSecurity = js.get(index);
-//    						
-//    					}
-//    				}
-//    			}
-//    		}
-//    	}
-//    	
-//    	JSONArray provinceSecurity = new JSONArray();
-//    	
-//    	
-//    	
-//    	
-//    	
-//    	
-//    	
-//    	
-//    }
+    	List<JSONObject> list = adminService.getSecurityIdBySuperAdmin();
+    	JSONArray array = new JSONArray(list.size());
+    	array.addAll(list);
+    	return array;
+    }
 
 	@PostMapping(value = "/admin/addAuditor")
 	public int addAuditor(@RequestBody JSONObject jsonObject) {

@@ -4,7 +4,7 @@
 <mapper namespace="com.shixun.open_account.dao.SecurityDao">
 
     <select id="getSecurityBySecurityId" resultType="com.alibaba.fastjson.JSONObject">
-        select security_id,name,type,province,city from security s where s.security_id = #{security_id}
+        select * from security s where s.security_id = #{security_id}
     </select>
     <select id="getSecurityAll" resultType="com.alibaba.fastjson.JSONObject">
         select * from security ORDER BY province,city,type
