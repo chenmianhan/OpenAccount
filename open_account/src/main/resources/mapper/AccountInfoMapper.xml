@@ -15,12 +15,11 @@
 		  postal_address_id,
 		  trans_password,
 		  fund_password,
-		  n_security_id,
-		  s_security_id,
+		  security_id,
+		  trade_type,
 		  deposit_bank,
 		  deposit_account,
 		  deposit_password,
-		  status,
 		  profession,
 		  education,
 		  email,
@@ -41,12 +40,11 @@
 			  #{postal_address_id},
 			  #{trans_password},
 			  #{fund_password},
-			  #{n_security_id},
-			  #{s_security_id},
+			  #{security_id},
+			  #{trade_type},
 			  #{deposit_bank},
 			  #{deposit_account},
 			  #{deposit_password},
-			  #{status},
 			  #{profession},
 			  #{education},
 			  #{email},
@@ -76,12 +74,11 @@
 		postal_address_id=#{postal_address_id},
 		trans_password=#{trans_password},
 		fund_password=#{fund_password},
-		n_security_id=#{n_security_id},
-		s_security_id=#{s_security_id},
+		security_id=#{security_id},
+		trade_type=#{trade_type},
 		deposit_bank=#{deposit_bank},
 		deposit_account=#{deposit_account},
 		deposit_password=#{deposit_password},
-		status=#{status},
 		profession=#{profession},
 		education=#{education},
 		email=#{email},
@@ -116,8 +113,8 @@
 	<!-- addAddress -->
 	<insert id="addAddress"
 		useGeneratedKeys="true" keyProperty="aid">
-		insert into address(province,city,street) 
-		values(#{province},#{city},#{street})
+		insert into address(province,city,street,detail) 
+		values(#{province},#{city},#{street},#{detail})
 	</insert>
 	
 	<!-- getAddressByAId -->

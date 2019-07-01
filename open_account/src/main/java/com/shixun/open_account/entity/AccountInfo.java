@@ -24,12 +24,11 @@ public class AccountInfo implements Serializable {
 	private Integer postal_address_id;
 	private String trans_password;
 	private String fund_password;
-	private Integer n_security_id;
-	private Integer s_security_id;
+	private Integer security_id;
+	private String trade_type;
 	private String deposit_bank;
 	private String deposit_account;
 	private String deposit_password;
-	private String status;
 	private String profession;
 	private String education;
 	private String email;

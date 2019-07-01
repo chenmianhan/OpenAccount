@@ -10,7 +10,8 @@ public class Address {
 	private String province;
 	private String city;
 	private String street;
-	public Address(String[] address) throws Exception {
+	private String detail;
+	public Address(String[] address,String detail) throws Exception {
 		if(address.length<3) throw new Exception("length of address json array is not enough");
 		this.province = address[0];
 		this.city = address[1];

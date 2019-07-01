@@ -47,9 +47,9 @@ public class AccountInfoController {
     	System.out.println(jsonObject);
     	AccountInfoDto accountInfoDto = new AccountInfoDto
     			(jsonObject.getObject("account_info",AccountInfo.class), 
-		  		 new Address(jsonObject.getObject("id_address",String[].class)),
-		  		 new Address(jsonObject.getObject("contact_address",String[].class)),
-		  		 new Address(jsonObject.getObject("postal_address",String[].class))
+		  		 new Address(jsonObject.getObject("id_address",String[].class),jsonObject.getString("id_address_detail")),
+		  		 new Address(jsonObject.getObject("contact_address",String[].class),jsonObject.getString("contact_address_detail")),
+		  		 new Address(jsonObject.getObject("postal_address",String[].class),jsonObject.getString("postal_address_detail"))
 		   		 );
     	// insert address first
     	accountInfoService.addAddress(accountInfoDto.getId_address());
@@ -67,7 +67,7 @@ public class AccountInfoController {
 		accountInfoDto.getAccount_info().setContact_address_id(contact_address_id);
 		accountInfoDto.getAccount_info().setPostal_address_id(postal_address_id);
 		accountInfoService.addAccountInfo(accountInfoDto.getAccount_info());
-		
+		System.out.println();
 		//	if successfully insert, then set redis
 //		if(temp.getAccount_info_id()!=null) {
 //			redisOperations.set("account_info:"+user_id, temp, Duration.ofHours(24L));
