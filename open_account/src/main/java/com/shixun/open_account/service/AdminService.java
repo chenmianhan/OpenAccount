@@ -7,4 +7,5 @@ import com.alibaba.fastjson.JSONObject;
 
 public interface AdminService {
 	List<JSONObject> getSecurityIdBySuperAdmin();
+	Integer getSecurityIdByAdminId(Integer admin_id);
 }

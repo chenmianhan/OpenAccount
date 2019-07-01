@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import com.shixun.open_account.entity.Employee;
 import com.shixun.open_account.service.AdminService;
 import com.shixun.open_account.service.AuditorService;
 import com.shixun.open_account.service.SecurityService;
+import com.shixun.open_account.util.constants.LoginConstants;
 
 @RestController
 public class AdminController {
@@ -39,13 +41,18 @@ public class AdminController {
 
 	@PostMapping(value = "/admin/addAuditor")
 	public int addAuditor(@RequestBody JSONObject jsonObject) {
+		//	insert employee table
 		Employee employee = new Employee(null, jsonObject.getString("account"), jsonObject.getString("password"), "2", jsonObject.getString("name"));
 		auditorService.insertEmployee(employee);
+		//	before insert auditor_manage, get current admin_id
+		JSONObject jsonObject2 = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+		int security_id = adminService.getSecurityIdByAdminId(jsonObject2.getInteger("employee_id"));
 		return auditorService.insertAuditor(
-				jsonObject.getIntValue("security_id"),
+				security_id,
 				employee.getEmployee_id()
 				);
 	}
+	
 	@PutMapping(value = "/admin/modifyAuditor")
 	public int updateEmployee(@RequestBody JSONObject jsonObject) {
 		return auditorService.updateEmployee(

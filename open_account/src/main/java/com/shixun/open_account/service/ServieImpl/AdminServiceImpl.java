@@ -17,5 +17,9 @@ public class AdminServiceImpl implements AdminService{
 	public List<JSONObject> getSecurityIdBySuperAdmin() {
 		return adminDAO.getSecurityIdBySuperAdmin();
 	}
+	@Override
+	public Integer getSecurityIdByAdminId(Integer admin_id) {
+		return adminDAO.getSecurityIdByAdminId(admin_id);
+	}
 
 }
