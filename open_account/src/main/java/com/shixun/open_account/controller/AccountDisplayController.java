@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.javassist.expr.NewArray;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import com.shixun.open_account.entity.AccountInfo;
 import com.shixun.open_account.service.AccountDisplayService;
 import com.shixun.open_account.service.AccountInfoService;
 import com.shixun.open_account.service.SecurityService;
+import com.shixun.open_account.util.constants.LoginConstants;
 
 @RestController
 public class AccountDisplayController {
@@ -76,6 +78,7 @@ public class AccountDisplayController {
 	
 //	@PostMapping(value = "/account/addFundAccount",produces = "application/json;charset=UTF-8")
 //	public int addFundAccount() {
+//		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
 //		
 //	}
 

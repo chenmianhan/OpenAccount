@@ -9,4 +9,35 @@
 		select security_id from admin_manager
 		where admin_id = #{admin_id}
 	</select>
+	<insert id="addAdminEmployee" 
+	useGeneratedKeys="true" keyProperty="employee_id">
+		insert into employee 
+		(
+		employee_name,
+		employee_account,
+		employee_password,
+		employee_type
+		)
+		values(
+		#{employee_name},
+		#{employee_account},
+		#{employee_password},
+		#{employee_type}
+		)
+	</insert>
+	<insert id="addAdminManage">
+		insert into admin_manager
+		(security_id,admin_id)
+		values(
+		#{security_id},
+		#{employee_id}
+		)
+	</insert>
+	<update id="updateAdmin">
+		update employee set
+		employee_name=#{employee_name},
+		employee_account=#{employee_account},
+		employee_password=#{employee_password}
+		where employee_id =#{employee_id}
+	</update>
 </mapper>
