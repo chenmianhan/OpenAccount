@@ -11,6 +11,8 @@ public class LoginConstants {
 	public static final String FAIL_CODE = "101";
 	public static final String NEW_CODE = "102";
 	public static final String ERROR_CODE="103";
+	public static final String LOGOUT_CODE="104";
+	public static final String LOGOUT_ERROR_CODE="105";
 	//public static final String SUCCESS_MSG = "请求成功";
 	//public static final String FAIL_MSG = "请求失败";
 

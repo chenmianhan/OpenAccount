@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.shixun.open_account.config.shiro.common.UserToken;
 import com.shixun.open_account.dao.UserDao;
 import com.shixun.open_account.service.UserService;
+import com.shixun.open_account.util.CommonUtil;
+import com.shixun.open_account.util.constants.LoginConstants;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
@@ -52,4 +54,15 @@ public class UserServiceImpl implements UserService {
     @Override
     //@Transactional
     public JSONObject getUser(String phone, String password) { return   userDao.getUser(phone, password); }
+
+    @Override
+    public JSONObject logout() {
+        try {
+            Subject currentUser = SecurityUtils.getSubject();
+            currentUser.logout();
+        } catch (Exception e) {
+            return CommonUtil.getJson(LoginConstants.LOGOUT_ERROR_CODE);
+        }
+        return CommonUtil.getJson(LoginConstants.LOGOUT_CODE);
+    }
 }

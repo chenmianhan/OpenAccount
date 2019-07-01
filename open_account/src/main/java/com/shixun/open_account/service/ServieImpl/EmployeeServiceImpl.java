@@ -2,7 +2,7 @@ package com.shixun.open_account.service.ServieImpl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shixun.open_account.config.shiro.common.UserToken;
-import com.shixun.open_account.dao.UserDao;
+import com.shixun.open_account.dao.EmployeeDAO;
 import com.shixun.open_account.service.EmployeeService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -20,23 +20,15 @@ import javax.annotation.Resource;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     @Resource
-    //private EmployeeDAO employeeDAO;
-    private UserDao userDao;
+    private EmployeeDAO employeeDAO;
     @Override
     @Transactional
-    public JSONObject getEmployee(String employee_account, String employee_password, String Employee_type)
-    {
-        //System.out.println(getClass()+Employee_type);
-        //JSONObject  result=employeeDAO.getEmployee(employee_account, employee_password, Employee_type);
-        JSONObject  result=userDao.getEmployee(employee_account, employee_password, Employee_type);
-
+    public JSONObject getEmployee(String employee_account, String employee_password, String Employee_type) {
+        JSONObject  result=employeeDAO.getEmployee(employee_account, employee_password, Employee_type);
         return result;
-       // return employeeDAO.getEmployee(employee_account, employee_password, Employee_type);
     }
     @Override
-    public int login(String employee_account, String employee_password, String Employee_type)
-    {
-
+    public int login(String employee_account, String employee_password, String Employee_type) {
         Subject currentUser = SecurityUtils.getSubject();
         UserToken token =  new UserToken(employee_account,employee_password,Employee_type);
         try {

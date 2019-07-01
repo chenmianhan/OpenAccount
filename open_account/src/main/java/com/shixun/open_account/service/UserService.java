@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSONObject;
 public interface UserService {
     int checkPhone(String phone);
     int checkLogin(String phone, String password);
-    int addUser( String phone, String password);
+    int addUser(String phone, String password);
     JSONObject getUser(String phone, String password);
+    JSONObject logout();
 }

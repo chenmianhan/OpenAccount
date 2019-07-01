@@ -2,11 +2,13 @@ package com.shixun.open_account.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shixun.open_account.service.EmployeeService;
+import com.shixun.open_account.service.ReviewService;
 import com.shixun.open_account.service.UserService;
 import com.shixun.open_account.util.CommonUtil;
 import com.shixun.open_account.util.constants.LoginConstants;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,10 +27,24 @@ public class LoginController {
     @Resource
     private UserService userService;
     @Resource
+    private ReviewService reviewService;
+    @Resource
     private EmployeeService employeeService;
     @RequestMapping(value="/login", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject login(@RequestParam(value = "account") String account,
-                       @RequestParam(value = "password") String password,@RequestParam(value = "role") String role) throws Exception {
+                            @RequestParam(value = "password") String password,
+                            @RequestParam(value = "role") String role) throws Exception
+    {
+        Subject currentUser = SecurityUtils.getSubject();
+        Session session = currentUser.getSession();
+        //System.out.println("session.getAttribute(LoginConstants.SESSION_USER_INFO)"+session.getAttribute(LoginConstants.SESSION_USER_INFO));
+        if(session.getAttribute(LoginConstants.SESSION_USER_INFO)!=null)
+        {
+
+         //   System.out.println("session is not empty");
+            // (JSONObject) ;
+            currentUser.logout();
+        }
         int result;
         if(role.equals("0")){
            result =userService.checkPhone(account);
@@ -72,10 +88,22 @@ public class LoginController {
 
     }
 
-   /* @RequestMapping(value="/test", method=POST, produces = "application/json;charset=UTF-8")
-    public JSONObject test()
+    @RequestMapping(value="/logout", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONObject logout()
     {
+        return userService.logout();
+    }
+    @RequestMapping(value="/test", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONObject test() {
         Session session = SecurityUtils.getSubject().getSession();
         return (JSONObject) session.getAttribute(LoginConstants.SESSION_USER_INFO);
-    }*/
+}
+    @RequestMapping(value="/getReviewResult", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONObject getReviewResult() {
+        Subject currentUser = SecurityUtils.getSubject();
+        Session session = currentUser.getSession();
+        String user_id=((JSONObject)session.getAttribute(LoginConstants.SESSION_USER_INFO)).getString("user_id");
+       return reviewService.getReviewResult(user_id);
+    }
+
 }

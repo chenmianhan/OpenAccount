@@ -121,7 +121,7 @@ else return new JSONObject();
             result_review="审核通过";
          boolean result =   accountAllocService.openAccount(Integer.parseInt(userId,10),1000);
          if(!result){
-             status="4";
+             status="8";
              result_review="开户系统出错";
              auditorService.setUserStatus(userId,status,result_review);
              return CommonUtil.getJson(AuditorConstants.ERROR_MSG);
