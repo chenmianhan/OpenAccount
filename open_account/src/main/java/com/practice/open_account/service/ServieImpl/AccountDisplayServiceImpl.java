@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.practice.open_account.dao.AccountDisplayDAO;
+import com.practice.open_account.entity.FundAccount;
 
 @Service
 public class AccountDisplayServiceImpl implements AccountDisplayService {
@@ -25,5 +26,14 @@ public class AccountDisplayServiceImpl implements AccountDisplayService {
 	public List<JSONObject> getCurrencyByFundId(String fund_id) {
 		return accountDisplayDAO.getCurrencyByFundId(fund_id);
 	}
-	
+	@Override
+	public String getMaxFundId() {
+		// TODO Auto-generated method stub
+		return accountDisplayDAO.getMaxFundId();
+	}
+	@Override
+	public int addFundAccount(FundAccount fundAccount) {
+		// TODO Auto-generated method stub
+		return accountDisplayDAO.addFundAccount(fundAccount);
+	}
 }

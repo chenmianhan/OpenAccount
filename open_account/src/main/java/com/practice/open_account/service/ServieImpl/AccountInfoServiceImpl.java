@@ -33,8 +33,9 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 		return accountInfoDAO.updateAccountInfo(accountInfo);
 	}
 	@Override
-	public int updateSecurity(Integer user_id, Integer n_security_id, Integer s_security_id) {
-		return accountInfoDAO.updateSecurity(user_id, n_security_id, s_security_id);
+	public int updateSecurity(Integer user_id, Integer security_id, String trade_type) {
+		// TODO Auto-generated method stub
+		return accountInfoDAO.updateSecurity(user_id, security_id, trade_type);
 	}
 	@Override
 	public int updateDeposit(Integer user_id, String deposit_bank, String deposit_account, String deposit_password) {
@@ -62,6 +63,13 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 	@Override
 	public int updateAddress(Address address) {
 		return accountInfoDAO.updateAddress(address);
+	}
+	
+	//	user status
+	@Override
+	public int updateUserStatus(Integer user_id, String status) {
+		// TODO Auto-generated method stub
+		return accountInfoDAO.updateUserStatus(user_id, status);
 	}
 
 }

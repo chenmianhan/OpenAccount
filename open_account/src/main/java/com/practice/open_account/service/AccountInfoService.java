@@ -17,7 +17,7 @@ public interface AccountInfoService {
     //	updateAll
     int updateAccountInfo(AccountInfo accountInfo);
     //	updateSecurity
-    int updateSecurity(Integer user_id, Integer n_security_id, Integer s_security_id);
+    int updateSecurity(Integer user_id, Integer security_id, String trade_type);
     //	updateDeposit
     int updateDeposit(Integer user_id, String deposit_bank, String deposit_account, String deposit_password);
     //	delete
@@ -33,5 +33,8 @@ public interface AccountInfoService {
     int deleteAddressByAid(Integer aid);
     //	update
     int updateAddress(Address address);
+    
+    //	User status update
+    int updateUserStatus(Integer user_id,String status);
 
 }

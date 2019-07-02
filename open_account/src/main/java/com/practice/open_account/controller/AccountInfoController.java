@@ -5,8 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.practice.open_account.dto.AccountInfoDto;
 import com.practice.open_account.entity.AccountInfo;
 import com.practice.open_account.entity.Address;
+import com.practice.open_account.service.SecurityService;
 //import com.shixun.open_account.redisUtils.RedisOperation;
 import com.practice.open_account.service.ServieImpl.AccountInfoServiceImpl;
+import com.practice.open_account.util.constants.LoginConstants;
 
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.data.redis.core.ValueOperations;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import org.apache.shiro.SecurityUtils;
+
 /****
  *@author:cmh
  *@date: 2019/6/110944
@@ -31,6 +35,8 @@ public class AccountInfoController {
 //	private ValueOperations<Object, Object> redisOperations;
 	@Autowired
     private AccountInfoServiceImpl accountInfoService;
+	@Autowired
+	private SecurityService securityService;
     
 	//	上传
 //	@PostMapping(value="/savePic")
@@ -48,6 +54,9 @@ public class AccountInfoController {
 		  		 new Address(jsonObject.getObject("contact_address",String[].class),jsonObject.getString("contact_address_detail")),
 		  		 new Address(jsonObject.getObject("postal_address",String[].class),jsonObject.getString("postal_address_detail"))
 		   		 );
+//    	通过session获取user_id
+    	JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+    	accountInfoDto.getAccount_info().setUser_id(sessonJsonObject.getInteger("user_id"));
     	// insert address first
     	accountInfoService.addAddress(accountInfoDto.getId_address());
 //    	redisOperations.set(accountInfoDto.getId_address(), value);
@@ -65,23 +74,26 @@ public class AccountInfoController {
 		accountInfoDto.getAccount_info().setPostal_address_id(postal_address_id);
 		accountInfoService.addAccountInfo(accountInfoDto.getAccount_info());
 		System.out.println();
+		//	update status
+		return accountInfoService.updateUserStatus(accountInfoDto.getAccount_info().getUser_id(), "1");
 		//	if successfully insert, then set redis
 //		if(temp.getAccount_info_id()!=null) {
 //			redisOperations.set("account_info:"+user_id, temp, Duration.ofHours(24L));
-			return 1;
+			
 //			}
 //		return 0;
     	}
     
     @GetMapping(value = "/getAccountInfo",produces = "application/json;charset=UTF-8")
     public AccountInfoDto getAccountInfoByUserId
-    	(@RequestParam("user_id")Integer user_id) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+    	() throws Exception{
     	//	get directly if in redis.
     	//	Otherwise get from mysql and reset in redis
     	AccountInfo temp = null;
 //    	if(( temp= (AccountInfo)redisOperations.get("account_info:"+user_id) )==null)
 //    	{
-    		temp = accountInfoService.getAccountInfoByUserId(user_id);
+    	Integer user_id =((JSONObject) SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO)).getIntValue("user_id");
+		temp = accountInfoService.getAccountInfoByUserId(user_id);
 //    		redisOperations.set("account_info:"+user_id,temp,Duration.ofHours(24L));
 //    	}
     	//System.out.println(temp.getClass().getField("name").get(temp));
@@ -135,27 +147,45 @@ public class AccountInfoController {
 
 	@PutMapping(value = "/updateSecurity",produces = "application/json;charset=UTF-8")
 	public int updateSecurity(
-			Integer user_id, Integer n_security_id, Integer s_security_id) {
-		if(accountInfoService.updateSecurity(user_id, n_security_id, s_security_id)==1) 
-		{
+			 Integer security_id, String trade_type) {
+    	//	通过session获取user_id
+    	JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+    	int user_id = sessonJsonObject.getIntValue("user_id");
+		return ((accountInfoService.updateSecurity(user_id, security_id, trade_type))&
+				accountInfoService.updateUserStatus(user_id, "3"));
 //			redisOperations.set("account_info:"+user_id, value);
-			return 1;
-		}
-		return 0;
 	}
 	
 	@PutMapping(value = "/updateDeposit",produces = "application/json;charset=UTF-8")
-	public int updateDeposit(
-			Integer user_id, String deposit_bank, String deposit_account, String deposit_password)
+	public String updateDeposit(
+			String deposit_bank, String deposit_account, String deposit_password)
 	{
+//		通过session获取user_id
+    	JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+    	int user_id = sessonJsonObject.getIntValue("user_id");
+    	//	update table account_info 
 		if(accountInfoService.updateDeposit(user_id, deposit_bank, deposit_account, deposit_password)==1) {
 //			if(redisOperations.get(key))
-			
-			return 1;
+			//	update user status to 4
+			if(accountInfoService.updateUserStatus(user_id, "4")==1) {
+				//	return contact_phone of the corresponding security  
+				return securityService.getSecurityBySecurityId(
+						accountInfoService.getAccountInfoByUserId(user_id).getSecurity_id()
+						).getString("contact_phone");
+			}
+				
+				else return "status update fail";
 		}
-		else return 0;
+		else return "deposit update fail";
+	}
+
+	@GetMapping(value = "/contactNum",produces = "application/json;charset=UTF-8")
+	public String getContactNum() {
+		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+    	int user_id = sessonJsonObject.getIntValue("user_id");
+		return securityService.getSecurityBySecurityId(
+				accountInfoService.getAccountInfoByUserId(user_id).getSecurity_id()
+				).getString("contact_phone"); 
 	}
 }
-
-
 // 22 11
