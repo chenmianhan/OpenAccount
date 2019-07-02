@@ -178,7 +178,14 @@ public class AccountInfoController {
 		}
 		else return "deposit update fail";
 	}
+
+	@GetMapping(value = "/contactNum",produces = "application/json;charset=UTF-8")
+	public String getContactNum() {
+		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+    	int user_id = sessonJsonObject.getIntValue("user_id");
+		return securityService.getSecurityBySecurityId(
+				accountInfoService.getAccountInfoByUserId(user_id).getSecurity_id()
+				).getString("contact_phone"); 
+	}
 }
-
-
 // 22 11
