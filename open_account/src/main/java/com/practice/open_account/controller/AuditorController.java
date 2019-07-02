@@ -113,7 +113,7 @@ else return new JSONObject();
         {
             status="7";
             result_review="审核通过";
-         boolean result = accountAllocService.openAccount(Integer.parseInt(userId,10),1000);
+         boolean result = accountAllocService.openAccount(Integer.parseInt(userId,10));
          if(!result){
              status="8";
              result_review="开户系统出错";

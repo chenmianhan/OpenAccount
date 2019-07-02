@@ -21,6 +21,7 @@ public class AccountAllocServiceImpl implements AccountAllocService {
     private AccountAllocDAO accountAllocDAO;
 
 
+    @Override
     public void insertCusInfo(String cusId,int usrId,Date openDate,Date insDate)
     {
         java.sql.Date openDatestr=new java.sql.Date(openDate.getTime());
@@ -28,17 +29,20 @@ public class AccountAllocServiceImpl implements AccountAllocService {
         accountAllocDAO.insertCusInfo(cusId,usrId,openDatestr,insDatestr);
     }
 
+    @Override
     public void insertFundInfo(String cusId,String fundId,String bankAcc,String bank,String type)
     {
         accountAllocDAO.insertFundInfo(cusId,fundId,bankAcc,bank,type);
     }
 
+    @Override
     public void insertTradeInfo(String cusId,String tradeId,int seId,String type)
     {
         accountAllocDAO.insertTradeInfo(cusId,tradeId,seId,type);
     }
 
 
+    @Override
     public JSONObject getInfo(int usrId)
     {
         return accountAllocDAO.getInfo(usrId);
@@ -46,6 +50,7 @@ public class AccountAllocServiceImpl implements AccountAllocService {
 
 
 
+    @Override
     public String getNewCusAcc() {
         String ans="000000000000";
         String tmp = accountAllocDAO.maxCus();
@@ -64,6 +69,7 @@ public class AccountAllocServiceImpl implements AccountAllocService {
         System.out.println(bdans.toString());
         return bdans.toString();
     }
+
     @Override
     public boolean addNewFundAcc(String customer_id,String bank_account,String bank)
     {
@@ -71,6 +77,8 @@ public class AccountAllocServiceImpl implements AccountAllocService {
         accountAllocDAO.insertFundInfo(customer_id,acc,bank_account,bank,"1");
         return true;
     }
+
+    @Override
     public String getNewFundAcc()
     {
         String ans="u00000000000";
@@ -96,6 +104,7 @@ public class AccountAllocServiceImpl implements AccountAllocService {
         return bdans.toString();
     }
 
+    @Override
     public String getNewSHTradeAcc()
     {
         String ans="A000000000";
@@ -116,6 +125,7 @@ public class AccountAllocServiceImpl implements AccountAllocService {
         return bdans.toString();
     }
 
+    @Override
     public String getNewSZTradeAcc()
     {
         String ans="00000000";
