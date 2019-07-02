@@ -39,7 +39,7 @@ public interface SuperAdminDAO {
     int deleteStoreFromSecurity(@Param("store") int store);
     int deleteStoreFromAdminManager(@Param("store") int store);
     int deleteStoreFromAuditorManager(@Param("store") int store);
-    int deleteEmployeeUnderStore(@Param("employee_id") int employee_id);
+    int deleteEmployee(@Param("employee_id") int employee_id);
     // return 1 as successful 0 otherwise
 
     String getCustomerId(@Param("user_id") int user_id);
@@ -50,4 +50,5 @@ public interface SuperAdminDAO {
     int deleteUserInTradeAccount(@Param("user_id") String customer_id);
     // return 1 as successful 0 otherwise
 
+    int deleteAdminInAdminManager(@Param("admin_id") int admin_id);
 }

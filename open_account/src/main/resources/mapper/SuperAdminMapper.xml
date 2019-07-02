@@ -55,7 +55,7 @@
         delete from auditor_manager where security_id = #{store}
     </delete>
 
-    <delete id="deleteEmployeeUnderStore">
+    <delete id="deleteEmployee">
         delete from employee where employee_id = #{employee_id}
     </delete>
 
@@ -75,4 +75,7 @@
         delete from trade_account where customer_id = #{customer_id}
     </delete>
 
+    <delete id="deleteAdminInAdminManager">
+        delete from admin_manager where admin_id = #{admin_id}
+    </delete>
 </mapper>

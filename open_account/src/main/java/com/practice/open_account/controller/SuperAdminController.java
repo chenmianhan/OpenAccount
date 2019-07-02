@@ -33,10 +33,10 @@ public class SuperAdminController{
     @Resource
     private SuperAdminService superAdminService;
 
-    @RequestMapping(value = "/superadmin/get_securityUnderAdmins", method = GET, produces = "application/json;charset=UTF-8")
-    public int getSecurityUnderAdmin(@RequestParam(value = "admin_id") int admin_id){
-        return superAdminService.getSecurityUnderAdmin(admin_id);
-    }
+//    @RequestMapping(value = "/superadmin/get_securityUnderAdmins", method = GET, produces = "application/json;charset=UTF-8")
+//    public int getSecurityUnderAdmin(@RequestParam(value = "admin_id") int admin_id){
+//        return superAdminService.getSecurityUnderAdmin(admin_id);
+//    }
 
     @RequestMapping(value = "/deleteStore", method = POST, produces = "application/json;charset=UTF-8")
     public int deleteStore(@RequestBody JSONObject jsonObject){
@@ -50,4 +50,9 @@ public class SuperAdminController{
         return superAdminService.deleteUser(user_id);
     }
 
+    @RequestMapping(value = "/superadmin/deleteAdmin", method = POST, produces = "application/json;charset=UTF-8")
+    public int deleteAdmin(@RequestBody JSONObject jsonObject){
+        int admin_id = jsonObject.getInteger("admin_id");
+        return superAdminService.deleteAdmin(admin_id);
+    }
 }

@@ -27,4 +27,7 @@ public interface SuperAdminService {
 
     int deleteUser(int user_id);
     // return 1 as successful 0 otherwise
+
+    int deleteAdmin(int admin_id);
+    // return 1 as successful 0 otherwise
 }

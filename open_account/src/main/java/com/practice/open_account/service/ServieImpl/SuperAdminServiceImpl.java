@@ -63,11 +63,11 @@ public class SuperAdminServiceImpl implements SuperAdminService {
             List<Integer> adminList = superAdminDAO.getAdminUnderStore(store);
             List<Integer> auditorList = superAdminDAO.getAuditorUnderStore(store);
             for (int i = 0; i < adminList.size(); i++) {
-                superAdminDAO.deleteEmployeeUnderStore(adminList.get(i));
+                superAdminDAO.deleteEmployee(adminList.get(i));
                 System.out.println(adminList.get(i));
             }
             for (int i = 0; i < auditorList.size(); i++) {
-                superAdminDAO.deleteEmployeeUnderStore(auditorList.get(i));
+                superAdminDAO.deleteEmployee(auditorList.get(i));
             }
             superAdminDAO.deleteStoreFromAdminManager(store);
             superAdminDAO.deleteStoreFromAuditorManager(store);
@@ -86,4 +86,13 @@ public class SuperAdminServiceImpl implements SuperAdminService {
         superAdminDAO.deleteUserInAccountInfo(user_id);
         return 1;
     }
+
+    @Override
+    @Transactional
+    public int deleteAdmin(int admin_id) {
+        superAdminDAO.deleteAdminInAdminManager(admin_id);
+        superAdminDAO.deleteEmployee(admin_id);
+        return 1;
+    }
+
 }
