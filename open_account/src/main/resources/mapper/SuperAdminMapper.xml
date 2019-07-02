@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.practice.open_account.dao.SuperAdminDAO">
+
+    <select id="getSecurityUnderAdmin" resultType="int">
+        select security_id from admin_manager am where am.admin_id = #{admin_id}
+    </select>
+    
+    <select id="getMaxId" resultType="int">
+        select max(employee_id) from employee e
+    </select>
+
+    <select id="getUsersNumUnderStore" resultType="int">
+        select count(*) from account_info
+        where security_id = #{store}
+    </select>
+
+    <select id="getAdminUnderStore" resultType="Integer">
+        select admin_id from admin_manager
+        where security_id = #{store}
+    </select>
+
+    <select id="getAuditorUnderStore" resultType="Integer">
+        select auditor_id from auditor_manager
+        where security_id = #{store}
+    </select>
+    
+    <select id="getCustomerId" resultType="String">
+        select customer_id from customer_account
+        where user_id = #{user_id}
+    </select>
+
+    <insert id="addAdminToEmployee">
+        insert into employee
+        (employee_id, employee_account, employee_password, employee_type, employee_name)
+        values(#{employee_id}, #{account}, #{password}, 2, #{name})
+    </insert>
+
+    <insert id="addAdminToAdminManager">
+        insert into admin_manager
+        (admin_id, security_id)
+        values(#{employee_id}, #{store})
+    </insert>
+
+    <delete id="deleteStoreFromSecurity">
+        delete from security where security_id = #{store}
+    </delete>
+
+    <delete id="deleteStoreFromAdminManager">
+        delete from admin_manager where security_id = #{store}
+    </delete>
+
+    <delete id="deleteStoreFromAuditorManager">
+        delete from auditor_manager where security_id = #{store}
+    </delete>
+
+    <delete id="deleteEmployeeUnderStore">
+        delete from employee where employee_id = #{employee_id}
+    </delete>
+
+    <delete id="deleteUserInAccountInfo">
+        delete from account_info where user_id = #{user_id}
+    </delete>
+
+    <delete id="deleteUserInCustomerAccount">
+        delete from customer_account where user_id = #{user_id}
+    </delete>
+    
+    <delete id="deleteUserInFundAccount">
+        delete from fund_account where customer_id = #{customer_id}
+    </delete>
+    
+    <delete id="deleteUserInTradeAccount">
+        delete from trade_account where customer_id = #{customer_id}
+    </delete>
+
+</mapper>
