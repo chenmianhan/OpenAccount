@@ -21,112 +21,139 @@ public class AccountAllocServiceImpl implements AccountAllocService{
     @Resource
     private AccountAllocDAO accountAllocDAO;
 
-    @Override
-    public void insertCusInfo(String cusId,int usrId,Date openDate,Date insDate,int auditorId)
+
+    public void insertCusInfo(String cusId,int usrId,Date openDate,Date insDate)
     {
         java.sql.Date openDatestr=new java.sql.Date(openDate.getTime());
-        java.sql.Date insDatestr=new java.sql.Date(openDate.getTime());
-        accountAllocDAO.insertCusInfo(cusId,usrId,openDatestr,insDatestr,auditorId);
+        java.sql.Date insDatestr=new java.sql.Date(insDate.getTime());
+        accountAllocDAO.insertCusInfo(cusId,usrId,openDatestr,insDatestr);
     }
-    @Override
+
     public void insertFundInfo(String cusId,String fundId,String bankAcc,String bank,String type)
     {
         accountAllocDAO.insertFundInfo(cusId,fundId,bankAcc,bank,type);
     }
-    @Override
+
     public void insertTradeInfo(String cusId,String tradeId,int seId,String type)
     {
         accountAllocDAO.insertTradeInfo(cusId,tradeId,seId,type);
     }
 
-    @Override
+
     public JSONObject getInfo(int usrId)
     {
         return accountAllocDAO.getInfo(usrId);
     }
 
-    @Override
+
 
     public String getNewCusAcc() {
         String ans="000000000000";
-        int tmp = accountAllocDAO.totCus() + 1;
-        int tt = tmp, rec = 0;
-        StringBuilder bdans=new StringBuilder(ans);
-        while (tt > 0)
+        String tmp = accountAllocDAO.maxCus();
+        if(tmp==null)
+            tmp=ans;
+        StringBuilder bdans=new StringBuilder(tmp);
+        int cur= tmp.charAt(11)-'0'+1;
+        int rec=1;
+        while (cur > 9)
         {
-            int m=tt%10;
-            tt=tt/10;
+            bdans.setCharAt(12-rec,'0');
             rec=rec+1;
-            bdans.setCharAt(12-rec,(char)(m+'0'));
+            cur=(int)tmp.charAt(12-rec)-'0'+1;
         }
+        bdans.setCharAt(12-rec,(char)(48+cur));
         System.out.println(bdans.toString());
         return bdans.toString();
     }
     @Override
+    public boolean addNewFundAcc(String customer_id,String bank_account,String bank)
+    {
+        String acc=getNewFundAcc();
+        accountAllocDAO.insertFundInfo(customer_id,acc,bank_account,bank,"1");
+        return true;
+    }
     public String getNewFundAcc()
     {
         String ans="u00000000000";
-        int tmp = accountAllocDAO.totFund() + 1;
-        int tt = tmp, rec = 0;
-        StringBuilder bdans=new StringBuilder(ans);
-        while (tt > 0)
+        String tmp = accountAllocDAO.maxFund();
+        if(tmp==null)
+            tmp=ans;
+        StringBuilder bdans=new StringBuilder(tmp);
+      //  System.out.println(tmp.charAt(11));
+        int cur= tmp.charAt(11)-'0'+1;
+      //  System.out.println(cur);
+        int rec=1;
+        while (cur > 9)
         {
-            int m=tt%10;
-            tt=tt/10;
+            bdans.setCharAt(12-rec,'0');
             rec=rec+1;
-            bdans.setCharAt(12-rec,(char)(m+'0'));
+        //    System.out.println(cur);
+          //  System.out.println(rec);
+            //System.out.println(bdans.toString());
+            cur=(int)tmp.charAt(12-rec)-'0'+1;
         }
+        bdans.setCharAt(12-rec,(char)(48+cur));
+        System.out.println(bdans.toString());
         return bdans.toString();
     }
-    @Override
+
     public String getNewSHTradeAcc()
     {
         String ans="A000000000";
-        int tmp = accountAllocDAO.totTradeSH() + 1;
-        int tt = tmp, rec = 0;
-        StringBuilder bdans=new StringBuilder(ans);
-        while (tt > 0)
+        String tmp = accountAllocDAO.maxTradeSH();
+        if(tmp==null)
+            tmp=ans;
+        StringBuilder bdans=new StringBuilder(tmp);
+        int cur= tmp.charAt(9)-'0'+1;
+        int rec=1;
+        while (cur > 9)
         {
-            int m=tt%10;
-            tt=tt/10;
+            bdans.setCharAt(10-rec,'0');
             rec=rec+1;
-            bdans.setCharAt(10-rec,(char)(m+'0'));
+            cur=(int)tmp.charAt(10-rec)-'0'+1;
         }
+        bdans.setCharAt(10-rec,(char)(48+cur));
+        System.out.println(bdans.toString());
         return bdans.toString();
     }
-    @Override
+
     public String getNewSZTradeAcc()
     {
         String ans="00000000";
-        int tmp = accountAllocDAO.totTradeSZ() + 1;
-        int tt = tmp, rec = 0;
-        StringBuilder bdans=new StringBuilder(ans);
-        while (tt > 0)
+        String tmp = accountAllocDAO.maxTradeSZ();
+        if(tmp==null)
+            tmp=ans;
+        StringBuilder bdans=new StringBuilder(tmp);
+        int cur= tmp.charAt(7)-'0'+1;
+        int rec=1;
+        while (cur > 9)
         {
-            int m=tt%10;
-            tt=tt/10;
+            bdans.setCharAt(8-rec,'0');
             rec=rec+1;
-            bdans.setCharAt(8-rec,(char)(m+'0'));
+            cur=(int)tmp.charAt(8-rec)-'0'+1;
         }
+        bdans.setCharAt(8-rec,(char)(48+cur));
+        System.out.println(bdans.toString());
         return bdans.toString();
     }
     @Override
-    public boolean openAccount(int usrId,int auditorId)
+    public boolean openAccount(int usrId)
     {
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date tmp=new Date();
         Date openDate=null;
         Date insDate=null;
         try {
-            openDate = simpleDateFormat.parse(simpleDateFormat.format(tmp));
+            openDate = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
         }
         catch(Exception e)
         {
             System.out.println("date error");
         }
-        tmp.setTime(tmp.getTime()+1000*60*60*24*365*52);
+        tmp.setTime(System.currentTimeMillis()+(long)(1000*60*60)*(long)(24*365*3));
         try {
             insDate = simpleDateFormat.parse(simpleDateFormat.format(tmp));
+            System.out.println(insDate);
         }
         catch(Exception e)
         {
@@ -137,19 +164,20 @@ public class AccountAllocServiceImpl implements AccountAllocService{
         String fundAcc=getNewFundAcc();
         String bankAcc=cusInfo.getString("deposit_account");
         String bank=cusInfo.getString("deposit_bank");
-        int nSecurityId=-1;
-        int sSecurityId=-1;
-        if(cusInfo.getInteger("n_security_id")!=null)
-            nSecurityId=cusInfo.getInteger("n_security_id");
-        if(cusInfo.getInteger("s_security_id")!=null)
-            sSecurityId = cusInfo.getInteger("s_security_id");
-        if(nSecurityId!=-1) {
-            insertTradeInfo(cusAcc,getNewSHTradeAcc(),nSecurityId,"0");
-        }
-        if(sSecurityId!=-1) {
-            insertTradeInfo(cusAcc,getNewSZTradeAcc(),nSecurityId,"1");
-        }
-        insertCusInfo(cusAcc,usrId,openDate,insDate,auditorId);
+        String type=cusInfo.getString("trade_type");
+        int seId=cusInfo.getInteger("security_id");
+        if(type=="0")
+        {
+            insertTradeInfo(cusAcc,getNewSHTradeAcc(),seId,"0");
+        }else
+            if(type=="1"){
+                insertTradeInfo(cusAcc,getNewSZTradeAcc(),seId,"1");
+            }else{
+                insertTradeInfo(cusAcc,getNewSHTradeAcc(),seId,"0");
+                insertTradeInfo(cusAcc,getNewSZTradeAcc(),seId,"1");
+            }
+
+        insertCusInfo(cusAcc,usrId,openDate,insDate);
         insertFundInfo(cusAcc,fundAcc,bankAcc,bank,"0");
 
         return true;

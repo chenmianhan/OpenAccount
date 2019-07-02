@@ -4,15 +4,15 @@
 <mapper namespace="com.shixun.open_account.dao.AccountAllocDAO">
 
     <insert id="insertCusInfo" >
-        insert into customer_account(customer_id,user_id,open_date,insurance_date,auditor_id)
-        values(#{cusId},#{usrId},#{openDate},#{insDate},#{auditorId})
+        insert into customer_account(customer_id,user_id,open_date,insurance_date)
+        values(#{cusId},#{usrId},#{openDate},#{insDate})
     </insert>
     <insert id="insertFundInfo" >
         insert into fund_account(customer_id,fund_id,bank_account,bank,type)
         values(#{cusId},#{fundId},#{bankAcc},#{bank},#{type})
     </insert>
     <insert id="insertTradeInfo" >
-        insert into trade_account(customer_id,trade_id,security_id,type)
+        insert into trade_account(customer_id,trade_id,security_id,account_type)
         values(#{cusId},#{tradeId},#{seId},#{type})
     </insert>
 
@@ -27,18 +27,39 @@
     <select id="totTradeSH" resultType="java.lang.Integer">
         select count(trade_id)
         from trade_account
-        where type='0'
+        where account_type='0'
 
     </select>
     <select id="totTradeSZ" resultType="java.lang.Integer">
         select count(trade_id)
         from trade_account
-        where type='1'
+        where account_type='1'
 
     </select>
     <select id = "getInfo" resultType="com.alibaba.fastjson.JSONObject">
-      select deposit_bank,deposit_account,n_security_id,s_security_id
+      select deposit_bank,deposit_account,security_id,trade_type
       from account_info
       where user_id=#{usrId}
     </select>
+    <select id="maxCus" resultType="java.lang.String">
+        select max(customer_id)
+        from customer_account
+    </select>
+    <select id="maxFund" resultType="java.lang.String">
+        select max(fund_id)
+        from fund_account
+    </select>
+
+    <select id="maxTradeSZ" resultType="java.lang.String">
+        select max(trade_id)
+        from trade_account
+        where account_type='1'
+    </select>
+
+    <select id="maxTradeSH" resultType="java.lang.String">
+        select max(trade_id)
+        from trade_account
+        where account_type='0'
+    </select>
+
 </mapper>

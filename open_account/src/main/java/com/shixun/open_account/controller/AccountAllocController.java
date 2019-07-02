@@ -58,12 +58,17 @@ public class AccountAllocController{
         if(sSecurityId!=-1) {
             accountAllocService.insertTradeInfo(cusAcc,accountAllocService.getNewSZTradeAcc(),nSecurityId,"1");
         }
-        accountAllocService.insertCusInfo(cusAcc,usrId,openDate,insDate,auditorId);
+        accountAllocService.insertCusInfo(cusAcc,usrId,openDate,insDate);
         accountAllocService.insertFundInfo(cusAcc,fundAcc,bankAcc,bank,"0");
 
         return true;
     }
-
+    @RequestMapping(value = "/account/get_accounttest", method = POST, produces = "application/json;charset=UTF-8")
+    public boolean accountTest(@RequestBody JSONObject info)
+    {
+        int usrId=info.getInteger("user_id");
+        return accountAllocService.openAccount(usrId);
+    }
     @RequestMapping(value = "/account/get_fund_account", method = POST, produces = "application/json;charset=UTF-8")
     public String getNewFundAcc(@RequestBody JSONObject info)
     {

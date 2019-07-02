@@ -15,7 +15,7 @@ import java.util.List;
 
 
 public interface AccountAllocDAO{
-    void insertCusInfo(@Param("cusId") String cusId,@Param("usrId") int usrId,@Param("openDate")java.sql.Date openDate,@Param("insDate") java.sql.Date insDate,@Param("auditorId")int auditorId);
+    void insertCusInfo(@Param("cusId") String cusId,@Param("usrId") int usrId,@Param("openDate")java.sql.Date openDate,@Param("insDate") java.sql.Date insDate);
     void insertFundInfo(@Param("cusId") String cusId,@Param("fundId") String fundId,@Param("bankAcc")String bankAcc,@Param("bank")String bank,@Param("type")String type);
     void insertTradeInfo(@Param("cusId") String cusId,@Param("tradeId")String tradeId,@Param("seId")int seId,@Param("type") String type);
     JSONObject getInfo(@Param("usrId")int usrId);
@@ -23,4 +23,8 @@ public interface AccountAllocDAO{
     int totFund();
     int totTradeSZ();
     int totTradeSH();
+    String maxCus();
+    String maxFund();
+    String maxTradeSZ();
+    String maxTradeSH();
 }
