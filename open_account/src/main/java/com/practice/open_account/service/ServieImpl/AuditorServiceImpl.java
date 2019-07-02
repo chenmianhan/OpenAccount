@@ -29,13 +29,13 @@ public class AuditorServiceImpl implements AuditorService {
     {
         return auditorDAO.getSecutityIdbyAuditorId(auditor_id);
     }
-    @Override
-    @Transactional
-    public JSONObject getSecurity(String security_id)
-    {
-        return auditorDAO.getSecurity(security_id);
-    }
-    @Override
+//    @Override
+//    @Transactional
+//    public JSONObject getSecurity(String security_id)
+//    {
+//        return auditorDAO.getSecurity(security_id);
+//    }
+   /* @Override
     @Transactional
     public  int gettoReviewNum(String security_id,Integer type)
     {
@@ -49,7 +49,22 @@ public class AuditorServiceImpl implements AuditorService {
     {
         return auditorDAO.getreviewedNum(auditor_id);
     }
+*/
+   @Override
+   @Transactional
+   public String getOneUserToReview(String security_id)
+   {
+       try{
+           //System.out.println(getClass()+auditorDAO.getOneUserToReview( security_id));
+           return auditorDAO.getOneUserToReview( security_id);
+       }
+       catch (Exception e)
+       {
+           e.printStackTrace();
+           return null;
+       }
 
+   }
     @Override
     @Transactional
     public List<Map<String,Object>>  getUserIdByTime(String auditor_id,
@@ -94,21 +109,21 @@ public class AuditorServiceImpl implements AuditorService {
     	return auditorDAO.insertAuditor(security_id, auditor_id);
     }
 
-    @Override
-    @Transactional
-    public List<Map<String,Object>>  gettoReviewUser_List(Integer type,String security_id)
-    {
-        if(type==0)
-            return auditorDAO.gettoReviewUser_List_N(security_id);
-        else
-            return  auditorDAO.gettoReviewUser_List_S(security_id);
-    }
-    @Override
-    @Transactional
-    public int setUserStatus(String user_id,String status,String result_review)
-    {
-        return auditorDAO.setUserStatus(user_id, status, result_review);
-    }
+//    @Override
+//    @Transactional
+//    public List<Map<String,Object>>  gettoReviewUser_List(Integer type,String security_id)
+//    {
+//        if(type==0)
+//            return auditorDAO.gettoReviewUser_List_N(security_id);
+//        else
+//            return  auditorDAO.gettoReviewUser_List_S(security_id);
+//    }
+//    @Override
+//    @Transactional
+//    public int setUserStatus(String user_id,String status,String result_review)
+//    {
+//        return auditorDAO.setUserStatus(user_id, status, result_review);
+//    }
     @Override
     public int updateEmployee(int employee_id, String employee_account, String employee_password, String employee_type,
                               String employee_name) {

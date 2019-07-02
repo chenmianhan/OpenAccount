@@ -7,6 +7,8 @@ import com.alibaba.fastjson.JSONObject;
  *@date: 2019/7/11134
  *@descrption:
  */
-public interface ReviewService {
+public interface ReviewResultService {
     JSONObject getReviewResult(String user_id);
+    int addReviewResult(String user_id,String reviewerId,String result);
+
 }

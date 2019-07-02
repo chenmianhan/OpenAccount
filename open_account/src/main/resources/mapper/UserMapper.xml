@@ -38,6 +38,13 @@
             user u
         WHERE u.user_id = #{user_id}
     </select>
+    <select id="getWaitForReview" resultType="java.util.HashMap">
+    select distinct u.user_id
+    from user u,account_info ac
+    WHERE  ac.security_id=#{security}
+    AND  ac.allocated_time
+    BETWEEN #{start}  AND #{end};
+    </select>
     <!--update id="updateDemo" >
         UPDATE demo d
         <set>

@@ -2,7 +2,7 @@ package com.practice.open_account.service.ServieImpl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.practice.open_account.dao.ReviewResultDao;
-import com.practice.open_account.service.ReviewService;
+import com.practice.open_account.service.ReviewResultService;
 import com.practice.open_account.dao.UserDao;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  *@descrption:
  */
 @Service
-public class ReviewServiceImpl implements ReviewService {
+public class ReviewResultServiceImpl implements ReviewResultService {
     @Resource
     ReviewResultDao reviewResultDao;
     @Resource
@@ -37,5 +37,18 @@ public class ReviewServiceImpl implements ReviewService {
             e.printStackTrace();
         }
         return jsonObject;
+    }
+    @Override
+    @Transactional
+    public  int addReviewResult(String user_id,String reviewerId,String result)
+    {
+        try {
+            return reviewResultDao.addReviewResult(user_id, reviewerId, result);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return 0;
+        }
     }
 }

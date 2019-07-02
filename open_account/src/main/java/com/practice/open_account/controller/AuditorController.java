@@ -6,8 +6,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.practice.open_account.service.AccountAllocService;
 import com.practice.open_account.service.AuditorService;
 
+import com.practice.open_account.service.ReviewResultService;
 import com.practice.open_account.service.SecurityService;
-import com.practice.open_account.util.CommonUtil;
 import com.practice.open_account.util.SessionUtil;
 import com.practice.open_account.util.constants.AuditorConstants;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +35,8 @@ public class AuditorController {
     @Resource
     private SecurityService securityService;
     @Resource
+    private ReviewResultService reviewResultService;
+    @Resource
     private AccountAllocService accountAllocService;
     @RequestMapping(value="/reviewer", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject reviewer(){
@@ -48,15 +50,56 @@ public class AuditorController {
         js.put("reviewerName",reviewerName);
         return js;
         }
+    @RequestMapping(value="/reviewer/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONObject getUserInfo()
+    {
+        String reviewerId=null;
+        try{reviewerId=Long.toString((Long)(SessionUtil.getSessionAttribute().get("employee_id")));}
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
+        System.out.println(reviewerId+":"+security_id);
 
-
+        String user_id=auditorService.getOneUserToReview(security_id);
+        if(user_id==null)
+        {
+            JSONObject js=new JSONObject();
+            js.put("userInfo",new JSONArray());
+            js.put("imageUrl_1","");
+            js.put("imageUrl_2","");
+            js.put("imageUrl_3","");
+            js.put("userType","");
+            js.put("userGrade","");
+            js.put("code",AuditorConstants.NONE_MSG);
+            return js;
+        }
+       // System.out.println(getClass()+user_id);
+        int result= reviewResultService.addReviewResult(user_id,reviewerId,"审核中");
+        if(result==1){
+            JSONObject userInfoTemp =auditorService.getUserInfo(user_id);
+            JSONArray userInfo=new JSONArray();
+            parseUserInfo(user_id, userInfoTemp, userInfo);
+            JSONObject jsonObject=auditorService.getUserInfoUnreviewed(user_id);
+            jsonObject.put("userInfo",userInfo);
+            jsonObject.put("code",AuditorConstants.MUCH_MSG);
+            return jsonObject;}
+        else return new JSONObject();
+    }
+    @RequestMapping(value="/reviewer/getReviewerInfo", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONObject getReviewerInfo(@RequestParam(value = "reviewerId") String reviewerId,
+                                      @RequestParam(value = "start") String start,
+                                      @RequestParam(value = "end") String end){
+return null;
+    }
 
 
 
     @RequestMapping(value="/api/statisticData/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
     public JSONArray getUserInfo(@RequestParam(value = "reviewerId") String reviewerId,
                                       @RequestParam(value = "start") String start,
-                                      @RequestParam(value = "end") String end) throws Exception {
+                                      @RequestParam(value = "end") String end)  {
         JSONArray jsonArray=new JSONArray();
       //  String startTimeStamp= getSQLDateTime(start);
        // String endTimeStamp= getSQLDateTime(end);
@@ -69,38 +112,9 @@ public class AuditorController {
         }
         return   jsonArray;
     }
-    @RequestMapping(value="/api/reviewUser/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
-    public JSONObject getUserInfo(@RequestParam(value = "reviewerId") String reviewerId)
-    {
-        String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
-        JSONObject security=auditorService.getSecurity(security_id);
-        JSONObject js=new JSONObject();
-        List<Map<String,Object>> lsm=auditorService.gettoReviewUser_List((Integer)(security.get("type")),security_id);
-        ArrayList<String> user_id_list=new ArrayList<>();
-        getUseridList(lsm, user_id_list);
-        if(user_id_list.size()==0){
-            js.put("userInfo",new JSONArray());
-            js.put("imageUrl_1","");
-            js.put("imageUrl_2","");
-            js.put("imageUrl_3","");
-            js.put("userType","");
-            js.put("userGrade","");
-            js.put("code",AuditorConstants.NONE_MSG);
-            return js;
-}
-        String user_id=user_id_list.get(0);
-int result=auditorService.setUserStatus(user_id,"5","审核中");
-if(result==1){JSONObject userInfoTemp =auditorService.getUserInfo(user_id);
-    JSONArray userInfo=new JSONArray();
-    parseUserInfo(user_id, userInfoTemp, userInfo);
-    JSONObject jsonObject=auditorService.getUserInfoUnreviewed(user_id);
-    jsonObject.put("userInfo",userInfo);
-    jsonObject.put("code",AuditorConstants.MUCH_MSG);
-    return jsonObject;}
-else return new JSONObject();
-    }
 
-    @RequestMapping(value="/reviewer/postResult", method=POST, produces = "application/json;charset=UTF-8")
+
+   /* @RequestMapping(value="/reviewer/postResult", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject postResult(@RequestParam(value = "userId") String userId,
                                  @RequestParam(value = "infoResult") String infoResult,
                                  @RequestParam(value = "gradeResult") String gradeResult,
@@ -139,7 +153,7 @@ else return new JSONObject();
         if(result==1)
             return CommonUtil.getJson(AuditorConstants.SUCCESS_MSG);
         else return CommonUtil.getJson(AuditorConstants.FAIL_MSG);
-    }
+    }*/
     private void parseUserInfo(String user_id, JSONObject userInfoTemp, JSONArray userInfo) {
         JSONObject temp=new JSONObject();
         temp.put("title","用户ID");

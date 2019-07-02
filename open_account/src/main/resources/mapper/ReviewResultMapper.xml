@@ -9,4 +9,28 @@
            review r
         WHERE r.user_id = #{user_id}
     </select>
+    <insert id="addReviewResult">
+    insert into  review(auditor_id,user_id,review_result)
+    values (#{auditor_id},#{user_id},#{result})
+    </insert>
+
+    <select id="getReviewSuccess" resultType="java.util.HashMap">
+select distinct u.user_id
+        from
+		review r,user u
+		WHERE r.auditor_id = #{auditor_id}
+		AND u.status=7
+		AND  r.update_time
+		BETWEEN #{start}  AND #{end};
+    </select>
+    <select id="getReviewFail" resultType="java.util.HashMap">
+select distinct u.user_id
+        from
+		review r,user u
+		WHERE r.auditor_id = #{auditor_id}
+		AND u.status=6
+		AND  r.update_time
+		BETWEEN #{start}  AND #{end};
+    </select>
+
 </mapper>

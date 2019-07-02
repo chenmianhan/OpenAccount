@@ -2,7 +2,7 @@ package com.practice.open_account.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.practice.open_account.service.EmployeeService;
-import com.practice.open_account.service.ReviewService;
+import com.practice.open_account.service.ReviewResultService;
 import com.practice.open_account.service.UserService;
 import com.practice.open_account.util.CommonUtil;
 import com.practice.open_account.util.SessionUtil;
@@ -28,13 +28,13 @@ public class LoginController {
     @Resource
     private UserService userService;
     @Resource
-    private ReviewService reviewService;
+    private ReviewResultService reviewResultService;
     @Resource
     private EmployeeService employeeService;
     @RequestMapping(value="/login", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject login(@RequestParam(value = "account") String account,
                             @RequestParam(value = "password") String password,
-                            @RequestParam(value = "role") String role) throws Exception {
+                            @RequestParam(value = "role") String role) {
         Subject currentUser = SecurityUtils.getSubject();
         Session session = currentUser.getSession();
         //System.out.println("session.getAttribute(LoginConstants.SESSION_USER_INFO)"+session.getAttribute(LoginConstants.SESSION_USER_INFO));
@@ -100,7 +100,7 @@ public class LoginController {
     @RequestMapping(value="/getReviewResult", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject getReviewResult() {
         String user_id= SessionUtil.getSessionAttribute().getString("user_id");
-       return reviewService.getReviewResult(user_id);
+       return reviewResultService.getReviewResult(user_id);
     }
 
 }

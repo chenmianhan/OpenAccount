@@ -13,17 +13,18 @@ import java.util.Map;
  */
 public interface AuditorService  {
     String getSecutityIdbyAuditorId( String auditor_id);
-    JSONObject getSecurity(String security_id);
-    int gettoReviewNum(String security_id,Integer type);
-    int getreviewedNum( String auditor_id);
+    //JSONObject getSecurity(String security_id);
+    String getOneUserToReview(String security_id);
+    //int gettoReviewNum(String security_id,Integer type);
+    //int getreviewedNum( String auditor_id);
     List<Map<String,Object>>  getUserIdByTime(String auditor_id,
                                        String start,
                                        String end);
     JSONObject getUserInfo(String user_id);
 
     JSONObject getUserInfoUnreviewed(String user_id);
-    List<Map<String,Object>>  gettoReviewUser_List(Integer type,String security_id);
-    int setUserStatus(String user_id,String status,String result_review);
+    //List<Map<String,Object>>  gettoReviewUser_List(Integer type,String security_id);
+    //int setUserStatus(String user_id,String status,String result_review);
 
     int insertEmployee(Employee employee);
     int insertAuditor(int security_id, int auditor_id);
