@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableTransactionManagement
-@MapperScan("com.shixun.open_account.dao")
+@MapperScan("com.practice.open_account.dao")
 public class OpenAccountApplication {
 
     public static void main(String[] args) {

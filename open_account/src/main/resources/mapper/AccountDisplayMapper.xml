@@ -20,4 +20,26 @@
 		select currency_type,balance from currency
 		where fund_id = #{fund_id}
 	</select>
+	
+	<!-- getMaxFundId -->
+	<select id="getMaxFundId" resultType = "java.lang.String">
+		SELECT max(fund_id) FROM fund_account;
+	</select>
+	
+	<!-- insertFundAccount -->
+	<insert id="addFundAccount">
+		insert into fund_account
+		(customer_id,
+		fund_id,
+		bank_account,
+		bank,
+		type)
+		values(
+		#{customer_id},
+		#{fund_id},
+		#{bank_account},
+		#{bank},
+		#{type}
+		)
+	</insert>
 </mapper>

@@ -17,7 +17,7 @@ public interface AccountInfoDAO{
     
     int updateAccountInfo(AccountInfo accountInfo);
     
-    int updateSecurity(Integer user_id, Integer n_security_id, Integer s_security_id);
+    int updateSecurity(Integer user_id, Integer security_id, String trade_type);
     
     int updateDeposit(Integer user_id, String deposit_bank, String deposit_account, String deposit_password);
     
@@ -28,5 +28,8 @@ public interface AccountInfoDAO{
     Address getAddressByAId(Integer aid);
     int deleteAddressByAid(Integer aid);
     int updateAddress(Address address);
+    
+    // User status update
+    int updateUserStatus(Integer user_id,String status); 
     
 }
