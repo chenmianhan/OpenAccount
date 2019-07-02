@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.practice.open_account.dao.ReviewResultDao">
+    <select id="getReviewMsg"  resultType="java.lang.String">
+        SELECT
+            r.review_result message
+        FROM
+           review r
+        WHERE r.user_id = #{user_id}
+    </select>
+</mapper>

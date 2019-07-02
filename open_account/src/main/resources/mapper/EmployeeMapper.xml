@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.practice.open_account.dao.EmployeeDAO">
+<select id="getEmployee" resultType="com.alibaba.fastjson.JSONObject">
+        SELECT
+            e.employee_id      employee_id,
+            e.employee_account  employee_account,
+            e.employee_password employee_password,
+            e.employee_type      employee_type,
+            e.employee_name      employee_name
+        FROM
+            employee e
+        WHERE e.employee_account = #{employee_account}
+          AND e.employee_password = #{employee_password}
+          AND e.Employee_type = #{employee_type}
+    </select>
+</mapper>

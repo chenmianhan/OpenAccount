@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shixun.open_account.dao.AuditorDAO">
+<mapper namespace="com.practice.open_account.dao.AuditorDAO">
     <select id="gettoReviewNum_N" resultType="java.lang.Integer">
         SELECT
         count(*)
@@ -110,7 +110,22 @@
     status=#{status}
     where user_id = #{user_id}
 </update>
-
+<select id=" getOneUsertoReview" resultType="java.lang.String">
+         SET AUTOCOMMIT=0;
+         BEGIN WORK;
+         SELECT  *
+         FROM user u
+         WHERE user_id in
+         (
+         SELECT
+         ai.user_id user_id
+         FROM account_info ai
+         WHERE ai.security_id=#{security_id}
+          )
+           AND u.status=4
+           FOR UPDATE;
+         UPDATE products SET quantity = '1' WHERE id=3 ; COMMIT WORK;
+</select>
 
     <insert id="insertEmployee"
     	useGeneratedKeys="true" keyProperty="employee_id">

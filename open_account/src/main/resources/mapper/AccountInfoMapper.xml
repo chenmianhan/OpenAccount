@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
         <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shixun.open_account.dao.AccountInfoDAO">
+<mapper namespace="com.practice.open_account.dao.AccountInfoDAO">
 	
 	<!-- addAccountInfo -->
 	<insert id="addAccountInfo" 
@@ -15,12 +15,11 @@
 		  postal_address_id,
 		  trans_password,
 		  fund_password,
-		  n_security_id,
-		  s_security_id,
+		  security_id,
+		  trade_type,
 		  deposit_bank,
 		  deposit_account,
 		  deposit_password,
-		  status,
 		  profession,
 		  education,
 		  email,
@@ -41,12 +40,11 @@
 			  #{postal_address_id},
 			  #{trans_password},
 			  #{fund_password},
-			  #{n_security_id},
-			  #{s_security_id},
+			  #{security_id},
+			  #{trade_type},
 			  #{deposit_bank},
 			  #{deposit_account},
 			  #{deposit_password},
-			  #{status},
 			  #{profession},
 			  #{education},
 			  #{email},
@@ -58,7 +56,7 @@
 	
 	<!-- getAccountInfoByUserId -->
 	<select id="getAccountInfoByUserId" 
-		resultType="com.shixun.open_account.entity.AccountInfo">
+		resultType="com.practice.open_account.entity.AccountInfo">
 		select * from account_info where user_id = #{user_id}
 	</select>
 	
@@ -76,12 +74,11 @@
 		postal_address_id=#{postal_address_id},
 		trans_password=#{trans_password},
 		fund_password=#{fund_password},
-		n_security_id=#{n_security_id},
-		s_security_id=#{s_security_id},
+		security_id=#{security_id},
+		trade_type=#{trade_type},
 		deposit_bank=#{deposit_bank},
 		deposit_account=#{deposit_account},
 		deposit_password=#{deposit_password},
-		status=#{status},
 		profession=#{profession},
 		education=#{education},
 		email=#{email},
@@ -116,13 +113,13 @@
 	<!-- addAddress -->
 	<insert id="addAddress"
 		useGeneratedKeys="true" keyProperty="aid">
-		insert into address(province,city,street) 
-		values(#{province},#{city},#{street})
+		insert into address(province,city,street,detail) 
+		values(#{province},#{city},#{street},#{detail})
 	</insert>
 	
 	<!-- getAddressByAId -->
 	<select id="getAddressByAId" 
-		resultType="com.shixun.open_account.entity.Address">
+		resultType="com.practice.open_account.entity.Address">
 		select * from address where aid=#{aid}
 	</select>
 	
