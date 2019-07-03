@@ -2,30 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper  namespace="com.practice.open_account.dao.AuditorDAO">
-    <!--iselect id="gettoReviewNum_N" resultType="java.lang.Integer">
-        SELECT
-        count(*)
-        FROM
-       account_info ai
-        WHERE ai.status = 4
-        AND ai.n_security_id= #{security_id}
-    </select>
-    <select id="gettoReviewNum_S" resultType="java.lang.Integer">
-        SELECT
-        count(*)
-        FROM
-       account_info ai
-        WHERE ai.status = 4
-        AND ai.s_security_id= #{security_id}
-    </select-->
-    <!--select id="getreviewedNum" resultType="java.lang.Integer">
-        SELECT
-        count(*)
-        FROM
-       customer_account ca
-        WHERE ca.auditor_id = #{auditor_id}
-    </select>
-    <select id="getSecutityIdbyAuditorId" resultType="java.lang.String">
+
+    <!--select id="getSecutityIdbyAuditorId" resultType="java.lang.String">
         SELECT
         aum.security_id security_id
         FROM
@@ -91,8 +69,6 @@ COMMIT WORK;
 </select>
 
 
-
-
     <select id="getOpenDate" resultType="java.lang.String">
         SELECT
         ca.open_date open_date
@@ -112,23 +88,6 @@ COMMIT WORK;
 		account_info ai
 		WHERE ai.user_id = #{user_id}
 	</select>
-
-    <!--select id="gettoReviewUser_List_N" resultType="java.util.HashMap">
-        SELECT
-        ai.user_id user_id
-        FROM
-       account_info ai
-        WHERE ai.status = 4
-        AND ai.n_security_id= #{security_id}
-    </select>
-    <select id="gettoReviewUser_List_S" resultType="java.util.HashMap">
-        SELECT
-       ai.user_id user_id
-        FROM
-       account_info ai
-        WHERE ai.status = 4
-        AND ai.s_security_id= #{security_id}
-    </select-->
 
 
 

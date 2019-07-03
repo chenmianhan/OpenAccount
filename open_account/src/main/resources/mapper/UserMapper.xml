@@ -47,13 +47,11 @@
      And u.user_id=ac.user_id
      and u.status=4
     </select>
-    <!--update id="updateDemo" >
-        UPDATE demo d
+    <update id="setUserStatus" >
+        UPDATE user u
         <set>
-            d.name = #{name},
-            d.age = #{age},
-            d.id = #{id}
+            u.status=#{status}
         </set>
-        WHERE  d.id=#{id};
-    </update-->
+        WHERE  u.user_id=#{user_id};
+    </update>
 </mapper>

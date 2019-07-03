@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import com.practice.open_account.service.*;
 
+import com.practice.open_account.util.CommonUtil;
 import com.practice.open_account.util.SessionUtil;
 import com.practice.open_account.util.constants.AuditorConstants;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -153,7 +154,7 @@ public class AuditorController {
     }
 
 
-   /* @RequestMapping(value="/reviewer/postResult", method=POST, produces = "application/json;charset=UTF-8")
+   @RequestMapping(value="/reviewer/postResult", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject postResult(@RequestParam(value = "userId") String userId,
                                  @RequestParam(value = "infoResult") String infoResult,
                                  @RequestParam(value = "gradeResult") String gradeResult,
@@ -162,6 +163,7 @@ public class AuditorController {
     {
         String result_review;
         String status;
+        String reviewerId= SessionUtil.getSessionAttribute().getString("employee_id");
         if(imageResult.equals("true")&&infoResult.equals("true")&&gradeResult.equals("true"))
         {
             status="7";
@@ -170,7 +172,8 @@ public class AuditorController {
          if(!result){
              status="8";
              result_review="开户系统出错";
-             auditorService.setUserStatus(userId,status,result_review);
+             reviewResultService.setReviewResultByUseridAndReviewerId(userId,reviewerId,result_review);
+             userService.setUserStatus(userId,status);
              return CommonUtil.getJson(AuditorConstants.ERROR_MSG);
          }
         }
@@ -188,11 +191,11 @@ public class AuditorController {
         {
             result_review+="风险测评不通过：";
         }
-        int result=auditorService.setUserStatus(userId,status,result_review);
-        if(result==1)
+        reviewResultService.setReviewResultByUseridAndReviewerId(userId,reviewerId,result_review);
+        userService.setUserStatus(userId,status);
             return CommonUtil.getJson(AuditorConstants.SUCCESS_MSG);
-        else return CommonUtil.getJson(AuditorConstants.FAIL_MSG);
-    }*/
+       // else return CommonUtil.getJson(AuditorConstants.FAIL_MSG);
+    }
     private void parseUserInfo(String user_id, JSONObject userInfoTemp, JSONArray userInfo) {
         JSONObject temp=new JSONObject();
         temp.put("title","用户ID");

@@ -20,4 +20,5 @@ public interface UserService {
     List<Map<String,Object>> getWaitForReview(String security_id,
                                               String start,
                                              String end);
+    int setUserStatus(String user_id, String status);
 }

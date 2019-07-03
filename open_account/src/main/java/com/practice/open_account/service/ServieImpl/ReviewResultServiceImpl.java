@@ -55,6 +55,13 @@ public class ReviewResultServiceImpl implements ReviewResultService {
     }
     @Override
     @Transactional
+    public  int setReviewResultByUseridAndReviewerId(String user_id,String reviewerId,String result)
+    {
+       return  reviewResultDao.setReviewResultByUseridAndReviewerId(user_id, reviewerId, result);
+    }
+
+    @Override
+    @Transactional
     public String checkExitWaitForReviewByAuditor(String reviewerId)
     {
         try{

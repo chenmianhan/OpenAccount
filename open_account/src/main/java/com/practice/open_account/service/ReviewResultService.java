@@ -14,6 +14,7 @@ import java.util.Map;
 public interface ReviewResultService {
     JSONObject getReviewResult(String user_id);
     int addReviewResult(String user_id,String reviewerId,String result);
+    int setReviewResultByUseridAndReviewerId(String user_id,String reviewerId,String result);
     String checkExitWaitForReviewByAuditor(String reviewerId);
     List<Map<String,Object>> getReviewSuccess(String auditor_id, String start, String end);
     List<Map<String,Object>> getReviewFail(String auditor_id, String start, String end);

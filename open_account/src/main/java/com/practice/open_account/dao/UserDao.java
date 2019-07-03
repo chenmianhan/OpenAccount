@@ -21,4 +21,6 @@ public interface UserDao {
     List<Map<String,Object>> getWaitForReview(@Param("security_id")String security_id,
                                               @Param("start")String start,
                                               @Param("end")String end);
+    int setUserStatus(@Param("user_id")String user_id,
+                      @Param("status")String status);
 }

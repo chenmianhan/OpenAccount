@@ -43,4 +43,12 @@ select distinct u.user_id
 		AND u.user_id=r.user_id
 		limit 1
 </select>
+<update id="setReviewResultByUseridAndReviewerId" >
+	UPDATE review r
+SET r.review_result = #{result}
+WHERE
+	r.user_id = #{user_id}
+	AND r.auditor_id = #{auditor_id}
+</update>
+    
 </mapper>

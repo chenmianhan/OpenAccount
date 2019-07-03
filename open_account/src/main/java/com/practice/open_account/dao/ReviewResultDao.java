@@ -17,7 +17,9 @@ public interface ReviewResultDao {
     List<Map<String,Object>> getReviewSuccess(@Param("auditor_id")String auditor_id,
                                               @Param("start")String start,
                                               @Param("end")String end);
-
+    int setReviewResultByUseridAndReviewerId(@Param("user_id")String user_id,
+                                             @Param("auditor_id")String reviewerId,
+                                             @Param("result")String result);
     List<Map<String,Object>> getReviewFail(@Param("auditor_id")String auditor_id,
                                            @Param("start")String start,
                                            @Param("end")String end);

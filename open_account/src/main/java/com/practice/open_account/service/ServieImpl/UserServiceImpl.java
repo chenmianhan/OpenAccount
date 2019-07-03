@@ -80,5 +80,10 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
-
+    @Override
+    @Transactional
+    public int setUserStatus(String user_id, String status)
+    {
+        return userDao.setUserStatus(user_id, status);
+    }
 }
