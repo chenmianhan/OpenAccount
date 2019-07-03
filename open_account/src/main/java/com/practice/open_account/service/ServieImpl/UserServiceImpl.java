@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /****
  *@author:cmh
@@ -65,4 +67,18 @@ public class UserServiceImpl implements UserService {
         }
         return CommonUtil.getJson(LoginConstants.LOGOUT_CODE);
     }
+    @Override
+    @Transactional
+    public  List<Map<String,Object>> getWaitForReview(String security_id,
+                                                      String start,
+                                                      String end)
+    {
+        try {
+          return   userDao.getWaitForReview(security_id, start, end);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

@@ -41,9 +41,11 @@
     <select id="getWaitForReview" resultType="java.util.HashMap">
     select distinct u.user_id
     from user u,account_info ac
-    WHERE  ac.security_id=#{security}
+    WHERE  ac.security_id=#{security_id}
     AND  ac.allocated_time
-    BETWEEN #{start}  AND #{end};
+    BETWEEN #{start}  AND #{end}
+     And u.user_id=ac.user_id
+     and u.status=4
     </select>
     <!--update id="updateDemo" >
         UPDATE demo d

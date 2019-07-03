@@ -3,11 +3,8 @@ package com.practice.open_account.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import com.practice.open_account.service.AccountAllocService;
-import com.practice.open_account.service.AuditorService;
+import com.practice.open_account.service.*;
 
-import com.practice.open_account.service.ReviewResultService;
-import com.practice.open_account.service.SecurityService;
 import com.practice.open_account.util.SessionUtil;
 import com.practice.open_account.util.constants.AuditorConstants;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +33,8 @@ public class AuditorController {
     private SecurityService securityService;
     @Resource
     private ReviewResultService reviewResultService;
+    @Resource
+    private UserService userService;
     @Resource
     private AccountAllocService accountAllocService;
     @RequestMapping(value="/reviewer", method=POST, produces = "application/json;charset=UTF-8")
@@ -106,7 +105,32 @@ public class AuditorController {
     public JSONObject getReviewerInfo(@RequestParam(value = "reviewerId") String reviewerId,
                                       @RequestParam(value = "start") String start,
                                       @RequestParam(value = "end") String end){
-return null;
+        if(reviewerId.equals(""))
+            try{reviewerId=Long.toString((Long)(SessionUtil.getSessionAttribute().get("employee_id")));}
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
+        List<Map<String,Object>> lsm= userService.getWaitForReview(security_id, start, end);
+        //System.out.println(lsm);
+        ArrayList<String> user_id_list=new ArrayList<>();
+        getUseridList(lsm, user_id_list);
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("toReviewNum",user_id_list.size());
+
+        lsm=reviewResultService.getReviewSuccess(reviewerId, start, end);
+        System.out.println(lsm);
+        user_id_list=new ArrayList<>();
+        getUseridList(lsm, user_id_list);
+        jsonObject.put("reviewedNum",user_id_list.size());
+
+        lsm=reviewResultService.getReviewFail(reviewerId, start, end);
+        System.out.println(lsm);
+        user_id_list=new ArrayList<>();
+        getUseridList(lsm, user_id_list);
+        jsonObject.put("notPassNum",user_id_list.size());
+        return jsonObject;
     }
 
 

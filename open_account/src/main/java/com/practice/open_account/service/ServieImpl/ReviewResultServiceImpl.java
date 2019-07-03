@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /****
  *@author:cmh
@@ -64,5 +66,30 @@ public class ReviewResultServiceImpl implements ReviewResultService {
             return null;
         }
     }
-
+    @Override
+    @Transactional
+    public  List<Map<String,Object>> getReviewSuccess(String auditor_id, String start, String end)
+    {
+        try{
+            return reviewResultDao.getReviewSuccess(auditor_id,start,end);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    @Override
+    @Transactional
+    public  List<Map<String,Object>> getReviewFail(String auditor_id, String start, String end)
+    {
+        try{
+            return reviewResultDao.getReviewFail(auditor_id,start,end);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
