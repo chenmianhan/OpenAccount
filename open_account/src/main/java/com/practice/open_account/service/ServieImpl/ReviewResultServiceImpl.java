@@ -51,4 +51,18 @@ public class ReviewResultServiceImpl implements ReviewResultService {
             return 0;
         }
     }
+    @Override
+    @Transactional
+    public String checkExitWaitForReviewByAuditor(String reviewerId)
+    {
+        try{
+            return reviewResultDao.checkExitWaitForReviewByAuditor(reviewerId);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

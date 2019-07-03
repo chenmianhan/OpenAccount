@@ -10,5 +10,5 @@ import com.alibaba.fastjson.JSONObject;
 public interface ReviewResultService {
     JSONObject getReviewResult(String user_id);
     int addReviewResult(String user_id,String reviewerId,String result);
-
+    String checkExitWaitForReviewByAuditor(String reviewerId);
 }

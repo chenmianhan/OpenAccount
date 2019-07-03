@@ -32,5 +32,13 @@ select distinct u.user_id
 		AND  r.update_time
 		BETWEEN #{start}  AND #{end};
     </select>
-
+<select id="checkExitWaitForReviewByAuditor" resultType="java.lang.String">
+    select distinct r.user_id user_id
+        from
+		review r,user u
+		WHERE r.auditor_id = #{auditor_id}
+		AND u.status=5
+		AND u.user_id=r.user_id
+		limit 1
+</select>
 </mapper>

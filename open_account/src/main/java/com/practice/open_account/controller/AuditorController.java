@@ -60,33 +60,48 @@ public class AuditorController {
             e.printStackTrace();
         }
         String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
-        System.out.println(reviewerId+":"+security_id);
 
-        String user_id=auditorService.getOneUserToReview(security_id);
-        if(user_id==null)
+        String user_id=reviewResultService.checkExitWaitForReviewByAuditor(reviewerId);
+        if(user_id!=null)
         {
-            JSONObject js=new JSONObject();
-            js.put("userInfo",new JSONArray());
-            js.put("imageUrl_1","");
-            js.put("imageUrl_2","");
-            js.put("imageUrl_3","");
-            js.put("userType","");
-            js.put("userGrade","");
-            js.put("code",AuditorConstants.NONE_MSG);
-            return js;
+            return getUserInfo(user_id);
         }
-       // System.out.println(getClass()+user_id);
-        int result= reviewResultService.addReviewResult(user_id,reviewerId,"审核中");
-        if(result==1){
-            JSONObject userInfoTemp =auditorService.getUserInfo(user_id);
-            JSONArray userInfo=new JSONArray();
-            parseUserInfo(user_id, userInfoTemp, userInfo);
-            JSONObject jsonObject=auditorService.getUserInfoUnreviewed(user_id);
-            jsonObject.put("userInfo",userInfo);
-            jsonObject.put("code",AuditorConstants.MUCH_MSG);
-            return jsonObject;}
-        else return new JSONObject();
+        //System.out.println(getClass()+user_id);
+      else {
+            user_id=auditorService.getOneUserToReview(security_id);
+            if(user_id==null)
+            {
+                JSONObject js=new JSONObject();
+                js.put("userInfo",new JSONArray());
+                js.put("imageUrl_1","");
+                js.put("imageUrl_2","");
+                js.put("imageUrl_3","");
+                js.put("userType","");
+                js.put("userGrade","");
+                js.put("code",AuditorConstants.NONE_MSG);
+                return js;
+            }
+            // System.out.println(getClass()+user_id);
+            int result= reviewResultService.addReviewResult(user_id,reviewerId,"审核中");
+            if(result==1){
+                return getUserInfo(user_id);
+            }
+            else return new JSONObject();
+        }
+        //String
+
     }
+
+    private JSONObject getUserInfo(String user_id) {
+        JSONObject userInfoTemp = auditorService.getUserInfo(user_id);
+        JSONArray userInfo = new JSONArray();
+        parseUserInfo(user_id, userInfoTemp, userInfo);
+        JSONObject jsonObject = auditorService.getUserInfoUnreviewed(user_id);
+        jsonObject.put("userInfo", userInfo);
+        jsonObject.put("code", AuditorConstants.MUCH_MSG);
+        return jsonObject;
+    }
+
     @RequestMapping(value="/reviewer/getReviewerInfo", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject getReviewerInfo(@RequestParam(value = "reviewerId") String reviewerId,
                                       @RequestParam(value = "start") String start,
