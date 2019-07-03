@@ -9,7 +9,7 @@
 	</select>
 	
 	<!-- getFundAccount -->
-	<select id="getFundAccountByCustomerId" resultType="com.alibaba.fastjson.JSONObject"
+	<select id="getFundAccountByCustomerId" resultType="com.practice.open_account.entity.FundAccount"
 	>
 		select * from fund_account
 		where customer_id = #{customer_id} 
@@ -42,4 +42,7 @@
 		#{type}
 		)
 	</insert>
+	<delete id="deleteFundAccount" >
+		delete from fund_account where fund_id = #{fund_id}
+	</delete>
 </mapper>

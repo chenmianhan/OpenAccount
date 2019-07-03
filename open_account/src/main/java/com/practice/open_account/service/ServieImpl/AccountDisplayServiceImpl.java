@@ -19,7 +19,7 @@ public class AccountDisplayServiceImpl implements AccountDisplayService {
 		return accountDisplayDAO.getCustomerIdByUserId(user_id);
 	}
 	@Override
-	public List<JSONObject> getFundAccountByCustomerId(String customer_id) {
+	public List<FundAccount> getFundAccountByCustomerId(String customer_id) {
 		return accountDisplayDAO.getFundAccountByCustomerId(customer_id);
 	}
 	@Override
@@ -35,5 +35,10 @@ public class AccountDisplayServiceImpl implements AccountDisplayService {
 	public int addFundAccount(FundAccount fundAccount) {
 		// TODO Auto-generated method stub
 		return accountDisplayDAO.addFundAccount(fundAccount);
+	}
+	@Override
+	public int deleteFundAccount(String fund_id) {
+		// TODO Auto-generated method stub
+		return accountDisplayDAO.deleteFundAccount(fund_id);
 	}
 }

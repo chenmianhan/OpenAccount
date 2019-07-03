@@ -29,9 +29,11 @@ public class AccountDisplayController {
 	@Autowired
 	private SecurityService securityService;
 	@GetMapping(value = "/account/accountDisplay", produces = "application/json;charset=UTF-8")
-	public JSONObject accountDisplay(@RequestParam("user_id") int user_id) {
+	public JSONObject accountDisplay() {
+		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+		int  user_id = sessonJsonObject.getIntValue("user_id");
 		String customer_id = accountDisplayService.getCustomerIdByUserId(user_id);
-		List<JSONObject> data = accountDisplayService
+		List<FundAccount> data = accountDisplayService
 				.getFundAccountByCustomerId(customer_id
 						);
 		JSONObject res = new JSONObject();
@@ -47,10 +49,10 @@ public class AccountDisplayController {
 			if(i==0) {
 				JSONObject temp = res.getJSONObject("primaryAccount");
 				temp.put("id",Integer.valueOf(0));
-				temp.put("cardID", data.get(0).getString("bank_account"));
+				temp.put("cardID", data.get(0).getBank_account());
 				List<JSONObject> currencyList = 
 						accountDisplayService.getCurrencyByFundId(
-								data.get(0).getString("fund_id")
+								data.get(0).getFund_id()
 								);
 				temp.put("balance", currencyList.get(0));
 			}
@@ -58,10 +60,10 @@ public class AccountDisplayController {
 			else {
 				JSONObject temp = new JSONObject(3);
 				temp.put("id", Integer.valueOf(i));
-				temp.put("cardID", data.get(i).getString("bank_account"));
+				temp.put("cardID", data.get(i).getBank_account());
 				List<JSONObject> currencyList = 
 						accountDisplayService.getCurrencyByFundId(
-								data.get(i).getString("fund_id")
+								data.get(i).getFund_id()
 								);
 				temp.put("balance", currencyList.get(0));
 				array.add(temp);
@@ -122,6 +124,25 @@ public class AccountDisplayController {
 		}
 		return 0;
 		
+	}
+	
+	@PostMapping(value = "/account/deleteFundAccount",produces = "application/json;charset=UTF-8")
+	public int deleteFundAccount(@RequestParam int id) {
+		//	get user_id
+		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+		int  user_id = sessonJsonObject.getIntValue("user_id");
+		//	get customer_id
+		String customer_id = accountDisplayService.getCustomerIdByUserId(user_id);
+		//	get fundAccount
+		List<FundAccount> fundAccount =accountDisplayService.getFundAccountByCustomerId(customer_id);
+		if(fundAccount.get(id)!=null
+				&&fundAccount.get(id).getType().equals("1")==true) {
+			return accountDisplayService.
+					deleteFundAccount(
+							fundAccount.get(id).getFund_id()
+							);
+		}
+		return 0;
 	}
 
 }
