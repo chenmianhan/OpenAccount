@@ -3,6 +3,7 @@ package com.practice.open_account.dao;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
+import com.practice.open_account.entity.AccountInfo;
 import com.practice.open_account.entity.Employee;
 import com.practice.open_account.entity.Security;
 
@@ -13,4 +14,6 @@ public interface AdminDAO {
 	Integer addAdminManage(Employee admin);
 	Integer updateAdmin(Employee admin);
 	Integer addSecurity(Security security);
+	List<AccountInfo> getServeralUserBySecurityId(Integer security_id);
+//	List<String> get
 }

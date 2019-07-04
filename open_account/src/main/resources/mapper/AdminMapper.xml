@@ -52,4 +52,10 @@
 			#{contact_phone}
 			)
 	</insert>
+	<select id="getServeralUserBySecurityId" resultType="com.practice.open_account.entity.AccountInfo"
+	>
+		select user_id,name,id_number,contact_address_id
+		from account_info
+		where security_id = #{security_id}
+	</select>
 </mapper>

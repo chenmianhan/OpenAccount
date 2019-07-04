@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.practice.open_account.entity.AccountInfo;
 import com.practice.open_account.entity.Employee;
 import com.practice.open_account.entity.Security;
 import com.practice.open_account.service.AdminService;
@@ -112,8 +113,10 @@ public class AdminController {
 		String end = jsonObject.getString("end");
 		//	get admin_id
 		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
-		int admin_id = sessonJsonObject.getIntValue("admin_id");
+//		System.out.println(sessonJsonObject);
+		int admin_id = sessonJsonObject.getIntValue("user_id");
 		int security_id = adminService.getSecurityIdByAdminId(admin_id);
+		List<AccountInfo> userInSpecificSecurity = adminService.getServeralUserBySecurityId(security_id);
 		
 		return jsonArray;
 	}
