@@ -3,6 +3,10 @@ package com.practice.open_account.dao;
 
 import com.practice.open_account.entity.AccountInfo;
 import com.practice.open_account.entity.Address;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 /****
  *@author:cmh
@@ -30,6 +34,8 @@ public interface AccountInfoDAO{
     int updateAddress(Address address);
     
     // User status update
-    int updateUserStatus(Integer user_id,String status); 
-    
+    int updateUserStatus(Integer user_id,String status);
+
+    List<Map<String,Object>> getUserPair(@Param("security_id")String security_id);
+
 }

@@ -143,6 +143,13 @@
     	status =#{status}
     	where user_id = #{user_id} 
     </update>
+
+	<select id="getUserPair" resultType="java.util.HashMap">
+		select ai.name value,
+		      ai.user_id address
+		      from account_info ai
+		      WHERE ai.security_id=#{security_id}
+	</select>
 </mapper>
 
 
