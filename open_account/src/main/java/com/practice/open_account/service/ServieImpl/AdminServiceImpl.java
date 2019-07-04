@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.practice.open_account.dao.AdminDAO;
 import com.practice.open_account.entity.Employee;
+import com.practice.open_account.entity.Security;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +38,10 @@ public class AdminServiceImpl implements AdminService{
 	public Integer updateAdmin(Employee admin) {
 		// TODO Auto-generated method stub
 		return adminDAO.updateAdmin(admin);
+	}
+	@Override
+	public Integer addSecurity(Security security) {
+		// TODO Auto-generated method stub
+		return adminDAO.addSecurity(security);
 	}
 }

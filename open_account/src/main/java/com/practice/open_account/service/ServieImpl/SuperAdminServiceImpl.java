@@ -1,5 +1,7 @@
 package com.practice.open_account.service.ServieImpl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.practice.open_account.config.shiro.common.UserToken;
 import com.practice.open_account.dao.SuperAdminDAO;
@@ -78,7 +80,7 @@ public class SuperAdminServiceImpl implements SuperAdminService {
 
     @Override
     @Transactional
-    public int deleteUser(int user_id){
+    public int deleteUser(int user_id) {
         String customer_id = superAdminDAO.getCustomerId(user_id);
         superAdminDAO.deleteUserInTradeAccount(customer_id);
         superAdminDAO.deleteUserInFundAccount(customer_id);
@@ -94,5 +96,33 @@ public class SuperAdminServiceImpl implements SuperAdminService {
         superAdminDAO.deleteEmployee(admin_id);
         return 1;
     }
+
+    @Override
+    @Transactional
+    public JSONObject getStore(String store) {
+        JSONObject js = superAdminDAO.getStore(store);
+        int security_id = js.getInteger("security_id");
+        int users_num = superAdminDAO.getUsersNumUnderStore(security_id);
+        js.put("user_number", users_num);
+        System.out.println(js);
+        return js;
+    }
+
+    @Override
+    @Transactional
+    public JSONArray getAllStore() {
+        List<JSONObject> jsArray = superAdminDAO.getAllStore();
+        JSONArray res = new JSONArray();
+        for (int i = 0; i < jsArray.size(); i++) {
+            JSONObject js = jsArray.get(i);
+            int security_id = js.getInteger("security_id");
+            int users_num = superAdminDAO.getUsersNumUnderStore(security_id);
+            js.put("user_number", users_num);
+            res.add(js);
+        }
+        return res;
+    }
+
+
 
 }

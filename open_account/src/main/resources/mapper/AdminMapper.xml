@@ -40,4 +40,16 @@
 		employee_password=#{employee_password}
 		where employee_id =#{employee_id}
 	</update>
+	
+	<insert id="addSecurity">
+		insert into security(
+			name,province,city,contact_phone
+			)
+			values(
+			#{name},
+			#{province},
+			#{city},
+			#{contact_phone}
+			)
+	</insert>
 </mapper>
