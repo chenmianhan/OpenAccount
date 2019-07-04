@@ -23,7 +23,7 @@ public class TimeLineServiceImpl implements TimeLineService{
     private TimeLineDAO timeLineDao;
 
     @Override
-    public JSONArray getTimeLine(String usrId)
+    public JSONArray getTimeLine(int usrId)
     {
         JSONArray arr=new JSONArray();
         String cusId=timeLineDao.getCusId(usrId);
@@ -48,7 +48,7 @@ public class TimeLineServiceImpl implements TimeLineService{
     }
 
     @Override
-    public JSONArray getOptionalTimeLine(String usrId,String startTime,String endTime)
+    public JSONArray getOptionalTimeLine(int usrId,String startTime,String endTime)
     {
 
         JSONArray arr=new JSONArray();
