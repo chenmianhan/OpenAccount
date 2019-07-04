@@ -2,6 +2,7 @@ package com.practice.open_account.service.ServieImpl;
 
 
 import java.util.List;
+import java.util.Map;
 
 import com.practice.open_account.dao.AdminDAO;
 import com.practice.open_account.entity.AccountInfo;
@@ -49,5 +50,20 @@ public class AdminServiceImpl implements AdminService{
 	public List<AccountInfo> getServeralUserBySecurityId(Integer security_id) {
 		// TODO Auto-generated method stub
 		return adminDAO.getServeralUserBySecurityId(security_id);
+	}
+	@Override
+	public String getOpenDate(Integer user_id) {
+		// TODO Auto-generated method stub
+		return adminDAO.getOpenDate(user_id);
+	}
+	@Override
+	public String getPhoneByUserId(Integer user_id) {
+		// TODO Auto-generated method stub
+		return adminDAO.getPhoneByUserId(user_id);
+	}
+	@Override
+	public Map<Integer, String> getAllOpenDate() {
+		// TODO Auto-generated method stub
+		return adminDAO.getAllOpenDate();
 	}
 }

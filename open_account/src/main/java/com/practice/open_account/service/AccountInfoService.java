@@ -41,5 +41,4 @@ public interface AccountInfoService {
     int updateUserStatus(Integer user_id,String status);
 
     List<Map<String,Object>> getUserPair(String security_id);
-
 }

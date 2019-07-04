@@ -1,6 +1,7 @@
 package com.practice.open_account.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
 import com.practice.open_account.entity.AccountInfo;
@@ -15,5 +16,7 @@ public interface AdminDAO {
 	Integer updateAdmin(Employee admin);
 	Integer addSecurity(Security security);
 	List<AccountInfo> getServeralUserBySecurityId(Integer security_id);
-//	List<String> get
+	String getOpenDate(Integer user_id);
+	String getPhoneByUserId(Integer user_id);
+	Map<Integer, String> getAllOpenDate();
 }

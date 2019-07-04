@@ -58,4 +58,16 @@
 		from account_info
 		where security_id = #{security_id}
 	</select>
+	<select id="getOpenDate" resultType="java.lang.String">
+		select open_date from customer_account
+		where user_id = #{user_id}
+	</select>
+	<select id="getPhoneByUserId" resultType="java.lang.String"
+	>
+		select phone from user where user_id = #{user_id}
+	</select>
+	<select id="getAllOpenDate" resultType="HashMap">
+		select user_id,open_date from customer_account;
+	</select>
+	
 </mapper>

@@ -1,5 +1,8 @@
 package com.practice.open_account.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
@@ -9,19 +12,22 @@ import org.springframework.web.bind.annotation.*;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.practice.open_account.entity.AccountInfo;
+import com.practice.open_account.entity.Address;
 import com.practice.open_account.entity.Employee;
 import com.practice.open_account.entity.Security;
+import com.practice.open_account.service.AccountInfoService;
 import com.practice.open_account.service.AdminService;
 import com.practice.open_account.service.AuditorService;
 import com.practice.open_account.service.SecurityService;
 import com.practice.open_account.util.constants.LoginConstants;
+import com.sun.xml.internal.xsom.impl.scd.Iterators.Map;
 
 @RestController
 public class AdminController {
 	@Autowired
     private AdminService adminService;
 	@Autowired
-	private SecurityService securityService;
+	private AccountInfoService accountInfoService;
 	@Autowired
     private AuditorService auditorService;
     
@@ -107,20 +113,48 @@ public class AdminController {
 	
 	//	getuserByDate
 	@GetMapping(value = "/admin/getUserByDate",produces = "application/json;charset=UTF-8")
-	public JSONArray getUserByDate(@RequestBody JSONObject jsonObject) {
-		JSONArray jsonArray = new JSONArray(30);
+	public JSONArray getUserByDate(@RequestBody JSONObject jsonObject) throws ParseException {
 		String start = jsonObject.getString("start");
 		String end = jsonObject.getString("end");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		Date startDate = format.parse(start);
+		Date endDate = format.parse(end);
 		//	get admin_id
 		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+//		Map<Integer,String> allOpenDate = (Map<Integer, String>) adminService.getAllOpenDate();
 //		System.out.println(sessonJsonObject);
-		int admin_id = sessonJsonObject.getIntValue("user_id");
+		int admin_id = sessonJsonObject.getIntValue("employee_id");
+		//	get specific security_id
 		int security_id = adminService.getSecurityIdByAdminId(admin_id);
+		//	get users in specific security
 		List<AccountInfo> userInSpecificSecurity = adminService.getServeralUserBySecurityId(security_id);
-		
-		return jsonArray;
+		JSONArray tableData = new JSONArray(userInSpecificSecurity.size()/2);
+		int index = 0;
+		for(AccountInfo i:userInSpecificSecurity) {
+			//	get openDate
+			String openDate = adminService.getOpenDate(i.getUser_id());
+			if(openDate==null) continue;
+			Date compare = format.parse(openDate);
+			if(compare.compareTo(startDate)>0&&compare.compareTo(endDate)<0) {
+				JSONObject elementInArray = new JSONObject();
+				//	get user_id,name,id_num,date
+				elementInArray.put("user_id", i.getUser_id());
+				elementInArray.put("name",i.getName());
+				elementInArray.put("id_num",i.getId_number());
+				elementInArray.put("date",openDate);
+				//	get contact_address
+				Address temp = accountInfoService.getAddressByAId(i.getContact_address_id());
+				StringBuffer address = new StringBuffer();
+				address.append(temp.getProvince()+" ");
+				address.append(temp.getCity()+" ");
+				address.append(temp.getStreet()+" ");
+				address.append(temp.getDetail()+" ");
+				elementInArray.put("address", address.toString());
+				elementInArray.put("contact",adminService.getPhoneByUserId(i.getUser_id()));
+				tableData.add(elementInArray);
+			}
+		}
+		return tableData;
 	}
-	public static int compareTime(String t1,String t2,String start,String end) {
-		return 1;
-	}
+	
 }
