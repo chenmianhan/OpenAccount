@@ -3,6 +3,7 @@ package com.practice.open_account.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import com.alibaba.fastjson.JSONStreamAware;
 import com.github.pagehelper.PageHelper;
 import com.practice.open_account.service.*;
 
@@ -37,6 +38,8 @@ public class AuditorController {
     private ReviewResultService reviewResultService;
     @Resource
     private UserService userService;
+    @Resource
+    private AccountInfoService accountInfoService;
     @Resource
     private AccountAllocService accountAllocService;
     @RequestMapping(value="/reviewer", method=POST, produces = "application/json;charset=UTF-8")
@@ -93,14 +96,14 @@ public class AuditorController {
 
     }
 
-    private JSONObject getUserInfo(String user_id) {
-        JSONObject userInfoTemp = auditorService.getUserInfo(user_id);
-        JSONArray userInfo = new JSONArray();
-        parseUserInfo(user_id, userInfoTemp, userInfo);
-        JSONObject jsonObject = auditorService.getUserInfoUnreviewed(user_id);
-        jsonObject.put("userInfo", userInfo);
-        jsonObject.put("code", AuditorConstants.MUCH_MSG);
-        return jsonObject;
+    @RequestMapping(value="/reviewer/getUserId", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONArray getUserPair(){
+        String reviewerId= SessionUtil.getSessionAttribute().getString("employee_id");
+        String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
+        List<Map<String,Object>> lsm= accountInfoService.getUserPair(security_id);
+
+        //System.out.println(lsm);
+        return getUserPair(lsm);
     }
 
     @RequestMapping(value="/reviewer/getReviewerInfo", method=POST, produces = "application/json;charset=UTF-8")
@@ -137,9 +140,8 @@ public class AuditorController {
 
 
 
-    @RequestMapping(value="/reviewer/getAllUserInfo", method=POST, produces = "application/json;charset=UTF-8")
-    public JSONArray getAllUserInfo(
-                                    @RequestParam(value = "start") String start,
+    @RequestMapping(value="/reviewer/getUserByDate", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONArray getUserByDate(@RequestParam(value = "start") String start,
                                     @RequestParam(value = "end") String end,
                                     @RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
                                     @RequestParam(value = "size", defaultValue = "5")int pageSize,
@@ -179,8 +181,6 @@ public class AuditorController {
         return jsonArray;
 
     }
-
-
    @RequestMapping(value="/reviewer/postResult", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject postResult(@RequestParam(value = "userId") String userId,
                                  @RequestParam(value = "infoResult") String infoResult,
@@ -272,7 +272,32 @@ public class AuditorController {
             }
         }
     }
+    private JSONObject getUserInfo(String user_id) {
+        JSONObject userInfoTemp = auditorService.getUserInfo(user_id);
+        JSONArray userInfo = new JSONArray();
+        parseUserInfo(user_id, userInfoTemp, userInfo);
+        JSONObject jsonObject = auditorService.getUserInfoUnreviewed(user_id);
+        jsonObject.put("userInfo", userInfo);
+        jsonObject.put("code", AuditorConstants.MUCH_MSG);
+        return jsonObject;
+    }
+    private JSONArray getUserPair(List<Map<String,Object>> lsm) {
+        JSONArray jsonArray = new JSONArray();
+        for (Map<String, Object> map : lsm) {
+            JSONObject jsonObject = new JSONObject();
 
+            if (map.containsKey("value")) {
+                jsonObject.put("value", map.get("value"));
+            }
+            if (map.containsKey("address")) {
+                jsonObject.put("address", map.get("address"));
+            }
+
+            jsonArray.add(jsonObject);
+        }
+
+        return jsonArray;
+    }
     /*private String getSQLDateTime( String start) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         java.sql.Date sdate = null;
