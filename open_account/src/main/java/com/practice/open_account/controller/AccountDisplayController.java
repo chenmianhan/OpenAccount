@@ -65,6 +65,12 @@ public class AccountDisplayController {
 						accountDisplayService.getCurrencyByFundId(
 								data.get(i).getFund_id()
 								);
+				if(currencyList.size()==0) {
+					JSONObject object = new JSONObject();
+					object.put("currency_type", "¥");
+					object.put("balance", 0);
+					currencyList.add(object);
+				}
 				temp.put("balance", currencyList.get(0));
 				array.add(temp);
 			}
@@ -126,7 +132,7 @@ public class AccountDisplayController {
 		
 	}
 	
-	@PostMapping(value = "/account/deleteFundAccount",produces = "application/json;charset=UTF-8")
+	@GetMapping(value = "/account/deleteFundAccount",produces = "application/json;charset=UTF-8")
 	public int deleteFundAccount(@RequestParam int id) {
 		//	get user_id
 		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
@@ -144,5 +150,4 @@ public class AccountDisplayController {
 		}
 		return 0;
 	}
-
 }

@@ -75,6 +75,7 @@ public class AdminController {
     }
     
     //	normal admin
+    //	addAuditor
 	@PostMapping(value = "/admin/addAuditor",produces = "application/json;charset=UTF-8")
 	public int addAuditor(@RequestBody JSONObject jsonObject) {
 		//	insert employee table
@@ -89,6 +90,7 @@ public class AdminController {
 				);
 	}
 	
+	//	modifyAuditor
 	@PutMapping(value = "/admin/modifyAuditor")
 	public int updateAuditor(@RequestBody JSONObject jsonObject) {
 		return auditorService.updateEmployee(
@@ -100,5 +102,22 @@ public class AdminController {
 //				&auditorService.updateAuditor(
 //				jsonObject.getIntValue("security_id"),
 //				jsonObject.getIntValue("auditor_id"));
+	}
+	
+	//	getuserByDate
+	@GetMapping(value = "/admin/getUserByDate",produces = "application/json;charset=UTF-8")
+	public JSONArray getUserByDate(@RequestBody JSONObject jsonObject) {
+		JSONArray jsonArray = new JSONArray(30);
+		String start = jsonObject.getString("start");
+		String end = jsonObject.getString("end");
+		//	get admin_id
+		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+		int admin_id = sessonJsonObject.getIntValue("admin_id");
+		int security_id = adminService.getSecurityIdByAdminId(admin_id);
+		
+		return jsonArray;
+	}
+	public static int compareTime(String t1,String t2,String start,String end) {
+		return 1;
 	}
 }

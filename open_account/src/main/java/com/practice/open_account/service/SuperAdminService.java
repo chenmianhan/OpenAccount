@@ -33,7 +33,11 @@ public interface SuperAdminService {
     int deleteAdmin(int admin_id);
     // return 1 as successful 0 otherwise
 
-    JSONObject getStore(String store);
+    JSONArray getStore(String store);
 
     JSONArray getAllStore();
+
+    JSONArray getAdminByStore(String store);
+
+    JSONArray getAdminByName(String admin_name);
 }
