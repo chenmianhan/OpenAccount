@@ -57,7 +57,7 @@ public class SuperAdminController{
     }
 
     @RequestMapping(value = "/superadmin/getStore", method = POST, produces = "application/json;charset=UTF-8")
-    public JSONObject getStore(@RequestBody JSONObject jsonObject){
+    public JSONArray getStore(@RequestBody JSONObject jsonObject){
         String store = jsonObject.getString("store");
         return superAdminService.getStore(store);
     }
@@ -65,5 +65,17 @@ public class SuperAdminController{
     @RequestMapping(value = "/superadmin/getAllStore", method = GET, produces = "application/json;charset=UTF-8")
     public JSONArray getAllStore(){
         return superAdminService.getAllStore();
+    }
+
+    @RequestMapping(value = "/superadmin/getAdminByStore", method = POST, produces = "application/json;charset=UTF-8")
+    public JSONArray getAdminByStore(@RequestBody JSONObject jsonObject){
+        String store = jsonObject.getString("store");
+        return superAdminService.getAdminByStore(store);
+    }
+
+    @RequestMapping(value = "/superadmin/getAdminByName", method = POST, produces = "application/json;charset=UTF-8")
+    public JSONArray getAdminByName(@RequestBody JSONObject jsonObject){
+        String admin_name = jsonObject.getString("admin_name");
+        return superAdminService.getAdminByName(admin_name);
     }
 }
