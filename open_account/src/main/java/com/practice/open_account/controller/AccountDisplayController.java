@@ -76,11 +76,17 @@ public class AccountDisplayController {
 			}
 		}
 		//	input security info
-		AccountInfo info = accountInfoService.getAccountInfoByUserId(user_id);
-		Integer security_id = info.getSecurity_id();
-		res.getJSONObject("netPoint").put("netpoint", 
-				security_id==null?"":
-				securityService.getSecurityBySecurityId(security_id).getString("name"));
+		try {
+			AccountInfo info = accountInfoService.getAccountInfoByUserId(user_id);
+			Integer security_id = info.getSecurity_id();
+			res.getJSONObject("netPoint").put("netpoint", 
+					security_id==null?"":
+					securityService.getSecurityBySecurityId(security_id).getString("name"));
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.getStackTrace();
+		}
+		
 		return res;
 	}
 	
