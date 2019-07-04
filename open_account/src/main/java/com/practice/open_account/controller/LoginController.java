@@ -52,7 +52,7 @@ public class LoginController {
                 try{
                     userService.addUser(account,password);
                     userService.checkLogin(account,password);
-                  //System.out.println(SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO));
+                    System.out.println(SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO));
                     return CommonUtil.getJson(LoginConstants.NEW_CODE);
                 }
                 catch(Exception e){

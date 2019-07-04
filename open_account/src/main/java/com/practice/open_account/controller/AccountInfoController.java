@@ -47,6 +47,7 @@ public class AccountInfoController {
     public int addAccountInfo(@RequestBody JSONObject jsonObject
     		) throws Exception 
     {
+    	System.out.println(jsonObject.getString("id_address_detail"));
     	System.out.println(jsonObject);
     	AccountInfoDto accountInfoDto = new AccountInfoDto
     			(jsonObject.getObject("account_info",AccountInfo.class), 
@@ -56,6 +57,7 @@ public class AccountInfoController {
 		   		 );
 //    	通过session获取user_id
     	JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+    	System.out.println(sessonJsonObject);
     	accountInfoDto.getAccount_info().setUser_id(sessonJsonObject.getInteger("user_id"));
     	// insert address first
     	accountInfoService.addAddress(accountInfoDto.getId_address());
