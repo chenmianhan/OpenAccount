@@ -7,6 +7,6 @@
         select * from security s where s.security_id = #{security_id}
     </select>
     <select id="getSecurityAll" resultType="com.alibaba.fastjson.JSONObject">
-        select * from security ORDER BY province,city,type
+        select * from security ORDER BY province,city
     </select>
 </mapper>

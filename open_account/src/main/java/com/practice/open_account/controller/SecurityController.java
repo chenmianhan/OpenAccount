@@ -47,7 +47,6 @@ public class SecurityController{
                 {
                     Anssonson.put("value",tmp1.getString("security_id"));
                     Anssonson.put("label",tmp1.getString("name"));
-                    Anssonson.put("type",tmp1.getString("type"));
                     anssonson.add(Anssonson);
                     Anssonson=new JSONObject();
                 }            
@@ -55,7 +54,6 @@ public class SecurityController{
                 {
                     Anssonson.put("value",tmp1.getString("security_id"));
                     Anssonson.put("label",tmp1.getString("name"));
-                    Anssonson.put("type",tmp1.getString("type"));
                     anssonson.add(Anssonson);
                     Anssonson=new JSONObject();
                     Ansson.put("label",tmp1.getString("city"));
@@ -80,7 +78,6 @@ public class SecurityController{
         JSONObject tmp1=result.getJSONObject(result.size()-1);
         Anssonson.put("security_id",tmp1.getString("security_id"));
         Anssonson.put("name",tmp1.getString("name"));
-        Anssonson.put("type",tmp1.getString("type"));
         anssonson.add(Anssonson);
         Ansson.put("city_name",tmp1.getString("city"));
         Ansson.put("securities",anssonson);
