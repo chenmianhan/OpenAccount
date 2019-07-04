@@ -51,4 +51,7 @@ public interface SuperAdminDAO {
     // return 1 as successful 0 otherwise
 
     int deleteAdminInAdminManager(@Param("admin_id") int admin_id);
+
+    JSONObject getStore(@Param("store") String store);
+    List<JSONObject> getAllStore();
 }

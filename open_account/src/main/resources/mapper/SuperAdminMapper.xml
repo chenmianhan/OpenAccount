@@ -31,6 +31,15 @@
         where user_id = #{user_id}
     </select>
 
+    <select id="getAllStore" resultType="com.alibaba.fastjson.JSONObject">
+        select * from security
+    </select>
+    
+    <select id="getStore" resultType="com.alibaba.fastjson.JSONObject">
+        select * from security
+        where name = #{store}
+    </select>
+
     <insert id="addAdminToEmployee">
         insert into employee
         (employee_id, employee_account, employee_password, employee_type, employee_name)

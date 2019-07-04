@@ -1,7 +1,9 @@
 package com.practice.open_account.service;
 
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.annotation.JsonAlias;
 
 /****
  *@author:hwy
@@ -30,4 +32,8 @@ public interface SuperAdminService {
 
     int deleteAdmin(int admin_id);
     // return 1 as successful 0 otherwise
+
+    JSONObject getStore(String store);
+
+    JSONArray getAllStore();
 }

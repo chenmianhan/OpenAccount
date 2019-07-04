@@ -55,4 +55,15 @@ public class SuperAdminController{
         int admin_id = jsonObject.getInteger("admin_id");
         return superAdminService.deleteAdmin(admin_id);
     }
+
+    @RequestMapping(value = "/superadmin/getStore", method = POST, produces = "application/json;charset=UTF-8")
+    public JSONObject getStore(@RequestBody JSONObject jsonObject){
+        String store = jsonObject.getString("store");
+        return superAdminService.getStore(store);
+    }
+
+    @RequestMapping(value = "/superadmin/getAllStore", method = GET, produces = "application/json;charset=UTF-8")
+    public JSONArray getAllStore(){
+        return superAdminService.getAllStore();
+    }
 }
