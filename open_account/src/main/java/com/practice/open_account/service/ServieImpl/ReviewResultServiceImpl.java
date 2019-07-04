@@ -99,4 +99,19 @@ public class ReviewResultServiceImpl implements ReviewResultService {
             return null;
         }
     }
+    @Override
+    @Transactional
+    public  List<Map<String,Object>> getReviewed(String auditor_id,
+                                         String start,
+                                         String end)
+    {
+        try{
+            return reviewResultDao.getReviewed(auditor_id,start,end);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

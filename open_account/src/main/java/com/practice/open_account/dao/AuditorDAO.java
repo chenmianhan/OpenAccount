@@ -15,15 +15,14 @@ import java.util.Map;
  */
 public interface AuditorDAO {
     String getSecutityIdbyAuditorId(@Param("auditor_id") String auditor_id);
-//    JSONObject getSecurity(@Param("security_id")String security_id);
     List<Map<String,Object>> getUserIdByTime(@Param("auditor_id")String auditor_id,
                                        @Param("start")String start,
                                        @Param("end")String end);
     JSONObject getUserInfo(@Param("user_id")String user_id);
-    String getOpenDate(@Param("user_id")String user_id);
-    JSONObject getOtherInfo(@Param("user_id")String user_id);
-//    //JSONObject getUserInfoUnreviewed(@Param("user_id")String user_id);
+    String getReviewDate(@Param("user_id")String user_id);
 
+    String getOneUserToReview(String security_id);
+    JSONObject getOtherInfo(@Param("user_id")String user_id);
    int insertEmployee(Employee employee);
     int insertAuditor(int security_id, int auditor_id);
     int updateEmployee(
@@ -34,5 +33,5 @@ public interface AuditorDAO {
             String employee_name
     );
     int updateAuditor(int security_id, int auditor_id);
-    String getOneUserToReview(String security_id);
+
 }

@@ -29,14 +29,6 @@ public class AuditorServiceImpl implements AuditorService {
     {
         return auditorDAO.getSecutityIdbyAuditorId(auditor_id);
     }
-//    @Override
-//    @Transactional
-//    public JSONObject getSecurity(String security_id)
-//    {
-//        return auditorDAO.getSecurity(security_id);
-//    }
-   /*
-*/
    @Override
    @Transactional
    public String getOneUserToReview(String security_id)
@@ -53,16 +45,6 @@ public class AuditorServiceImpl implements AuditorService {
 
    }
 
-
-
-
-
-
-
-
-
-
-
     @Override
     @Transactional
     public List<Map<String,Object>>  getUserIdByTime(String auditor_id,
@@ -74,12 +56,16 @@ public class AuditorServiceImpl implements AuditorService {
     @Transactional
     public JSONObject getUserInfo(String user_id)
     {
-        //System.out.println(user_id);
-        JSONObject temp=auditorDAO.getUserInfo(user_id);
-       // System.out.println();
-        String openDate=auditorDAO.getOpenDate(user_id);
-
-        temp.put("accTime",openDate);
+        JSONObject temp=null;
+        try {
+             temp= auditorDAO.getUserInfo(user_id);
+            // System.out.println();
+            String openDate = auditorDAO.getReviewDate(user_id);
+        temp.put("accTime",openDate);}
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
        // System.out.println(temp);
         return temp;
 

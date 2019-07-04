@@ -92,11 +92,6 @@ public class LoginController {
     {
         return userService.logout();
     }
-    @RequestMapping(value="/test", method=POST, produces = "application/json;charset=UTF-8")
-    public JSONObject test() {
-        Session session = SecurityUtils.getSubject().getSession();
-        return (JSONObject) session.getAttribute(LoginConstants.SESSION_USER_INFO);
-}
     @RequestMapping(value="/getReviewResult", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject getReviewResult() {
         String user_id= SessionUtil.getSessionAttribute().getString("user_id");
