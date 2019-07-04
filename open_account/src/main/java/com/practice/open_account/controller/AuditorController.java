@@ -3,6 +3,7 @@ package com.practice.open_account.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import com.github.pagehelper.PageHelper;
 import com.practice.open_account.service.*;
 
 import com.practice.open_account.util.CommonUtil;
@@ -136,21 +137,47 @@ public class AuditorController {
 
 
 
-    @RequestMapping(value="/api/statisticData/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
-    public JSONArray getUserInfo(@RequestParam(value = "reviewerId") String reviewerId,
-                                      @RequestParam(value = "start") String start,
-                                      @RequestParam(value = "end") String end)  {
-        JSONArray jsonArray=new JSONArray();
-      //  String startTimeStamp= getSQLDateTime(start);
-       // String endTimeStamp= getSQLDateTime(end);
-        List<Map<String,Object>> lsm= auditorService.getUserIdByTime(reviewerId,start,end);
-        ArrayList<String> user_id_list=new ArrayList<>();
-        getUseridList(lsm, user_id_list);
-        for(int j=0;j<user_id_list.size();j++)
+    @RequestMapping(value="/reviewer/getAllUserInfo", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONArray getAllUserInfo(
+                                    @RequestParam(value = "start") String start,
+                                    @RequestParam(value = "end") String end,
+                                    @RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
+                                    @RequestParam(value = "size", defaultValue = "5")int pageSize,
+                                    @RequestParam(value ="status")String status)  {
+        String reviewerId= SessionUtil.getSessionAttribute().getString("employee_id");
+      PageHelper.startPage(pageNum, pageSize,"user_id");
+        List<Map<String,Object>>lsm;
+        if(status.equals("0"))
         {
-            jsonArray.add(auditorService.getUserInfo(user_id_list.get(j)));
+            lsm=reviewResultService.getReviewed(reviewerId,start,end);
+            //System.out.println(lsm.size());
         }
-        return   jsonArray;
+        else if(status.equals("1"))
+        {
+            lsm=reviewResultService.getReviewSuccess(reviewerId,start,end);
+        }
+        else
+        {
+            lsm=reviewResultService.getReviewFail(reviewerId,start,end);
+        }
+        ArrayList<String> userIdList=new ArrayList<>();
+        getUseridList(lsm,userIdList);
+       // System.out.println(userIdList);
+        JSONArray jsonArray=new JSONArray();
+        for(int i=0;i<userIdList.size();i++) {
+            JSONObject temp=auditorService.getUserInfo(userIdList.get(i));
+            if(temp.get("reviewStatus").equals("6")){
+                temp.remove("reviewStatus");
+            temp.put("reviewStatus","不通过");}
+            else {
+                temp.remove("reviewStatus");
+                temp.put("reviewStatus","通过");
+            }
+            jsonArray.add(temp);
+        }      //  =reviewResultService.getReviewSuccess(reviewerId, start, end);
+       // System.out.println(lsm);
+        return jsonArray;
+
     }
 
 
@@ -158,9 +185,7 @@ public class AuditorController {
     public JSONObject postResult(@RequestParam(value = "userId") String userId,
                                  @RequestParam(value = "infoResult") String infoResult,
                                  @RequestParam(value = "gradeResult") String gradeResult,
-                                 @RequestParam(value = "imageResult") String imageResult
-                                 )
-    {
+                                 @RequestParam(value = "imageResult") String imageResult)    {
         String result_review;
         String status;
         String reviewerId= SessionUtil.getSessionAttribute().getString("employee_id");

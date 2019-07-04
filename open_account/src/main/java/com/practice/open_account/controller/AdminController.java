@@ -45,6 +45,7 @@ public class AdminController {
     			jsonObject.getString("password"),
     			"2",
     			jsonObject.getInteger("store"));
+    	
     	return adminService.addAdminEmployee(admin)&adminService.addAdminManage(admin);
     }
     
@@ -65,12 +66,12 @@ public class AdminController {
     @PostMapping(value = "/superadmin/addStore",produces = "application/json;charset=UTF-8")
     public int addSecurity(@RequestBody JSONObject jsonObject) {
     	Security security = new Security(
-				jsonObject.getInteger("security_id"), 
+				null,
 				jsonObject.getString("store"), 
 				jsonObject.getJSONArray("address").getString(0),
 				jsonObject.getJSONArray("address").getString(1),
 				jsonObject.getString("contact_phone"));
-    	return 0;
+    	return adminService.addSecurity(security);
     }
     
     //	normal admin
