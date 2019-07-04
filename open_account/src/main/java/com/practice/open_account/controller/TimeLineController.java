@@ -24,13 +24,13 @@ public class TimeLineController {
     @RequestMapping(value="/timeline/get_timeline",method = POST,produces = "application/json;charset=UTF-8")
     public JSONArray getTimeLine(@RequestBody JSONObject js)
     {
-        String usrId=js.getString("user_id");
+        int usrId=js.getInteger("user_id");
         return timeLineService.getTimeLine(usrId);
     }
     @RequestMapping(value="/timeline/get_optional_timeline",method = POST,produces = "application/json;charset=UTF-8")
     public JSONArray getOptionalTimeLine(@RequestBody JSONObject js)
     {
-        String usrId=js.getString("user_id");
+        int usrId=js.getInteger("user_id");
         String startTime=js.getString("starttime");
         String endTime=js.getString("endtime");
         return timeLineService.getOptionalTimeLine(usrId,startTime,endTime);

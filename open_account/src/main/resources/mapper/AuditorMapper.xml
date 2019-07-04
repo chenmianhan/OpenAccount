@@ -3,21 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper  namespace="com.practice.open_account.dao.AuditorDAO">
 
-    <!--select id="getSecutityIdbyAuditorId" resultType="java.lang.String">
-        SELECT
-        aum.security_id security_id
-        FROM
-       auditor_manager aum
-        WHERE aum.auditor_id = #{auditor_id}
-    </select-->
-    <!--select id="getSecurity" resultType="com.alibaba.fastjson.JSONObject">
-        SELECT
-            s.name     name,
-            s.type     type
-        FROM
-            security s
-        WHERE s.security_id = #{security_id}
-    </select-->
+
     <select id="getUserIdByTime" resultType="java.util.HashMap">
 		select user_id  from
 		customer_account ca
@@ -36,10 +22,12 @@
 		ai.education education,
 		ai.email email,
 		ai.deposit_bank bankName,
-		ai.deposit_account bankCardNum
+		ai.deposit_account bankCardNum,
+		u.status reviewStatus
 		from
-		account_info ai
-		WHERE ai.user_id = #{user_id}
+		account_info ai,user u
+		WHERE  ai.user_id = #{user_id}
+		AND  ai.user_id = u.user_id
 	</select>
     <select id="getOneUserToReview" resultType="java.lang.String">
 SET AUTOCOMMIT = 0;
@@ -69,12 +57,12 @@ COMMIT WORK;
 </select>
 
 
-    <select id="getOpenDate" resultType="java.lang.String">
+    <select id="getReviewDate" resultType="java.lang.String">
         SELECT
-        ca.open_date open_date
+        r.update_time update_time
         FROM
-       customer_account ca
-        WHERE ca.user_id= #{user_id}
+       review  r
+        WHERE r.user_id= #{user_id}
     </select>
 
     <select id="getOtherInfo" resultType="com.alibaba.fastjson.JSONObject">

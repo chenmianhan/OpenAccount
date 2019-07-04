@@ -99,13 +99,18 @@ public class SuperAdminServiceImpl implements SuperAdminService {
 
     @Override
     @Transactional
-    public JSONObject getStore(String store) {
-        JSONObject js = superAdminDAO.getStore(store);
-        int security_id = js.getInteger("security_id");
-        int users_num = superAdminDAO.getUsersNumUnderStore(security_id);
-        js.put("user_number", users_num);
-        System.out.println(js);
-        return js;
+    public JSONArray getStore(String store) {
+        String store_like = "%" + store + "%";
+        List<JSONObject> jsArray = superAdminDAO.getStore(store_like);
+        JSONArray res = new JSONArray();
+        for (int i = 0; i < jsArray.size(); i++) {
+            JSONObject js = jsArray.get(i);
+            int security_id = js.getInteger("security_id");
+            int users_num = superAdminDAO.getUsersNumUnderStore(security_id);
+            js.put("user_number", users_num);
+            res.add(js);
+        }
+        return res;
     }
 
     @Override
@@ -123,6 +128,47 @@ public class SuperAdminServiceImpl implements SuperAdminService {
         return res;
     }
 
+    @Override
+    @Transactional
+    public JSONArray getAdminByStore(String store) {
+        JSONArray storeArray = this.getStore(store);
+        JSONArray res = new JSONArray();
+        for (int i = 0; i < storeArray.size(); i++) {
+            JSONObject storeJs = storeArray.getJSONObject(i);
+            String storeName = storeJs.getString("name");
+            int security_id = storeJs.getInteger("security_id");
+            JSONObject employeeJs = superAdminDAO.getAdminByStore(security_id);
+            JSONObject resJs = new JSONObject();
+            resJs.put("admin_id", employeeJs.getInteger("employee_id"));
+            resJs.put("name", employeeJs.getString("employee_name"));
+            resJs.put("account", employeeJs.getString("employee_account"));
+            resJs.put("password", employeeJs.getString("employee_password"));
+            resJs.put("store", storeName);
+            res.add(resJs);
+        }
+        return res;
+    }
 
+
+    @Override
+    @Transactional
+    public JSONArray getAdminByName(String admin_name){
+        admin_name = "%" + admin_name + "%";
+        List<JSONObject> jsList = superAdminDAO.getAdminByName(admin_name);
+        JSONArray res = new JSONArray();
+        for (int i = 0; i < jsList.size(); i++) {
+            JSONObject js = jsList.get(i);
+            int security_id = js.getInteger("security_id");
+            String store = superAdminDAO.getSecurity(security_id);
+            JSONObject resJs = new JSONObject();
+            resJs.put("admin_id", js.getInteger("employee_id"));
+            resJs.put("name", js.getString("employee_name"));
+            resJs.put("account", js.getString("employee_account"));
+            resJs.put("password", js.getString("employee_password"));
+            resJs.put("store", store);
+            res.add(resJs);
+        }
+        return res;
+    }
 
 }

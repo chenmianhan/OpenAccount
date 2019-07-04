@@ -34,10 +34,25 @@
     <select id="getAllStore" resultType="com.alibaba.fastjson.JSONObject">
         select * from security
     </select>
-    
+
     <select id="getStore" resultType="com.alibaba.fastjson.JSONObject">
         select * from security
-        where name = #{store}
+        where name like #{store}
+    </select>
+
+    <select id="getAdminByStore" resultType="com.alibaba.fastjson.JSONObject">
+        select employee.* from employee, admin_manager
+        where employee.employee_id = admin_manager.admin_id and admin_manager.security_id = #{security_id}
+    </select>
+
+    <select id="getAdminByName" resultType="com.alibaba.fastjson.JSONObject">
+        select * from employee, admin_manager
+        where employee.employee_id = admin_manager.admin_id and employee.employee_name like #{admin_name}
+    </select>
+
+    <select id="getSecurity" resultType="String">
+        select name from security
+        where security_id = #{security_id}
     </select>
 
     <insert id="addAdminToEmployee">

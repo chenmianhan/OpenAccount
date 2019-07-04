@@ -13,7 +13,17 @@
     insert into  review(auditor_id,user_id,review_result)
     values (#{auditor_id},#{user_id},#{result})
     </insert>
-
+<select id="getReviewed" resultType="java.util.HashMap">
+	select distinct u.user_id
+        from
+		review r,user u
+		WHERE r.auditor_id = #{auditor_id}
+		AND u.status=7
+		OR u.status=6
+		AND r.user_id=u.user_id
+		AND  r.update_time
+		BETWEEN #{start}  AND #{end}
+</select>
     <select id="getReviewSuccess" resultType="java.util.HashMap">
 select distinct u.user_id
         from
@@ -22,7 +32,7 @@ select distinct u.user_id
 		AND u.status=7
 		AND r.user_id=u.user_id
 		AND  r.update_time
-		BETWEEN #{start}  AND #{end};
+		BETWEEN #{start}  AND #{end}
     </select>
     <select id="getReviewFail" resultType="java.util.HashMap">
 select distinct u.user_id
