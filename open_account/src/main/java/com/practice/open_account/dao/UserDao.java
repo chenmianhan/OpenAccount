@@ -12,15 +12,22 @@ import java.util.Map;
  *@descrption:
  */
 public interface UserDao {
-     int checkPhone(@Param("phone") String phone);
-   // int checkLogin(@Param("phone") String phone, @Param("password") String password);
+    int checkPhone(@Param("phone") String phone);
+    // int checkLogin(@Param("phone") String phone, @Param("password") String password);
 
     int addUser(@Param("phone") String phone, @Param("password") String password);
+
     JSONObject getUser(@Param("phone") String phone, @Param("password") String password);
+
     String getStatus(@Param("user_id") String user_id);
-    List<Map<String,Object>> getWaitForReview(@Param("security_id")String security_id,
-                                              @Param("start")String start,
-                                              @Param("end")String end);
-    int setUserStatus(@Param("user_id")String user_id,
-                      @Param("status")String status);
+
+    List<Map<String, Object>> getWaitForReview(@Param("security_id") String security_id,
+                                               @Param("start") String start,
+                                               @Param("end") String end);
+
+    int setUserStatus(@Param("user_id") String user_id,
+                      @Param("status") String status);
+
+    List<Map<String, Object>> getUserByName(@Param("security_id") String security_id,
+                                            @Param("name")String name);
 }

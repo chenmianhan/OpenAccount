@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /****
@@ -137,15 +138,55 @@ public class AuditorController {
         jsonObject.put("notPassNum",user_id_list.size());
         return jsonObject;
     }
-    @RequestMapping(value= "/reviewer/getUserInfoById", method=POST, produces = "application/json;charset=UTF-8")
+    @RequestMapping(value= "/reviewer/getUserInfoById", method=GET, produces = "application/json;charset=UTF-8")
     public JSONArray getUserInfoById(@RequestParam(value = "userId") String userId)
     {
         JSONObject userInfoTemp = auditorService.getUserInfo(userId);
+        String  reviewStatus=userService.getStatus(userId);
+        reviewStatus = getStatusStringByStatusInt(reviewStatus);
+        userInfoTemp.put("reviewStatus",reviewStatus);
         JSONArray userInfo = new JSONArray();
         userInfo.add(userInfoTemp);
         return userInfo;
     }
 
+    private String getStatusStringByStatusInt(String reviewStatus) {
+        if (reviewStatus.equals("4")) {
+            reviewStatus = "未审核";
+        } else if (reviewStatus.equals("5")) {
+            reviewStatus = "审核中";
+        } else if (reviewStatus.equals("6")) {
+            reviewStatus = "未通过";
+        } else if (reviewStatus.equals("7")) {
+            reviewStatus = "通过";
+        }
+        return reviewStatus;
+    }
+
+    @RequestMapping(value= "/reviewer/getUserByName", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONArray getUserByName(@RequestParam(value = "username") String username,
+                                   @RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
+                                   @RequestParam(value = "size", defaultValue = "5")int pageSize)
+    {
+        String reviewerId= SessionUtil.getSessionAttribute().getString("employee_id");
+        String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
+        PageHelper.startPage(pageNum, pageSize,"user_id");
+        List<Map<String,Object>>lsm;
+        lsm=userService.getUserByName(security_id,username);
+        ArrayList<String> userIdList=new ArrayList<>();
+        getUseridList(lsm,userIdList);
+        JSONArray userInfo = new JSONArray();
+        for(int i=0;i<lsm.size();i++)
+        {
+            JSONObject userInfoTemp = auditorService.getUserInfo(userIdList.get(i));
+            String  reviewStatus=userService.getStatus(userIdList.get(i));
+            reviewStatus = getStatusStringByStatusInt(reviewStatus);
+            userInfoTemp.put("reviewStatus",reviewStatus);
+            userInfo.add(userInfoTemp);
+
+        }
+        return userInfo;
+    }
 
     @RequestMapping(value="/reviewer/getUserByDate", method=POST, produces = "application/json;charset=UTF-8")
     public JSONArray getUserByDate(@RequestParam(value = "start") String start,
@@ -177,7 +218,7 @@ public class AuditorController {
             JSONObject temp=auditorService.getUserInfo(userIdList.get(i));
             if(temp.get("reviewStatus").equals("6")){
                 temp.remove("reviewStatus");
-            temp.put("reviewStatus","不通过");}
+            temp.put("reviewStatus","未通过");}
             else {
                 temp.remove("reviewStatus");
                 temp.put("reviewStatus","通过");
@@ -213,15 +254,15 @@ public class AuditorController {
             status="6";
             result_review="审核未通过：";}
         if(imageResult.equals("false")){
-            result_review+="照片审核不通过；";
+            result_review+="照片审核未通过；";
         }
         if(infoResult.equals("false"))
         {
-            result_review+="个人信息填写不通过；";
+            result_review+="个人信息填写未通过；";
         }
         if(gradeResult.equals("false"))
         {
-            result_review+="风险测评不通过：";
+            result_review+="风险测评未通过：";
         }
         reviewResultService.setReviewResultByUseridAndReviewerId(userId,reviewerId,result_review);
         userService.setUserStatus(userId,status);

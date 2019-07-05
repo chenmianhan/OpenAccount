@@ -54,4 +54,11 @@
         </set>
         WHERE  u.user_id=#{user_id};
     </update>
+    <select id="getUserByName" resultType="java.util.HashMap">
+        select u.user_id user_id
+        from user u,account_info ac
+    WHERE  ac.security_id=#{security_id}
+    And u.user_id=ac.user_id
+    AND ac.name=#{name}
+    </select>
 </mapper>
