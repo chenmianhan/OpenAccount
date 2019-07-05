@@ -19,4 +19,6 @@ public interface AdminDAO {
 	String getOpenDate(Integer user_id);
 	String getPhoneByUserId(Integer user_id);
 	Map<Integer, String> getAllOpenDate();
+
+	Integer getMaxEmployeeId();
 }

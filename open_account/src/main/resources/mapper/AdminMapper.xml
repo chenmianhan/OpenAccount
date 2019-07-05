@@ -69,5 +69,7 @@
 	<select id="getAllOpenDate" resultType="HashMap">
 		select user_id,open_date from customer_account;
 	</select>
-	
+	<select id="getMaxEmployeeId" resultType="Integer">
+		select max(employee_id) from employee
+	</select>
 </mapper>

@@ -34,6 +34,7 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public Integer addAdminManage(Employee admin) {
 		// TODO Auto-generated method stub
+		admin.setEmployee_id(adminDAO.getMaxEmployeeId());
 		return adminDAO.addAdminManage(admin);
 	}
 	@Override
