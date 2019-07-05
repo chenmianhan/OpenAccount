@@ -86,4 +86,24 @@ public class UserServiceImpl implements UserService {
     {
         return userDao.setUserStatus(user_id, status);
     }
+    @Override
+    @Transactional
+    public String getStatus(String user_id)
+    {
+        return userDao.getStatus(user_id);
+    }
+    @Override
+    @Transactional
+    public  List<Map<String, Object>> getUserByName(String security_id,String name)
+    {
+        try{
+            return userDao.getUserByName(security_id,name);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+      return null;
+    }
+
 }
