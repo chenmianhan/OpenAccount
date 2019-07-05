@@ -20,7 +20,12 @@ public class AccountDisplayServiceImpl implements AccountDisplayService {
 	}
 	@Override
 	public List<FundAccount> getFundAccountByCustomerId(String customer_id) {
-		return accountDisplayDAO.getFundAccountByCustomerId(customer_id);
+		try {return accountDisplayDAO.getFundAccountByCustomerId(customer_id);}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
 	}
 	@Override
 	public List<JSONObject> getCurrencyByFundId(String fund_id) {
@@ -40,5 +45,14 @@ public class AccountDisplayServiceImpl implements AccountDisplayService {
 	public int deleteFundAccount(String fund_id) {
 		// TODO Auto-generated method stub
 		return accountDisplayDAO.deleteFundAccount(fund_id);
+	}
+	@Override
+	//@Transactional
+	public  String  getTradeType( String user_id)
+	{
+		try {return  accountDisplayDAO.getTradeType(user_id);}
+		catch (Exception e)
+		{e.printStackTrace();}
+		return null;
 	}
 }

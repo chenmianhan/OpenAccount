@@ -126,7 +126,11 @@ public class AuditorController {
         jsonObject.put("toReviewNum",user_id_list.size());
 
         lsm=reviewResultService.getReviewSuccess(reviewerId, start, end);
-        System.out.println(lsm);
+       // System.out.println(lsm);
+        System.out.println("getReviewerInfo");
+        System.out.println("reviewerId:"+reviewerId);
+        System.out.println("start:"+start);
+        System.out.println("end:"+end);
         user_id_list=new ArrayList<>();
         getUseridList(lsm, user_id_list);
         jsonObject.put("reviewedNum",user_id_list.size());
@@ -200,15 +204,22 @@ public class AuditorController {
         if(status.equals("0"))
         {
             lsm=reviewResultService.getReviewed(reviewerId,start,end);
-            //System.out.println(lsm.size());
+            System.out.println(lsm.size());
         }
         else if(status.equals("1"))
         {
             lsm=reviewResultService.getReviewSuccess(reviewerId,start,end);
+
+            System.out.println("getUserByDate");
+            System.out.println("reviewerId:"+reviewerId);
+            System.out.println("start:"+start);
+            System.out.println("end:"+end);
+
         }
         else
         {
             lsm=reviewResultService.getReviewFail(reviewerId,start,end);
+            System.out.println(lsm.size());
         }
         ArrayList<String> userIdList=new ArrayList<>();
         getUseridList(lsm,userIdList);

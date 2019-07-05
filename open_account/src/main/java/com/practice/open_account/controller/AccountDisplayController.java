@@ -21,7 +21,7 @@ import com.practice.open_account.service.SecurityService;
 import com.practice.open_account.util.constants.LoginConstants;
 
 @RestController
-public class AccountDisplayController {
+public class  AccountDisplayController {
 	@Autowired
 	private AccountDisplayService accountDisplayService;
 	@Autowired
@@ -79,12 +79,30 @@ public class AccountDisplayController {
 		try {
 			AccountInfo info = accountInfoService.getAccountInfoByUserId(user_id);
 			Integer security_id = info.getSecurity_id();
+
 			res.getJSONObject("netPoint").put("netpoint", 
 					security_id==null?"":
 					securityService.getSecurityBySecurityId(security_id).getString("name"));
+			String tradeType=accountDisplayService.getTradeType(Integer.toString(user_id));
+			String  tradeType1="";
+			String  tradeType2="";
+			if(tradeType.equals("0")){
+				tradeType1="上海";
+				tradeType2="";
+			}
+			else if(tradeType.equals("1")){
+				tradeType1="";
+				tradeType2="深圳";
+			}
+			else{
+				tradeType1="上海";
+				tradeType2="深圳";
+			}
+			res.getJSONObject("netPoint").put("trade_type1",tradeType1);
+			res.getJSONObject("netPoint").put("trade_type2",tradeType2);
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.getStackTrace();
+			e.printStackTrace();
 		}
 		
 		return res;
