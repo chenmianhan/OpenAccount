@@ -15,5 +15,6 @@ public interface AccountAllocService {
     String getNewSHTradeAcc();
     String getNewSZTradeAcc();
     boolean addNewFundAcc(String customer_id, String bank_account, String bank);
+    void insertCurrency(String fundId,String curType,float balance);
 }
 

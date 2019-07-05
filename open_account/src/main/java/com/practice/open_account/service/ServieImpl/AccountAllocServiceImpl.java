@@ -191,4 +191,8 @@ public class AccountAllocServiceImpl implements AccountAllocService {
 
         return true;
     }
+    @Override
+    public void insertCurrency(String fundId,String curType,float balance){
+        accountAllocDAO.insCur(fundId,curType,balance);
+    }
 }

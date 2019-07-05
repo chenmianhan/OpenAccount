@@ -27,4 +27,5 @@ public interface AccountAllocDAO{
     String maxFund();
     String maxTradeSZ();
     String maxTradeSH();
+    void insCur(String fundId,String curType,float balance);
 }
