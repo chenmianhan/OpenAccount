@@ -138,13 +138,15 @@ public class SuperAdminServiceImpl implements SuperAdminService {
             String storeName = storeJs.getString("name");
             int security_id = storeJs.getInteger("security_id");
             JSONObject employeeJs = superAdminDAO.getAdminByStore(security_id);
-            JSONObject resJs = new JSONObject();
-            resJs.put("admin_id", employeeJs.getInteger("employee_id"));
-            resJs.put("name", employeeJs.getString("employee_name"));
-            resJs.put("account", employeeJs.getString("employee_account"));
-            resJs.put("password", employeeJs.getString("employee_password"));
-            resJs.put("store", storeName);
-            res.add(resJs);
+            if (employeeJs != null){
+                JSONObject resJs = new JSONObject();
+                resJs.put("admin_id", employeeJs.getInteger("employee_id"));
+                resJs.put("name", employeeJs.getString("employee_name"));
+                resJs.put("account", employeeJs.getString("employee_account"));
+                resJs.put("password", employeeJs.getString("employee_password"));
+                resJs.put("store", storeName);
+                res.add(resJs);
+            }
         }
         return res;
     }
