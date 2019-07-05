@@ -158,6 +158,8 @@
 		      WHERE ai.user_id=#{user_id}
 		      AND  s.security_id=ai.security_id
 	</select>
+
+
 </mapper>
 
 

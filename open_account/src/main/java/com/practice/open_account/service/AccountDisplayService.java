@@ -13,4 +13,5 @@ public interface AccountDisplayService {
 	String getMaxFundId();
 	int addFundAccount(FundAccount fundAccount);
 	int deleteFundAccount(String fund_id);
+	String  getTradeType( String user_id);
 }

@@ -52,7 +52,8 @@ public class LoginController {
                 try{
                    int a= userService.addUser(account,password);
                    if(a==1)
-                   { userService.checkLogin(account,password);
+                   {
+                       userService.checkLogin(account,password);
                     //System.out.println(SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO));
                     return CommonUtil.getJson(LoginConstants.NEW_CODE);}
                    else return CommonUtil.getJson(LoginConstants.ERROR_CODE);
