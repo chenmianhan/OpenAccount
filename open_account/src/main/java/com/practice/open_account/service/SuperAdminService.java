@@ -40,4 +40,6 @@ public interface SuperAdminService {
     JSONArray getAdminByStore(String store);
 
     JSONArray getAdminByName(String admin_name);
+
+    JSONArray getAllAdmin();
 }

@@ -50,6 +50,11 @@
         where employee.employee_id = admin_manager.admin_id and employee.employee_name like #{admin_name}
     </select>
 
+    <select id="getAllAdmin" resultType="com.alibaba.fastjson.JSONObject">
+        select * from employee, admin_manager
+        where employee.employee_id = admin_manager.admin_id
+    </select>
+
     <select id="getSecurity" resultType="String">
         select name from security
         where security_id = #{security_id}

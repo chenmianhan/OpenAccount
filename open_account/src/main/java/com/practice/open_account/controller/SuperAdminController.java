@@ -78,4 +78,9 @@ public class SuperAdminController{
         String admin_name = jsonObject.getString("admin_name");
         return superAdminService.getAdminByName(admin_name);
     }
+
+    @RequestMapping(value = "/superadmin/getAllAdmin", method = GET, produces = "application/json;charset=UTF-8")
+    public JSONArray getAllAdmin(){
+        return superAdminService.getAllAdmin();
+    }
 }
