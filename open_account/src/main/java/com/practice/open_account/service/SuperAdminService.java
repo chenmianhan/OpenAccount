@@ -42,4 +42,11 @@ public interface SuperAdminService {
     JSONArray getAdminByName(String admin_name);
 
     JSONArray getAllAdmin();
+
+    JSONObject getSuperAdminName();
+
+    JSONArray getUserList();
+    JSONObject getUserInfo(int usrId);
+    String getAddressInfo(int aId);
+    JSONObject getPhoneAndTime(int usrId);
 }

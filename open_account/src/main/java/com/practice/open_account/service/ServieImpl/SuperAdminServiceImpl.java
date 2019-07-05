@@ -193,4 +193,41 @@ public class SuperAdminServiceImpl implements SuperAdminService {
         return res;
     }
 
+    @Override
+    @Transactional
+    public JSONObject getSuperAdminName() {
+        String super_admin_name = superAdminDAO.getSuperAdminName();
+        JSONObject res = new JSONObject();
+        res.put("superadminName", super_admin_name);
+        return res;
+    }
+
+    @Override
+    public JSONArray getUserList()
+    {
+        JSONArray ans=new JSONArray();
+        List<JSONObject> tmp=superAdminDAO.getUserList();
+        ans.addAll(tmp);
+        return ans;
+    }
+
+    @Override
+    public JSONObject getUserInfo(int usrId)
+    {
+        return superAdminDAO.getUserInfo(usrId);
+    }
+    @Override
+    public String getAddressInfo(int aId){
+        JSONObject js=superAdminDAO.getAddressInfo(aId);
+        String s=js.getString("province");
+        s=s.concat(js.getString("city"));
+        s=s.concat(js.getString("street"));
+        s=s.concat(js.getString("detail"));
+        return s;
+    }
+    @Override
+    public JSONObject getPhoneAndTime(int usrId){
+        return superAdminDAO.getPhoneAndTime(usrId);
+    }
+
 }

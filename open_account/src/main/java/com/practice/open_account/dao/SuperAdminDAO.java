@@ -60,4 +60,10 @@ public interface SuperAdminDAO {
     List<JSONObject> getAllAdmin();
 
     String getSecurity(@Param("security_id") int security_id);
+    String getSuperAdminName();
+
+    List<JSONObject> getUserList();
+    JSONObject getUserInfo(int usrId);
+    JSONObject getAddressInfo(int aId);
+    JSONObject getPhoneAndTime(int usrId);
 }

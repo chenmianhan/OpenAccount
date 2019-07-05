@@ -83,4 +83,31 @@ public class SuperAdminController{
     public JSONArray getAllAdmin(){
         return superAdminService.getAllAdmin();
     }
+
+    @RequestMapping(value = "/superadmin", method = GET, produces = "application/json;charset=UTF-8")
+    public JSONObject getSuperAdminName() {
+        return superAdminService.getSuperAdminName();
+    }
+    @RequestMapping(value="/admin/getUserInfo",method=POST,produces="application/json;charset=UTF-8")
+    public JSONObject getUserInfo(@RequestBody JSONObject js){
+        int usrId=js.getInteger("user_id");
+        JSONObject tmp1=superAdminService.getUserInfo(usrId);
+        // System.out.println(tmp1);
+        int aId=tmp1.getInteger("id_address_id");
+        // System.out.println(tmp1);
+        tmp1.remove("id_address_id");
+        // System.out.println(tmp1);
+        JSONObject tmp2=superAdminService.getPhoneAndTime(usrId);
+        // System.out.println(tmp2);
+        String addr=superAdminService.getAddressInfo(aId);
+        tmp1.put("contact",tmp2.getString("phone"));
+        tmp1.put("date",tmp2.getString("update_time"));
+        tmp1.put("address",addr);
+        return tmp1;
+    }
+    @RequestMapping(value="/admin/getUserId",method = GET,produces = "application/json;charset=UTF-8")
+    public JSONArray getUserList()
+    {
+        return superAdminService.getUserList();
+    }
 }

@@ -55,9 +55,37 @@
         where employee.employee_id = admin_manager.admin_id
     </select>
 
+    <select id="getSuperAdminName" resultType="String">
+        select employee_name from employee
+        where employee_type = 3
+    </select>
+
     <select id="getSecurity" resultType="String">
         select name from security
         where security_id = #{security_id}
+    </select>
+
+    <select id="getUserList" resultType="com.alibaba.fastjson.JSONObject">
+        select name,user_id
+        from account_info
+    </select>
+
+    <select id="getUserInfo"  resultType="com.alibaba.fastjson.JSONObject">
+        select user_id,name,id_number,id_address_id
+        from account_info
+        where user_id=#{usrId}
+    </select>
+
+    <select id="getAddressInfo"  resultType="com.alibaba.fastjson.JSONObject">
+        select province,city,street,detail
+        from address
+        where aid=#{aId}
+    </select>
+
+    <select id="getPhoneAndTime"  resultType="com.alibaba.fastjson.JSONObject">
+        select phone,update_time
+        from user
+        where user_id=#{usrId}
     </select>
 
     <insert id="addAdminToEmployee">
