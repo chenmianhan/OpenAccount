@@ -30,4 +30,6 @@ public interface UserDao {
 
     List<Map<String, Object>> getUserByName(@Param("security_id") String security_id,
                                             @Param("name")String name);
+
+
 }

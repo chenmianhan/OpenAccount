@@ -150,6 +150,14 @@
 		      from account_info ai
 		      WHERE ai.security_id=#{security_id}
 	</select>
+
+	<select id="getNetNameAndUserName" resultType="com.alibaba.fastjson.JSONObject">
+		select ai.name username,
+		       s.name netName
+		      from account_info ai,security s
+		      WHERE ai.user_id=#{user_id}
+		      AND  s.security_id=ai.security_id
+	</select>
 </mapper>
 
 

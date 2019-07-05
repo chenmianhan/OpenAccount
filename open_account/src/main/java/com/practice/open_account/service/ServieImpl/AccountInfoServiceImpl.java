@@ -1,12 +1,14 @@
 package com.practice.open_account.service.ServieImpl;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.practice.open_account.dao.AccountInfoDAO;
 import com.practice.open_account.entity.AccountInfo;
 import com.practice.open_account.entity.Address;
 import com.practice.open_account.service.AccountInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -88,5 +90,17 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 		}
 		return null;
 	}
-	
+	@Override
+	//@Transactional
+	public JSONObject getNetNameAndUserName(String user_id)
+	{
+		try{
+			return accountInfoDAO.getNetNameAndUserName(user_id);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

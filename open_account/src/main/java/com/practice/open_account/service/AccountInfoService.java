@@ -1,5 +1,6 @@
 package com.practice.open_account.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.practice.open_account.entity.AccountInfo;
 import com.practice.open_account.entity.Address;
 
@@ -41,4 +42,5 @@ public interface AccountInfoService {
     int updateUserStatus(Integer user_id,String status);
 
     List<Map<String,Object>> getUserPair(String security_id);
+    JSONObject getNetNameAndUserName(String user_id);
 }

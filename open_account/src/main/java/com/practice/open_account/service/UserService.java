@@ -25,4 +25,5 @@ public interface UserService {
     int setUserStatus(String user_id, String status);
     List<Map<String, Object>> getUserByName(String security_id,String name);
 
+
 }

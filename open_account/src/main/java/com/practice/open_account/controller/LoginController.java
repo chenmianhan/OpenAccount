@@ -1,6 +1,7 @@
 package com.practice.open_account.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.practice.open_account.service.AccountInfoService;
 import com.practice.open_account.service.EmployeeService;
 import com.practice.open_account.service.ReviewResultService;
 import com.practice.open_account.service.UserService;
@@ -30,6 +31,8 @@ public class LoginController {
     @Resource
     private ReviewResultService reviewResultService;
     @Resource
+    private AccountInfoService accountInfoService;
+    @Resource
     private EmployeeService employeeService;
     @RequestMapping(value="/login", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject login(@RequestParam(value = "account") String account,
@@ -40,9 +43,6 @@ public class LoginController {
         //System.out.println("session.getAttribute(LoginConstants.SESSION_USER_INFO)"+session.getAttribute(LoginConstants.SESSION_USER_INFO));
         if(session.getAttribute(LoginConstants.SESSION_USER_INFO)!=null)
         {
-
-         //   System.out.println("session is not empty");
-            // (JSONObject) ;
             currentUser.logout();
         }
         int result;
@@ -50,10 +50,12 @@ public class LoginController {
            result =userService.checkPhone(account);
             if(result==0){
                 try{
-                    userService.addUser(account,password);
-                    userService.checkLogin(account,password);
-                    System.out.println(SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO));
-                    return CommonUtil.getJson(LoginConstants.NEW_CODE);
+                   int a= userService.addUser(account,password);
+                   if(a==1)
+                   { userService.checkLogin(account,password);
+                    //System.out.println(SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO));
+                    return CommonUtil.getJson(LoginConstants.NEW_CODE);}
+                   else return CommonUtil.getJson(LoginConstants.ERROR_CODE);
                 }
                 catch(Exception e){
                     return CommonUtil.getJson(LoginConstants.ERROR_CODE);
@@ -98,4 +100,11 @@ public class LoginController {
        return reviewResultService.getReviewResult(user_id);
     }
 
+    @RequestMapping(value="/user", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONObject getNetNameAndUserName()
+    {
+        String user_id=SessionUtil.getSessionAttribute().getString("user_id");
+
+        return accountInfoService.getNetNameAndUserName(user_id);
+    }
 }
