@@ -8,6 +8,9 @@ import com.practice.open_account.service.AccountInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 
 /****
  *@author:cmh
@@ -71,5 +74,19 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 		// TODO Auto-generated method stub
 		return accountInfoDAO.updateUserStatus(user_id, status);
 	}
+	@Override
+	public List<Map<String,Object>> getUserPair(String security_id)
+	{
+		try
+	{
+		return accountInfoDAO.getUserPair(security_id);
+	}
+		catch (Exception e)
 
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 }

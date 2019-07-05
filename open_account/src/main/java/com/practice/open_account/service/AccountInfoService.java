@@ -3,6 +3,9 @@ package com.practice.open_account.service;
 import com.practice.open_account.entity.AccountInfo;
 import com.practice.open_account.entity.Address;
 
+import java.util.List;
+import java.util.Map;
+
 /****
  *@author:cmh
  *@date: 2019/6/110946
@@ -37,4 +40,5 @@ public interface AccountInfoService {
     //	User status update
     int updateUserStatus(Integer user_id,String status);
 
+    List<Map<String,Object>> getUserPair(String security_id);
 }
