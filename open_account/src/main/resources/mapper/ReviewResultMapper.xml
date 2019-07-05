@@ -18,8 +18,8 @@
         from
 		review r,user u
 		WHERE r.auditor_id = #{auditor_id}
-		AND (u.status=7
-		OR u.status=6)
+		AND u.status=7
+		OR u.status=6
 		AND r.user_id=u.user_id
 		AND  r.update_time
 		BETWEEN #{start}  AND #{end}

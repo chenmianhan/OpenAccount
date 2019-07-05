@@ -45,9 +45,4 @@
 	<delete id="deleteFundAccount" >
 		delete from fund_account where fund_id = #{fund_id}
 	</delete>
-	<select id="getTradeType" resultType="java.lang.String">
-		select ai.trade_type
-		from account_info ai
-		WHERE ai.user_id=#{user_id}
-	</select>
 </mapper>
