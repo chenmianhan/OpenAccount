@@ -137,7 +137,14 @@ public class AuditorController {
         jsonObject.put("notPassNum",user_id_list.size());
         return jsonObject;
     }
-
+    @RequestMapping(value= "/reviewer/getUserInfoById", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONArray getUserInfoById(@RequestParam(value = "userId") String userId)
+    {
+        JSONObject userInfoTemp = auditorService.getUserInfo(userId);
+        JSONArray userInfo = new JSONArray();
+        userInfo.add(userInfoTemp);
+        return userInfo;
+    }
 
 
     @RequestMapping(value="/reviewer/getUserByDate", method=POST, produces = "application/json;charset=UTF-8")
