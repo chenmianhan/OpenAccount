@@ -75,4 +75,18 @@
 	<select id="getAdminNameByAdminId" resultType="java.lang.String">
 		select employee_name from employee where employee_id = #{admin_id}
 	</select>
+	<select id="getServeralAuditorBySecurityId" resultType="com.practice.open_account.entity.Employee">
+		select 
+		employee_name, 
+		employee_account, 
+		employee_password,
+		employee_id 
+		from employee 
+		where employee_id in (
+			select auditor_id from auditor_manager 
+			where security_id=
+			#{security_id}
+			);
+ 
+	</select>
 </mapper>

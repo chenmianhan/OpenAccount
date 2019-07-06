@@ -212,5 +212,30 @@ public class AdminController {
 		res.put("adminName", admin_name);
 		return res;
 	}
-//	@GetMapping(value)
+	
+	@PostMapping(value = "/admin/getReviewerByName",produces = "application/json;charset=UTF-8")
+	public JSONArray getReviewerByName(@RequestBody JSONObject jsonObject) {
+		//	get reviewerName
+		String searchName = jsonObject.getString("reviewerName");
+		//	get admin_id
+		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+		int admin_id = sessonJsonObject.getIntValue("employee_id");
+		//	get specific security_id
+		int security_id = adminService.getSecurityIdByAdminId(admin_id);
+		//	get auditors in specific security
+		List<Employee> auditorInSpecificSecurity = adminService.getServeralAuditorBySecurityId(security_id);
+		JSONArray tableData = new JSONArray(auditorInSpecificSecurity.size()/2);
+		for(Employee i:auditorInSpecificSecurity) {
+			if(i.getEmployee_name()!=null&&i.getEmployee_name().equals(searchName)) {
+				JSONObject elementInArray = new JSONObject();
+				//	get employee_id, employee_name, employee_account, employee_password
+				elementInArray.put("reviewer_id", i.getEmployee_id());
+				elementInArray.put("name",i.getEmployee_name());
+				elementInArray.put("account",i.getEmployee_account());
+				elementInArray.put("password", i.getEmployee_password());
+				tableData.add(elementInArray);
+			}
+		}
+		return tableData;
+	}
 }

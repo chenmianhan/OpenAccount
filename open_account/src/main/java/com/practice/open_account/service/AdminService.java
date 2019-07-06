@@ -11,11 +11,13 @@ import com.practice.open_account.entity.Security;
 public interface AdminService {
 	List<JSONObject> getSecurityIdBySuperAdmin();
 	Integer getSecurityIdByAdminId(Integer admin_id);
+//	List<Integer> getAuditorIdBySecurityId(Integer securityId);
 	Integer addAdminEmployee(Employee admin);
 	Integer addAdminManage(Employee admin);
 	Integer updateAdmin(Employee admin);
 	Integer addSecurity(Security security);
 	List<AccountInfo> getServeralUserBySecurityId(Integer security_id);
+	List<Employee> getServeralAuditorBySecurityId(Integer security_id);
 	String getOpenDate(Integer user_id);
 	String getPhoneByUserId(Integer user_id);
 	Map<Integer, String> getAllOpenDate();

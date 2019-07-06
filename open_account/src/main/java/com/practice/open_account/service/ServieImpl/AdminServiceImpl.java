@@ -72,4 +72,14 @@ public class AdminServiceImpl implements AdminService{
 		// TODO Auto-generated method stub
 		return adminDAO.getAdminNameByAdminId(admin_id);
 	}
+	@Override
+	public List<Employee> getServeralAuditorBySecurityId(Integer security_id) {
+		// TODO Auto-generated method stub
+		return adminDAO.getServeralAuditorBySecurityId(security_id);
+	}
+//	@Override
+//	public List<Integer> getAuditorIdBySecurityId(Integer SecurityId) {
+//		// TODO Auto-generated method stub
+//		return adminDAO.getAuditorIdBySecurityId(SecurityId);
+//	}
 }
