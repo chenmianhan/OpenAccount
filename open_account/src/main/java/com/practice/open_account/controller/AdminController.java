@@ -118,9 +118,10 @@ public class AdminController {
 	public JSONArray getUserByDate(@RequestBody JSONObject jsonObject) throws ParseException {
 		String start = jsonObject.getString("start");
 		String end = jsonObject.getString("end");
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date startDate = format.parse(start);
 		Date endDate = format.parse(end);
+//		System.out.println(startDate);
 		//	get admin_id
 		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
 //		Map<Integer,String> allOpenDate = (Map<Integer, String>) adminService.getAllOpenDate();
@@ -137,7 +138,8 @@ public class AdminController {
 			String openDate = adminService.getOpenDate(i.getUser_id());
 			if(openDate==null) continue;
 			Date compare = format.parse(openDate);
-			if(compare.compareTo(startDate)>0&&compare.compareTo(endDate)<0) {
+			System.out.println(compare);
+			if(compare.compareTo(startDate)>=0&&compare.compareTo(endDate)<=0) {
 				JSONObject elementInArray = new JSONObject();
 				//	get user_id,name,id_num,date
 				elementInArray.put("user_id", i.getUser_id());
