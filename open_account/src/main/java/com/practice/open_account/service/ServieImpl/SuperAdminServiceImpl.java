@@ -258,4 +258,51 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     public int changeMinScore(int min_score) {
         return superAdminDAO.changeMinScore(min_score);
     }
+    @Override
+    public JSONArray getUserInfoBySecurityId(int security_id){
+        JSONArray tmp=new JSONArray();
+        tmp.addAll(superAdminDAO.getUserInfoBySecurityId(security_id));
+        JSONObject jstmp1;
+        String addr;
+        JSONArray ans=new JSONArray();
+        JSONObject anstmp=new JSONObject();
+        for(int i=0;i<tmp.size();i++){
+            jstmp1=tmp.getJSONObject(i);
+            //idtmp=jstmp1.getInteger("user_id");
+            addr=getAddressInfo(jstmp1.getInteger("id_address_id"));
+            anstmp.put("user_id",jstmp1.getInteger("user_id"));
+            anstmp.put("name",jstmp1.getString("name"));
+            anstmp.put("id_num",jstmp1.getString("id_number"));
+            anstmp.put("contact_address",addr);
+            anstmp.put("apply_time",jstmp1.getSqlDate("create_time"));
+            anstmp.put("audio_time",jstmp1.getSqlDate("update_time"));
+            ans.add(anstmp);
+            anstmp=new JSONObject();
+        }
+        return ans;
+    }
+    @Override
+    public JSONArray getUserInfoByUserName(String name){
+        String name_like="%"+name+"%";
+        JSONArray tmp=new JSONArray();
+        tmp.addAll(superAdminDAO.getUserInfoByUserName(name_like));
+        JSONObject jstmp1;
+        String addr;
+        JSONArray ans=new JSONArray();
+        JSONObject anstmp=new JSONObject();
+        for(int i=0;i<tmp.size();i++){
+            jstmp1=tmp.getJSONObject(i);
+            //idtmp=jstmp1.getInteger("user_id");
+            addr=getAddressInfo(jstmp1.getInteger("id_address_id"));
+            anstmp.put("user_id",jstmp1.getInteger("user_id"));
+            anstmp.put("name",jstmp1.getString("name"));
+            anstmp.put("id_num",jstmp1.getString("id_number"));
+            anstmp.put("contact_address",addr);
+            anstmp.put("apply_time",jstmp1.getSqlDate("create_time"));
+            anstmp.put("audio_time",jstmp1.getSqlDate("update_time"));
+            ans.add(anstmp);
+            anstmp=new JSONObject();
+        }
+        return ans;
+    }
 }

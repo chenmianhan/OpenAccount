@@ -121,7 +121,7 @@ public class AuditorController {
         List<Map<String,Object>> lsm= userService.getWaitForReview(security_id, start, end);
         //System.out.println(lsm);
         ArrayList<String> user_id_list=new ArrayList<>();
-        getUseridList(lsm, user_id_list);
+        getUserIdList(lsm, user_id_list);
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("toReviewNum",user_id_list.size());
 
@@ -132,19 +132,18 @@ public class AuditorController {
         System.out.println("start:"+start);
         System.out.println("end:"+end);
         user_id_list=new ArrayList<>();
-        getUseridList(lsm, user_id_list);
+        getUserIdList(lsm, user_id_list);
         jsonObject.put("reviewedNum",user_id_list.size());
 
         lsm=reviewResultService.getReviewFail(reviewerId, start, end);
         System.out.println(lsm);
         user_id_list=new ArrayList<>();
-        getUseridList(lsm, user_id_list);
+        getUserIdList(lsm, user_id_list);
         jsonObject.put("notPassNum",user_id_list.size());
         return jsonObject;
     }
     @RequestMapping(value= "/reviewer/getUserInfoById", method=GET, produces = "application/json;charset=UTF-8")
-    public JSONArray getUserInfoById(@RequestParam(value = "userId") String userId)
-    {
+    public JSONArray getUserInfoById(@RequestParam(value = "userId") String userId) {
         JSONObject userInfoTemp = auditorService.getUserInfo(userId);
         String  reviewStatus=userService.getStatus(userId);
         reviewStatus = getStatusStringByStatusInt(reviewStatus);
@@ -170,15 +169,14 @@ public class AuditorController {
     @RequestMapping(value= "/reviewer/getUserByName", method=POST, produces = "application/json;charset=UTF-8")
     public JSONArray getUserByName(@RequestParam(value = "username") String username,
                                    @RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
-                                   @RequestParam(value = "size", defaultValue = "5")int pageSize)
-    {
+                                   @RequestParam(value = "size", defaultValue = "5")int pageSize) {
         String reviewerId= SessionUtil.getSessionAttribute().getString("employee_id");
         String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
         PageHelper.startPage(pageNum, pageSize,"user_id");
         List<Map<String,Object>>lsm;
         lsm=userService.getUserByName(security_id,username);
         ArrayList<String> userIdList=new ArrayList<>();
-        getUseridList(lsm,userIdList);
+        getUserIdList(lsm,userIdList);
         JSONArray userInfo = new JSONArray();
         for(int i=0;i<lsm.size();i++)
         {
@@ -222,7 +220,7 @@ public class AuditorController {
             System.out.println(lsm.size());
         }
         ArrayList<String> userIdList=new ArrayList<>();
-        getUseridList(lsm,userIdList);
+        getUserIdList(lsm,userIdList);
        // System.out.println(userIdList);
         JSONArray jsonArray=new JSONArray();
         for(int i=0;i<userIdList.size();i++) {
@@ -323,7 +321,7 @@ public class AuditorController {
         temp.put("content",userInfoTemp.get("bankCardNum"));
         userInfo.add(temp);
     }
-    private void getUseridList(List<Map<String, Object>> lsm, ArrayList<String> user_id_list) {
+    private void getUserIdList(List<Map<String, Object>> lsm, ArrayList<String> user_id_list) {
         for(int i=0;i<lsm.size();i++)
         {
             for(String key : lsm.get(i).keySet()){

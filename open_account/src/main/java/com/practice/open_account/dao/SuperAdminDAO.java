@@ -70,4 +70,8 @@ public interface SuperAdminDAO {
     int changeMaxAuditorNum(@Param("max_num") int max_num);
     int changeExpireDate(@Param("expire_date") java.sql.Date expire_date);
     int changeMinScore(@Param("min_score") int min_score);
+
+    List<JSONObject> getUserInfoBySecurityId(int seId);
+    JSONObject getApplyAndReviewTime(int usrId);
+    List<JSONObject> getUserInfoByUserName(String userName);
 }
