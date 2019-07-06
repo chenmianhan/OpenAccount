@@ -87,6 +87,7 @@ public class SuperAdminServiceImpl implements SuperAdminService {
         superAdminDAO.deleteUserInFundAccount(customer_id);
         superAdminDAO.deleteUserInCustomerAccount(user_id);
         superAdminDAO.deleteUserInAccountInfo(user_id);
+        superAdminDAO.deleteUserInUser(user_id);
         return 1;
     }
 

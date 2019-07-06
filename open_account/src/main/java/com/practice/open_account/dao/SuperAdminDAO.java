@@ -46,8 +46,9 @@ public interface SuperAdminDAO {
 
     int deleteUserInAccountInfo(@Param("user_id") int user_id);
     int deleteUserInCustomerAccount(@Param("user_id") int user_id);
-    int deleteUserInFundAccount(@Param("user_id") String customer_id);
-    int deleteUserInTradeAccount(@Param("user_id") String customer_id);
+    int deleteUserInFundAccount(@Param("customer_id") String customer_id);
+    int deleteUserInTradeAccount(@Param("customer_id") String customer_id);
+    int deleteUserInUser(@Param("user_id") int user_id);
     // return 1 as successful 0 otherwise
 
     int deleteAdminInAdminManager(@Param("admin_id") int admin_id);
