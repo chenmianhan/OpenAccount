@@ -102,13 +102,16 @@ public class SuperAdminController{
         JSONObject tmp2=superAdminService.getPhoneAndTime(usrId);
         // System.out.println(tmp2);
         String addr=superAdminService.getAddressInfo(aId);
+        String idNum=tmp1.getString("id_number");
+        tmp1.remove("id_number");
+        tmp1.put("id_num",idNum);
         tmp1.put("contact",tmp2.getString("phone"));
         tmp1.put("date",tmp2.getString("update_time"));
         tmp1.put("address",addr);
         JSONArray tmpans=new JSONArray();
         tmpans.add(tmp1);
         JSONObject ans=new JSONObject();
-        ans.put("tableDate",tmpans);
+        ans.put("tableData",tmpans);
         return ans;
     }
     @RequestMapping(value="/admin/getUserId",method = GET,produces = "application/json;charset=UTF-8")
