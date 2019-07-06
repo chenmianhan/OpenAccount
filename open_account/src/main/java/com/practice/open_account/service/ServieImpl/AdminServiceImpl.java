@@ -67,4 +67,9 @@ public class AdminServiceImpl implements AdminService{
 		// TODO Auto-generated method stub
 		return adminDAO.getAllOpenDate();
 	}
+	@Override
+	public String getAdminNameByAdminId(Integer admin_id) {
+		// TODO Auto-generated method stub
+		return adminDAO.getAdminNameByAdminId(admin_id);
+	}
 }
