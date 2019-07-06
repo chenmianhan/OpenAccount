@@ -57,7 +57,7 @@ public class AdminController {
     }
     
     //	modifyAdmin
-    @PostMapping(value = "/superadmin/modifyAdmin",produces = "application/json;charset=UTF-8")
+    @PutMapping(value = "/superadmin/modifyAdmin",produces = "application/json;charset=UTF-8")
     public int updateAdmin(@RequestBody JSONObject jsonObject) {
     	Employee admin = new Employee(
     			jsonObject.getInteger("admin_id"),
