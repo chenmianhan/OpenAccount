@@ -121,7 +121,6 @@ public class AdminController {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date startDate = format.parse(start);
 		Date endDate = format.parse(end);
-//		System.out.println(startDate);
 		//	get admin_id
 		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
 //		Map<Integer,String> allOpenDate = (Map<Integer, String>) adminService.getAllOpenDate();
@@ -163,8 +162,8 @@ public class AdminController {
 	
 	//	getUserByName
 	@GetMapping(value = "/admin/getUserByName",produces = "application/json;charset=UTF-8")
-	public JSONArray getUserByName(@RequestBody JSONObject jsonObject) {
-		String searchName = jsonObject.getString("username");
+	public JSONArray getUserByName(@RequestParam String username) {
+		String searchName = username;
 		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
 		int admin_id = sessonJsonObject.getIntValue("employee_id");
 		//	get specific security_id
