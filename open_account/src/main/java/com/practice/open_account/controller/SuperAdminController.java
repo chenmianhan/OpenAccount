@@ -92,7 +92,7 @@ public class SuperAdminController{
     }
     @RequestMapping(value="/admin/getUserInfo",method=POST,produces="application/json;charset=UTF-8")
     public JSONObject getUserInfo(@RequestBody JSONObject js){
-        int usrId=js.getInteger("user_id");
+        int usrId=js.getInteger("userId");
         JSONObject tmp1=superAdminService.getUserInfo(usrId);
         // System.out.println(tmp1);
         int aId=tmp1.getInteger("id_address_id");
