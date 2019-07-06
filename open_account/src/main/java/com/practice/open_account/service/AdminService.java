@@ -19,4 +19,5 @@ public interface AdminService {
 	String getOpenDate(Integer user_id);
 	String getPhoneByUserId(Integer user_id);
 	Map<Integer, String> getAllOpenDate();
+	String getAdminNameByAdminId(Integer admin_id);
 }

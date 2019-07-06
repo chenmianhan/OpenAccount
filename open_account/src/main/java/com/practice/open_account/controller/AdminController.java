@@ -30,6 +30,8 @@ public class AdminController {
 	private AccountInfoService accountInfoService;
 	@Autowired
     private AuditorService auditorService;
+	@Autowired
+	private SecurityService securityService;
     
 	//	super admin
 	//	getAllSecurity
@@ -157,4 +159,54 @@ public class AdminController {
 		return tableData;
 	}
 	
+	//	getUserByName
+	@GetMapping(value = "/admin/getUserByName",produces = "application/json;charset=UTF-8")
+	public JSONArray getUserByName(@RequestBody JSONObject jsonObject) {
+		String searchName = jsonObject.getString("username");
+		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+		int admin_id = sessonJsonObject.getIntValue("employee_id");
+		//	get specific security_id
+		int security_id = adminService.getSecurityIdByAdminId(admin_id);
+		//	get users in specific security
+		List<AccountInfo> userInSpecificSecurity = adminService.getServeralUserBySecurityId(security_id);
+		JSONArray tableData = new JSONArray(userInSpecificSecurity.size()/2);
+		for(AccountInfo i:userInSpecificSecurity) {
+			if(i.getName()!=null&&i.getName().equals(searchName)) {
+				JSONObject elementInArray = new JSONObject();
+				//	get user_id,name,id_num
+				elementInArray.put("user_id", i.getUser_id());
+				elementInArray.put("name",i.getName());
+				elementInArray.put("id_num",i.getId_number());
+				//	get contact_address
+				Address temp = accountInfoService.getAddressByAId(i.getContact_address_id());
+				StringBuffer address = new StringBuffer();
+				address.append(temp.getProvince()+" ");
+				address.append(temp.getCity()+" ");
+				address.append(temp.getStreet()+" ");
+				address.append(temp.getDetail()+" ");
+				elementInArray.put("address", address.toString());
+				elementInArray.put("contact",adminService.getPhoneByUserId(i.getUser_id()));
+				tableData.add(elementInArray);
+			}
+		}
+		return tableData;
+	}
+	
+	//	admin
+	@GetMapping(value = "/admin",produces = "application/json;charset=UTF-8")
+	public JSONObject getAdmin() {
+		// res
+		JSONObject res = new JSONObject(2);
+		//	getAdmin_id
+		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+		int admin_id = sessonJsonObject.getIntValue("employee_id");
+		//	get specific security_id by admin_id
+		int security_id = adminService.getSecurityIdByAdminId(admin_id);
+		//	get securityName by security_id
+		String name = securityService.getSecurityBySecurityId(security_id).getString("name");
+		res.put("netName", name);
+		String admin_name = adminService.getAdminNameByAdminId(admin_id);
+		res.put("adminName", admin_name);
+		return res;
+	}
 }

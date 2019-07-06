@@ -72,4 +72,7 @@
 	<select id="getMaxEmployeeId" resultType="Integer">
 		select max(employee_id) from employee
 	</select>
+	<select id="getAdminNameByAdminId" resultType="java.lang.String">
+		select employee_name from employee where employee_id = #{admin_id}
+	</select>
 </mapper>
