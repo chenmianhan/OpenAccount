@@ -100,21 +100,21 @@ public class AdminController {
 	}
 	
 	//	modifyAuditor
-//	@PutMapping(value = "/admin/modifyAuditor")
-//	public int updateAuditor(@RequestBody JSONObject jsonObject) {
-//		return auditorService.updateEmployee(
-//				jsonObject.getIntValue("auditor_id"),
-//				jsonObject.getString("account"),
-//				jsonObject.getString("password"),
-//				"2",
-//				jsonObject.getString("name"));
-////				&auditorService.updateAuditor(
-////				jsonObject.getIntValue("security_id"),
-////				jsonObject.getIntValue("auditor_id"));
-//	}
+	@PutMapping(value = "/admin/modifyAuditor")
+	public int updateAuditor(@RequestBody JSONObject jsonObject) {
+		return auditorService.updateEmployee(
+				jsonObject.getIntValue("auditor_id"),
+				jsonObject.getString("account"),
+				jsonObject.getString("password"),
+				"2",
+				jsonObject.getString("name"));
+//				&auditorService.updateAuditor(
+//				jsonObject.getIntValue("security_id"),
+//				jsonObject.getIntValue("auditor_id"));
+	}
 	
 	//	getuserByDate
-	@GetMapping(value = "/admin/getUserByDate",produces = "application/json;charset=UTF-8")
+	@PostMapping(value = "/admin/getUserByDate",produces = "application/json;charset=UTF-8")
 	public JSONArray getUserByDate(
 			@RequestBody JSONObject jsonObject
 			) throws ParseException {
@@ -163,7 +163,7 @@ public class AdminController {
 	}
 	
 	//	getUserByName
-	@GetMapping(value = "/admin/getUserByName",produces = "application/json;charset=UTF-8")
+	@PostMapping(value = "/admin/getUserByName",produces = "application/json;charset=UTF-8")
 	public JSONArray getUserByName(@RequestBody JSONObject jsonObject) {
 		String searchName = jsonObject.getString("username");
 		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
@@ -212,4 +212,5 @@ public class AdminController {
 		res.put("adminName", admin_name);
 		return res;
 	}
+//	@GetMapping(value)
 }
