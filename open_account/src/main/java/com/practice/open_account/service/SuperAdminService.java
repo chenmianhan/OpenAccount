@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonAlias;
 
+import java.sql.Date;
+
 /****
  *@author:hwy
  *@date: 2019/7/011510
@@ -49,4 +51,9 @@ public interface SuperAdminService {
     JSONObject getUserInfo(int usrId);
     String getAddressInfo(int aId);
     JSONObject getPhoneAndTime(int usrId);
+
+    int changeMaxAuditorNum(int max_num);
+    int changeExpireDate(Date expire_date);
+    int changeMinScore(int min_score);
+
 }

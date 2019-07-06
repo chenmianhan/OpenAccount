@@ -13,6 +13,8 @@ import com.alibaba.fastjson.JSONArray;
 
 import javax.annotation.Resource;
 
+import java.sql.Date;
+import java.sql.SQLData;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -109,5 +111,23 @@ public class SuperAdminController{
     public JSONArray getUserList()
     {
         return superAdminService.getUserList();
+    }
+
+    @RequestMapping(value="/superadmin/changeMaxNum",method = POST,produces = "application/json;charset=UTF-8")
+    public int changeMaxAuditorNum(@RequestBody JSONObject jsonObject) {
+        int max_num = jsonObject.getInteger("max_num");
+        return superAdminService.changeMaxAuditorNum(max_num);
+    }
+
+    @RequestMapping(value="/superadmin/changeExpireDate",method = POST,produces = "application/json;charset=UTF-8")
+    public int changeExpireDate(@RequestBody JSONObject jsonObject) {
+        Date expire_date = jsonObject.getSqlDate("expire_date");
+        return superAdminService.changeExpireDate(expire_date);
+    }
+
+    @RequestMapping(value="/superadmin/changeMinScore",method = POST,produces = "application/json;charset=UTF-8")
+    public int changeMinScore(@RequestBody JSONObject jsonObject) {
+        int min_score = jsonObject.getInteger("min_score");
+        return superAdminService.changeMinScore(min_score);
     }
 }

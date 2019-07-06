@@ -100,6 +100,19 @@
         values(#{employee_id}, #{store})
     </insert>
 
+    <update id="changeMaxAuditorNum">
+        update common_param
+        set auditor_num = #{max_num}
+    </update>
+    <update id="changeExpireDate">
+        update common_param
+        set expire_date = #{expire_date}
+    </update>
+    <update id="changeMinScore">
+        update common_param
+        set min_score = #{min_score}
+    </update>
+
     <delete id="deleteStoreFromSecurity">
         delete from security where security_id = #{store}
     </delete>
