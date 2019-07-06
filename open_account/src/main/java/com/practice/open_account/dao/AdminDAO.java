@@ -21,4 +21,5 @@ public interface AdminDAO {
 	Map<Integer, String> getAllOpenDate();
 	String getAdminNameByAdminId(Integer admin_id);
 	Integer getMaxEmployeeId();
+//	int updateAdminSecurity(Employee employee);
 }
