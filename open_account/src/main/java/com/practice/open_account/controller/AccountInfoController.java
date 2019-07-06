@@ -148,8 +148,9 @@ public class AccountInfoController {
 
 
 	@PutMapping(value = "/updateSecurity",produces = "application/json;charset=UTF-8")
-	public int updateSecurity(
-			 Integer security_id, String trade_type) {
+	public int updateSecurity(@RequestBody JSONObject jsonObject) {
+		Integer security_id = jsonObject.getInteger("security_id");
+		String trade_type = jsonObject.getString("trade_type");
     	//	通过session获取user_id
     	JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
     	int user_id = sessonJsonObject.getIntValue("user_id");
@@ -159,9 +160,11 @@ public class AccountInfoController {
 	}
 	
 	@PutMapping(value = "/updateDeposit",produces = "application/json;charset=UTF-8")
-	public String updateDeposit(
-			String deposit_bank, String deposit_account, String deposit_password)
+	public String updateDeposit(@RequestBody JSONObject jsonObject)
 	{
+		String deposit_bank = jsonObject.getString("deposit_bank");
+		String deposit_account = jsonObject.getString("deposit_account");
+		String deposit_password = jsonObject.getString("deposit_password");
 //		通过session获取user_id
     	JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
     	int user_id = sessonJsonObject.getIntValue("user_id");
