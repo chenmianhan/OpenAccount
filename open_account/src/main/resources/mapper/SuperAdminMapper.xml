@@ -140,9 +140,13 @@
     <delete id="deleteUserInFundAccount">
         delete from fund_account where customer_id = #{customer_id}
     </delete>
-    
+
     <delete id="deleteUserInTradeAccount">
         delete from trade_account where customer_id = #{customer_id}
+    </delete>
+
+    <delete id="deleteUserInUser">
+        delete from user where user_id = #{user_id}
     </delete>
 
     <delete id="deleteAdminInAdminManager">
