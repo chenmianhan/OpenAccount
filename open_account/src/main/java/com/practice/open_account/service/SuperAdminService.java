@@ -1,6 +1,6 @@
 package com.practice.open_account.service;
 
-
+import java.util.List;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonAlias;
@@ -56,4 +56,6 @@ public interface SuperAdminService {
     int changeExpireDate(Date expire_date);
     int changeMinScore(int min_score);
 
+    JSONArray getUserInfoBySecurityId(int seId);
+    JSONArray getUserInfoByUserName(String name);
 }

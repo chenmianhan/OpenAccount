@@ -105,7 +105,11 @@ public class SuperAdminController{
         tmp1.put("contact",tmp2.getString("phone"));
         tmp1.put("date",tmp2.getString("update_time"));
         tmp1.put("address",addr);
-        return tmp1;
+        JSONArray tmpans=new JSONArray();
+        tmpans.add(tmp1);
+        JSONObject ans=new JSONObject();
+        ans.put("tableDate",tmpans);
+        return ans;
     }
     @RequestMapping(value="/admin/getUserId",method = GET,produces = "application/json;charset=UTF-8")
     public JSONObject getUserList()
@@ -129,5 +133,20 @@ public class SuperAdminController{
     public int changeMinScore(@RequestBody JSONObject jsonObject) {
         int min_score = jsonObject.getInteger("min_score");
         return superAdminService.changeMinScore(min_score);
+    }
+    @RequestMapping(value="/superadmin/getUserByName",method=POST,produces="application/json;charset=UTF-8")
+    public JSONObject getUserByName(@RequestBody JSONObject js){
+        String name_like=js.getString("name");
+        JSONObject ans=new JSONObject();
+        ans.put("tableData",superAdminService.getUserInfoByUserName(name_like));
+        return ans;
+    }
+
+    @RequestMapping(value="/superadmin/getUserByStore",method=POST,produces="application/json;charset=UTF-8")
+    public JSONObject getUserByStore(@RequestBody JSONObject js){
+        int seId=js.getInteger("store");
+        JSONObject ans=new JSONObject();
+        ans.put("tableData",superAdminService.getUserInfoBySecurityId(seId));
+        return ans;
     }
 }
