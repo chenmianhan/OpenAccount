@@ -238,4 +238,25 @@ public class AdminController {
 		}
 		return tableData;
 	}
+	@GetMapping(value = "/admin/getReviewerId",produces = "application/json;charset=UTF-8")
+	public JSONArray getReviewerId() {
+		//	get admin_id
+		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+		int admin_id = sessonJsonObject.getIntValue("employee_id");
+		//	get specific security_id
+		int security_id = adminService.getSecurityIdByAdminId(admin_id);
+		//	get auditors in specific security
+		List<Employee> auditorInSpecificSecurity = adminService.getServeralAuditorBySecurityId(security_id);
+		JSONArray tableData = new JSONArray(auditorInSpecificSecurity.size()/2);
+		for(Employee i:auditorInSpecificSecurity) {
+			if(i!=null) {
+				JSONObject elementInArray = new JSONObject();
+				//	get employee_id, employee_name
+				elementInArray.put("address", i.getEmployee_id());
+				elementInArray.put("value",i.getEmployee_name());
+				tableData.add(elementInArray);
+			}
+		}
+		return tableData;
+	}
 }
