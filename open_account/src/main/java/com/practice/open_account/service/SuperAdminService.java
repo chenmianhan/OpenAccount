@@ -47,7 +47,7 @@ public interface SuperAdminService {
 
     JSONObject getSuperAdminName();
 
-    JSONArray getUserList();
+    JSONObject getUserList();
     JSONObject getUserInfo(int usrId);
     String getAddressInfo(int aId);
     JSONObject getPhoneAndTime(int usrId);
