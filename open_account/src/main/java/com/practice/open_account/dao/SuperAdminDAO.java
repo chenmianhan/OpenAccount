@@ -1,5 +1,6 @@
 package com.practice.open_account.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,4 +76,8 @@ public interface SuperAdminDAO {
     List<JSONObject> getUserInfoBySecurityId(int seId);
     JSONObject getApplyAndReviewTime(int usrId);
     List<JSONObject> getUserInfoByUserName(String userName);
+
+    JSONObject getAuditorNum();
+    JSONObject getExpireDate();
+    JSONObject getMinScore();
 }

@@ -306,4 +306,22 @@ public class SuperAdminServiceImpl implements SuperAdminService {
         }
         return ans;
     }
+
+    @Override
+    @Transactional
+    public JSONObject getAuditorNum() {
+        return superAdminDAO.getAuditorNum();
+    }
+
+    @Override
+    @Transactional
+    public JSONObject getExpireDate() {
+        return superAdminDAO.getExpireDate();
+    }
+
+    @Override
+    @Transactional
+    public JSONObject getMinScore() {
+        return superAdminDAO.getMinScore();
+    }
 }

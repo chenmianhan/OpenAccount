@@ -152,4 +152,19 @@ public class SuperAdminController{
         ans.put("tableData",superAdminService.getUserInfoBySecurityId(seId));
         return ans;
     }
+
+    @RequestMapping(value="/superadmin/getAuditorNum",method = GET,produces = "application/json;charset=UTF-8")
+    public JSONObject getAuditorNum(){
+        return superAdminService.getAuditorNum();
+    }
+
+    @RequestMapping(value="/superadmin/getExpireDate",method = GET,produces = "application/json;charset=UTF-8")
+    public JSONObject getExpireDate(){
+        return superAdminService.getExpireDate();
+    }
+
+    @RequestMapping(value="/superadmin/getMinScore",method = GET,produces = "application/json;charset=UTF-8")
+    public JSONObject getMinScore(){
+        return superAdminService.getMinScore();
+    }
 }

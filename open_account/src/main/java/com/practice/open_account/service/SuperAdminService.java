@@ -58,4 +58,8 @@ public interface SuperAdminService {
 
     JSONArray getUserInfoBySecurityId(int seId);
     JSONArray getUserInfoByUserName(String name);
+
+    JSONObject getAuditorNum();
+    JSONObject getExpireDate();
+    JSONObject getMinScore();
 }

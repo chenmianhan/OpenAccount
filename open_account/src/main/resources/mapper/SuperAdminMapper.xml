@@ -167,5 +167,13 @@
         from account_info a join user b ON a.user_id=b.user_id
         where name like #{userName}
     </select>
-
+    <select id="getAuditorNum" resultType="com.alibaba.fastjson.JSONObject">
+        select auditor_num from common_param
+    </select>
+    <select id="getExpireDate" resultType="com.alibaba.fastjson.JSONObject">
+        select expire_date from common_param
+    </select>
+    <select id="getMinScore" resultType="com.alibaba.fastjson.JSONObject">
+        select min_score from common_param
+    </select>
 </mapper>
