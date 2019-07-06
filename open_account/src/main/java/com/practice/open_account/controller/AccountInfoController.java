@@ -147,7 +147,7 @@ public class AccountInfoController {
 	}
 
 
-	@PutMapping(value = "/updateSecurity",produces = "application/json;charset=UTF-8")
+	@PostMapping(value = "/updateSecurity",produces = "application/json;charset=UTF-8")
 	public int updateSecurity(@RequestBody JSONObject jsonObject) {
 		Integer security_id = jsonObject.getInteger("security_id");
 		String[] arrayType = (String[])jsonObject.get("trade_type");
