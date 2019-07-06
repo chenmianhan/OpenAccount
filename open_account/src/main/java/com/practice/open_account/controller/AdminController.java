@@ -66,8 +66,8 @@ public class AdminController {
     			jsonObject.getString("name"),
     			jsonObject.getString("account"),
     			jsonObject.getString("password"),
-    			null,
-    			null);
+    			"2",
+    			jsonObject.getInteger("store"));
     	return adminService.updateAdmin(admin);	
     }
     
@@ -115,9 +115,9 @@ public class AdminController {
 	
 	//	getuserByDate
 	@GetMapping(value = "/admin/getUserByDate",produces = "application/json;charset=UTF-8")
-	public JSONArray getUserByDate(@RequestBody JSONObject jsonObject) throws ParseException {
-		String start = jsonObject.getString("start");
-		String end = jsonObject.getString("end");
+	public JSONArray getUserByDate(
+			@RequestParam String start, 
+			@RequestParam String end) throws ParseException {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date startDate = format.parse(start);
 		Date endDate = format.parse(end);
