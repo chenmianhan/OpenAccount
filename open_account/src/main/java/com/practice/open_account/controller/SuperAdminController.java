@@ -136,7 +136,7 @@ public class SuperAdminController{
     }
     @RequestMapping(value="/superadmin/getUserByName",method=POST,produces="application/json;charset=UTF-8")
     public JSONObject getUserByName(@RequestBody JSONObject js){
-        String name_like=js.getString("name");
+        String name_like=js.getString("user_name");
         JSONObject ans=new JSONObject();
         ans.put("tableData",superAdminService.getUserInfoByUserName(name_like));
         return ans;
