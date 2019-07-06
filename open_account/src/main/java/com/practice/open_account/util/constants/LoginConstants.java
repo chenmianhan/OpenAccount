@@ -15,7 +15,8 @@ public class LoginConstants {
 	public static final String LOGOUT_ERROR_CODE="105";
 	//public static final String SUCCESS_MSG = "请求成功";
 	//public static final String FAIL_MSG = "请求失败";
-
+	public static final String VALID_CODE="800";
+	public static final String INVALID_CODE="801";
 	//session中存放用户信息的key值xx
 
 	public static final String SESSION_USER_INFO = "userInfo";

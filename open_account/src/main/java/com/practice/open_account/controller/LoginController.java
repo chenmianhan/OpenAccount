@@ -100,12 +100,20 @@ public class LoginController {
         String user_id= SessionUtil.getSessionAttribute().getString("user_id");
        return reviewResultService.getReviewResult(user_id);
     }
-
     @RequestMapping(value="/user", method=POST, produces = "application/json;charset=UTF-8")
-    public JSONObject getNetNameAndUserName()
-    {
+    public JSONObject getNetNameAndUserName() {
         String user_id=SessionUtil.getSessionAttribute().getString("user_id");
 
         return accountInfoService.getNetNameAndUserName(user_id);
+    }
+
+    @RequestMapping(value="/checkInvalid", method=POST, produces = "application/json;charset=UTF-8")
+    public String checkInvalid() {
+
+        JSONObject sessionAttribute=SessionUtil.getSessionAttribute();
+        if(sessionAttribute==null)
+       // System.out.println(user_id);
+        return LoginConstants.INVALID_CODE;
+        else return LoginConstants.VALID_CODE;
     }
 }
