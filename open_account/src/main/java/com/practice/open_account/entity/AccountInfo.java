@@ -22,8 +22,6 @@ public class AccountInfo implements Serializable {
 	private String id_card_inverse_side;
 	private Integer contact_address_id;
 	private Integer postal_address_id;
-	private String trans_password;
-	private String fund_password;
 	private Integer security_id;
 	private String trade_type;
 	private String deposit_bank;
