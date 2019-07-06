@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.sql.Date;
 import java.util.List;
 
 /****
@@ -230,4 +231,21 @@ public class SuperAdminServiceImpl implements SuperAdminService {
         return superAdminDAO.getPhoneAndTime(usrId);
     }
 
+    @Override
+    @Transactional
+    public int changeMaxAuditorNum(int max_num) {
+        return superAdminDAO.changeMaxAuditorNum(max_num);
+    }
+
+    @Override
+    @Transactional
+    public int changeExpireDate(Date expire_date) {
+        return superAdminDAO.changeExpireDate(expire_date);
+    }
+
+    @Override
+    @Transactional
+    public int changeMinScore(int min_score) {
+        return superAdminDAO.changeMinScore(min_score);
+    }
 }
