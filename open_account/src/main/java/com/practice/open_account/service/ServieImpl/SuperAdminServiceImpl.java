@@ -204,12 +204,22 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     }
 
     @Override
-    public JSONArray getUserList()
+    public JSONObject getUserList()
     {
         JSONArray ans=new JSONArray();
         List<JSONObject> tmp=superAdminDAO.getUserList();
-        ans.addAll(tmp);
-        return ans;
+        for (int i = 0; i < tmp.size(); i++) {
+            JSONObject js = tmp.get(i);
+            JSONObject ansJs = new JSONObject();
+            String value = js.getString("name");
+            String address = js.getString("user_id");
+            ansJs.put("value", value);
+            ansJs.put("address", address);
+            ans.add(ansJs);
+        }
+        JSONObject res = new JSONObject();
+        res.put("username", ans);
+        return res;
     }
 
     @Override

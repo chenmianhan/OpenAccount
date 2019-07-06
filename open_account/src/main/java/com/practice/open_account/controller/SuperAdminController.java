@@ -108,7 +108,7 @@ public class SuperAdminController{
         return tmp1;
     }
     @RequestMapping(value="/admin/getUserId",method = GET,produces = "application/json;charset=UTF-8")
-    public JSONArray getUserList()
+    public JSONObject getUserList()
     {
         return superAdminService.getUserList();
     }
