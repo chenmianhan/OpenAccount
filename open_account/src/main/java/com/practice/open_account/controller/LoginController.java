@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /****
@@ -115,5 +116,11 @@ public class LoginController {
        // System.out.println(user_id);
         return LoginConstants.INVALID_CODE;
         else return LoginConstants.VALID_CODE;
+    }
+    @RequestMapping(value="/test", method=GET, produces = "application/json;charset=UTF-8")
+    public JSONObject test() {
+
+        return SessionUtil.getSessionAttribute();
+
     }
 }

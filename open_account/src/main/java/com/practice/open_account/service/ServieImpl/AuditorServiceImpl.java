@@ -59,9 +59,10 @@ public class AuditorServiceImpl implements AuditorService {
         JSONObject temp=null;
         try {
              temp= auditorDAO.getUserInfo(user_id);
-            // System.out.println();
+             //System.out.println(temp);
             String openDate = auditorDAO.getReviewDate(user_id);
-        temp.put("accTime",openDate);}
+        temp.put("accTime",openDate);
+        }
         catch (Exception e)
         {
             e.printStackTrace();
@@ -70,6 +71,20 @@ public class AuditorServiceImpl implements AuditorService {
         return temp;
 
     }
+    /*@Override
+    @Transactional
+    public List<Map<String,Object>> getWaitForReview(String security_id)
+    {
+        List<Map<String,Object>> lsm=null;
+        try {
+            lsm= auditorDAO.getWaitForReview(security_id);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return lsm;
+    }*/
     @Override
     @Transactional
     public JSONObject getUserInfoUnreviewed(String user_id)
@@ -79,6 +94,19 @@ public class AuditorServiceImpl implements AuditorService {
         String grade=gradeDao.getGradeName(Integer.parseInt(temp1.getString("userGrade"),10));
         temp1.put("userType",grade);
         return temp1;
+    }
+    @Override
+    @Transactional
+    public  List<Map<String, Object>> getAllUserByAuditorId( String security_id, String auditor_id, String start, String end)
+    {
+        try
+        {
+            return auditorDAO.getAllUserByAuditorId(security_id, auditor_id, start, end);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
 
     }
     @Override
@@ -101,4 +129,6 @@ public class AuditorServiceImpl implements AuditorService {
     public int updateAuditor(int security_id, int auditor_id) {
         return auditorDAO.updateAuditor(security_id, auditor_id);
     }
+
+
 }

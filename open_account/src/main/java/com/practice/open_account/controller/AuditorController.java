@@ -119,24 +119,15 @@ public class AuditorController {
             }
         String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
         List<Map<String,Object>> lsm= userService.getWaitForReview(security_id, start, end);
-        //System.out.println(lsm);
         ArrayList<String> user_id_list=new ArrayList<>();
         getUserIdList(lsm, user_id_list);
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("toReviewNum",user_id_list.size());
-
         lsm=reviewResultService.getReviewSuccess(reviewerId, start, end);
-       // System.out.println(lsm);
-        System.out.println("getReviewerInfo");
-        System.out.println("reviewerId:"+reviewerId);
-        System.out.println("start:"+start);
-        System.out.println("end:"+end);
         user_id_list=new ArrayList<>();
         getUserIdList(lsm, user_id_list);
         jsonObject.put("reviewedNum",user_id_list.size());
-
         lsm=reviewResultService.getReviewFail(reviewerId, start, end);
-        System.out.println(lsm);
         user_id_list=new ArrayList<>();
         getUserIdList(lsm, user_id_list);
         jsonObject.put("notPassNum",user_id_list.size());
@@ -197,27 +188,32 @@ public class AuditorController {
                                     @RequestParam(value = "size", defaultValue = "5")int pageSize,
                                     @RequestParam(value ="status")String status)  {
         String reviewerId= SessionUtil.getSessionAttribute().getString("employee_id");
+        String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
       PageHelper.startPage(pageNum, pageSize,"user_id");
         List<Map<String,Object>>lsm;
         if(status.equals("0"))
         {
-            lsm=reviewResultService.getReviewed(reviewerId,start,end);
-            System.out.println(lsm.size());
+//            lsm=reviewResultService.getReviewed(reviewerId,start,end);
+//            List<Map<String,Object>>temp;
+//           // PageHelper.startPage(pageNum, pageSize,"user_id");
+//            temp=userService.getWaitForReview(security_id,start,end);
+//            for(int i=0;i<temp.size();i++)
+//            {
+//                lsm.add(temp.get(i));
+//            }
+            lsm=auditorService.getAllUserByAuditorId(security_id,reviewerId,start,end);
+            //System.out.println(lsm);
         }
         else if(status.equals("1"))
         {
             lsm=reviewResultService.getReviewSuccess(reviewerId,start,end);
-
-            System.out.println("getUserByDate");
-            System.out.println("reviewerId:"+reviewerId);
-            System.out.println("start:"+start);
-            System.out.println("end:"+end);
-
         }
-        else
+        else if (status.equals("2"))
         {
             lsm=reviewResultService.getReviewFail(reviewerId,start,end);
-            System.out.println(lsm.size());
+        }
+        else {
+            lsm=userService.getWaitForReview(security_id,start,end);
         }
         ArrayList<String> userIdList=new ArrayList<>();
         getUserIdList(lsm,userIdList);
@@ -228,6 +224,11 @@ public class AuditorController {
             if(temp.get("reviewStatus").equals("6")){
                 temp.remove("reviewStatus");
             temp.put("reviewStatus","未通过");}
+            else if(temp.get("reviewStatus").equals("4"))
+            {
+                temp.remove("reviewStatus");
+                temp.put("reviewStatus","待审核");
+            }
             else {
                 temp.remove("reviewStatus");
                 temp.put("reviewStatus","通过");

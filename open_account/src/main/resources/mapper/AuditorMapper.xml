@@ -55,7 +55,21 @@ COMMIT WORK;
 	FROM auditor_manager am
 	WHERE am.auditor_id=#{auditor_id}
 </select>
-
+<select id="getAllUserByAuditorId" resultType="java.util.HashMap">
+	select distinct u.user_id
+	from review r,user u,account_info ac
+	WHERE (r.user_id=u.user_id
+	AND r.auditor_id = #{auditor_id}
+	AND (u.status=7
+	OR u.status=6)
+	AND  r.update_time
+	BETWEEN #{start}AND #{end})
+	OR( ac.security_id=#{security_id}
+    AND  ac.allocated_time
+    BETWEEN #{start}AND #{end}
+    And u.user_id=ac.user_id
+    and u.status=4)
+</select>
 
     <select id="getReviewDate" resultType="java.lang.String">
         SELECT
@@ -76,7 +90,14 @@ COMMIT WORK;
 		account_info ai
 		WHERE ai.user_id = #{user_id}
 	</select>
-
+<!--select id="getWaitForReview" resultType="java.util.HashMap">
+	SELECT DISTINCT
+	u.user_id AS id
+	FROM account_info ai,user u
+	WHERE ai.security_id = #{security_id}
+	AND u.user_i=ai.user_id
+	AND u.STATUS = 4
+</select-->
 
 
     <insert id="insertEmployee"

@@ -20,9 +20,13 @@ public interface AuditorDAO {
                                        @Param("end")String end);
     JSONObject getUserInfo(@Param("user_id")String user_id);
     String getReviewDate(@Param("user_id")String user_id);
-
+   // List<Map<String,Object>> getWaitForReview(@Param("security_id")String security_id);
     String getOneUserToReview(String security_id);
     JSONObject getOtherInfo(@Param("user_id")String user_id);
+    List<Map<String, Object>> getAllUserByAuditorId(@Param("security_id") String security_id,
+                                                    @Param("auditor_id")String auditor_id,
+                                                    @Param("start") String start,
+                                                    @Param("end") String end);
    int insertEmployee(Employee employee);
     int insertAuditor(int security_id, int auditor_id);
     int updateEmployee(
