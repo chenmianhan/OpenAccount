@@ -51,8 +51,13 @@
     </select>
 
     <select id="getAllAdmin" resultType="com.alibaba.fastjson.JSONObject">
-        select * from employee, admin_manager
-        where employee.employee_id = admin_manager.admin_id
+        select * from employee, admin_manager, security
+        where employee.employee_id = admin_manager.admin_id and admin_manager.security_id = security.security_id
+    </select>
+
+    <select id="getAllReviewers" resultType="com.alibaba.fastjson.JSONObject">
+        select * from employee, auditor_manager, security
+        where employee.employee_id = auditor_manager.auditor_id and auditor_manager.security_id = security.security_id
     </select>
 
     <select id="getSuperAdminName" resultType="String">

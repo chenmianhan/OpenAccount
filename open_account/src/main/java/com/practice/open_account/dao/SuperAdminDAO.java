@@ -61,6 +61,7 @@ public interface SuperAdminDAO {
     JSONObject getAdminByStore(@Param("security_id") int security_id);
     List<JSONObject> getAdminByName(@Param("admin_name") String admin_name);
     List<JSONObject> getAllAdmin();
+    List<JSONObject> getAllReviewers();
 
     String getSecurity(@Param("security_id") int security_id);
     String getSuperAdminName();

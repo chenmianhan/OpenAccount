@@ -80,10 +80,16 @@ public class SuperAdminController{
         return superAdminService.getAllAdmin();
     }
 
+    @RequestMapping(value = "/admin/getAllReviewers", method = GET, produces = "application/json;charset=UTF-8")
+    public JSONObject getAllReviewers(){
+        return superAdminService.getAllReviewers();
+    }
+
     @RequestMapping(value = "/superadmin", method = GET, produces = "application/json;charset=UTF-8")
     public JSONObject getSuperAdminName() {
         return superAdminService.getSuperAdminName();
     }
+
     @RequestMapping(value="/admin/getUserInfo",method=POST,produces="application/json;charset=UTF-8")
     public JSONObject getUserInfo(@RequestBody JSONObject js){
         int usrId=js.getInteger("userId");
