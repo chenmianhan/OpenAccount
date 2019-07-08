@@ -11,7 +11,9 @@ import com.practice.open_account.service.SecurityService;
 import com.practice.open_account.service.ServieImpl.AccountInfoServiceImpl;
 import com.practice.open_account.util.constants.LoginConstants;
 
+import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 //import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,10 +22,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Date;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.shiro.SecurityUtils;
+import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 
 /****
  *@author:cmh
@@ -86,6 +98,19 @@ public class AccountInfoController {
 //			}
 //		return 0;
     	}
+    @PostMapping("/upload")
+    public ResponseEntity<String> upload(MultipartHttpServletRequest request) {
+        MultipartFile file = request.getFile("upfile");
+        File distFile = new File(request.getSession().getServletContext().getRealPath("/") + "template/" + file.getOriginalFilename());
+        distFile.renameTo(new File("u"+new Date().toString()));//更新文件名
+        try {
+            file.transferTo(distFile);//把文件写到服务器
+            return ResponseEntity.ok("Success");
+        } catch (IllegalStateException | IOException e1) {
+            e1.printStackTrace();
+        }
+        return ResponseEntity.status(409).body("Fail");
+    }
     
     @GetMapping(value = "/getAccountInfo",produces = "application/json;charset=UTF-8")
     public AccountInfoDto getAccountInfoByUserId
@@ -190,11 +215,25 @@ public class AccountInfoController {
 				accountInfoService.getAccountInfoByUserId(user_id).getSecurity_id()
 				).getString("contact_phone"); 
 	}
-	@PostMapping(value = "/tt2",produces = "application/json;charset=UTF-8")
-	public int change(@RequestBody JSONObject jsonObject) {
-		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
-    	int user_id = sessonJsonObject.getIntValue("user_id");
-    	return accountInfoService.updateRiskAssessmentMark(100, 128);
+	@PostMapping(value = "/tt2")
+	public MultipartFile change(MultipartHttpServletRequest request) throws Exception {
+		MultipartFile file = request.getFile("upFile");
+		if(file.isEmpty()) {
+			throw new Exception("上传文件为空");
+		}
+    	final Base64.Decoder decoder = Base64.getDecoder();
+    	final Base64.Encoder encoder = Base64.getEncoder();
+    	try {
+			String imageData = encoder.encodeToString(file.getBytes());
+			System.out.println(imageData);
+			byte[] bytAfter = decoder.decode(imageData);
+			byte[] bytBefore = file.getBytes();
+			if(bytAfter.length!=bytBefore.length) return 0;
+			return 1;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    	return 0;
 	}
 }
 // 22 11
