@@ -38,7 +38,7 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     public int deleteStore(int store){
         int admin_id = SessionUtil.getSessionAttribute().getIntValue("admin_id");
         int authority = superAdminDAO.getAuthority(admin_id);
-        System.out.println(authority);
+        System.out.println("admin_id-test" + admin_id);
         if (authority < 3) {
             return 0;
         }
