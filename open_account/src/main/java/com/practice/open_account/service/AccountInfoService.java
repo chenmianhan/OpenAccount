@@ -43,5 +43,5 @@ public interface AccountInfoService {
 
     List<Map<String,Object>> getUserPair(String security_id);
     JSONObject getNetNameAndUserName(String user_id);
-    ;
+    int updateRiskAssessmentMark(int riskAssessmentMark, int user_id);
 }

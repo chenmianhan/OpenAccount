@@ -154,6 +154,11 @@
 		      WHERE ai.user_id=#{user_id}
 		      AND  s.security_id=ai.security_id
 	</select>
+	<update id="updateRiskAssessmentMark">
+		update account_info set
+		risk_assessment_mark = #{riskAssessmentMark}
+		where user_id = #{user_id}
+	</update>
 </mapper>
 
 

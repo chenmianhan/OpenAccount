@@ -193,5 +193,11 @@ public class AccountInfoController {
 				accountInfoService.getAccountInfoByUserId(user_id).getSecurity_id()
 				).getString("contact_phone"); 
 	}
+	@PostMapping(value = "/tt2",produces = "application/json;charset=UTF-8")
+	public int change(@RequestBody JSONObject jsonObject) {
+		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+    	int user_id = sessonJsonObject.getIntValue("user_id");
+    	return accountInfoService.updateRiskAssessmentMark(100, 128);
+	}
 }
 // 22 11

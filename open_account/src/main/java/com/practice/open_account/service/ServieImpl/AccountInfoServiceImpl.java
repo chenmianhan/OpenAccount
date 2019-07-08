@@ -103,5 +103,9 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 		}
 		return null;
 	}
-
+	@Override
+	public int updateRiskAssessmentMark(int riskAssessmentMark, int user_id) {
+		// TODO Auto-generated method stub
+		return accountInfoDAO.updateRiskAssessmentMark(riskAssessmentMark,user_id);
+	}
 }
