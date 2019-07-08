@@ -127,7 +127,7 @@ public class AdminController {
 		return auditorService.updateEmployee(
 				jsonObject.getIntValue("auditor_id"),
 				jsonObject.getString("account"),
-				password	,
+				password,
 				"2",
 				jsonObject.getString("name"));
 	}
