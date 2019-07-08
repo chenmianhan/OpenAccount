@@ -2,6 +2,7 @@ package com.practice.open_account.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.practice.open_account.dao.GradeDao;
+import com.practice.open_account.service.AccountInfoService;
 import com.practice.open_account.service.GradeService;
 import com.practice.open_account.service.UserService;
 import com.practice.open_account.util.SessionUtil;
@@ -25,6 +26,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class GradeController{
     @Resource
     private UserService userService;
+    @Resource
+    private AccountInfoService accountInfoService;
 
     @Autowired
     private GradeService gradeService;
@@ -46,6 +49,7 @@ public class GradeController{
         result.put("mark",mark);
         String user_id= SessionUtil.getSessionAttribute().getString("user_id");
         userService.setUserStatus(user_id,"2");
+        accountInfoService.updateRiskAssessmentMark(mark, Integer.parseInt(user_id));
         return result.toJSONString();
     }
 
