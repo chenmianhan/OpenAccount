@@ -51,5 +51,5 @@ public interface SuperAdminService {
     JSONObject getExpireDate();
     JSONObject getMinScore();
 
-    JSONObject getReviewerInfo(int reviewer_id);
+    JSONArray getReviewerInfo(int reviewer_id);
 }

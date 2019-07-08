@@ -169,7 +169,7 @@ public class SuperAdminController{
     }
 
     @RequestMapping(value="/admin/getReviewerInfo",method = POST,produces = "application/json;charset=UTF-8")
-    public JSONObject getReviewerInfo(@RequestBody JSONObject js){
+    public JSONArray getReviewerInfo(@RequestBody JSONObject js){
         int reviewerId = js.getInteger("reviewerId");
         return superAdminService.getReviewerInfo(reviewerId);
     }

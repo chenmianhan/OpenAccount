@@ -368,7 +368,7 @@ public class SuperAdminServiceImpl implements SuperAdminService {
 
     @Override
     @Transactional
-    public JSONObject getReviewerInfo(int reviewer_id) {
+    public JSONArray getReviewerInfo(int reviewer_id) {
         JSONObject js = superAdminDAO.getReviewerInfo(reviewer_id);
 
         JSONObject resJs = new JSONObject();
@@ -377,6 +377,8 @@ public class SuperAdminServiceImpl implements SuperAdminService {
         resJs.put("account", js.getString("employee_account"));
         resJs.put("password", js.getString("employee_password"));
 
-        return resJs;
+        JSONArray res = new JSONArray();
+        res.add(resJs);
+        return res;
     }
 }
