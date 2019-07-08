@@ -228,6 +228,7 @@ public class AuditorController {
             {
                 temp.remove("reviewStatus");
                 temp.put("reviewStatus","待审核");
+temp.put("accTime",accountInfoService.getAllocTimeById(userIdList.get(i)));
             }
             else {
                 temp.remove("reviewStatus");
