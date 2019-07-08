@@ -3,8 +3,9 @@ package com.practice.open_account.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data  @AllArgsConstructor @NoArgsConstructor
+@Data  @AllArgsConstructor @NoArgsConstructor@Setter
 public class Address {
 	private Integer aid;
 	private String province;

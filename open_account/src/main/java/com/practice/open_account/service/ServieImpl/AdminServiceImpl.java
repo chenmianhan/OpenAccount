@@ -27,9 +27,15 @@ public class AdminServiceImpl implements AdminService{
 		return adminDAO.getSecurityIdByAdminId(admin_id);
 	}
 	@Override
-	public Integer addAdminEmployee(Employee admin) {
+	public Integer addAdminEmployee(Employee admin) throws Exception {
 		// TODO Auto-generated method stub
-		return adminDAO.addAdminEmployee(admin);
+		try {
+			adminDAO.addAdminEmployee(admin);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception("dupliate admin account");
+		}
+		return 0;
 	}
 	@Override
 	public Integer addAdminManage(Employee admin) {

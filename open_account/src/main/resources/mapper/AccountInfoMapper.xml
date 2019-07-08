@@ -59,28 +59,7 @@
 	<!-- updateAccountInfo -->
  	<update id="updateAccountInfo">
 		update account_info set
-		name=#{name},
-		id_type=#{id_type},
-		id_number=#{id_number},
-		id_address_id=#{id_address_id},
-		id_issuance_date=#{id_issuance_date},
-		id_overdue_date=#{id_overdue_date},
-		id_licensing_authority=#{id_licensing_authority},
-		contact_address_id=#{contact_address_id},
-		postal_address_id=#{postal_address_id},
-		trans_password=#{trans_password},
-		fund_password=#{fund_password},
-		security_id=#{security_id},
-		trade_type=#{trade_type},
-		deposit_bank=#{deposit_bank},
-		deposit_account=#{deposit_account},
-		deposit_password=#{deposit_password},
-		profession=#{profession},
-		education=#{education},
-		email=#{email},
-		id_picture=#{id_picture},
-		id_card_inverse_side=#{id_card_inverse_side},
-		risk_assessment_mark=#{risk_assessment_mark}
+		name=#{name}
 		where user_id=#{user_id}
 	</update>
 	
@@ -129,7 +108,8 @@
 		update address set
 		province = #{province},
 		city = #{city},
-		street = #{street}
+		street = #{street},
+		detail = #{detail}
 		where aid = #{aid}
 	</update>
     
