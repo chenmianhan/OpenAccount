@@ -56,7 +56,7 @@ public class AuditorController {
         return js;
         }
     @RequestMapping(value="/reviewer/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
-    public JSONObject getUserInfo()
+    public JSONObject getUserInfo(@RequestParam(value = "user_id")String user_id)
     {
         String reviewerId=null;
         try{reviewerId=Long.toString((Long)(SessionUtil.getSessionAttribute().get("employee_id")));}
@@ -65,11 +65,11 @@ public class AuditorController {
             e.printStackTrace();
         }
         String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
-
-        String user_id=reviewResultService.checkExitWaitForReviewByAuditor(reviewerId);
+        if(user_id.equals(""))
+        {user_id=reviewResultService.checkExitWaitForReviewByAuditor(reviewerId);
         if(user_id!=null)
         {
-            return getUserInfo(user_id);
+            return makeUserInfo(user_id);
         }
         //System.out.println(getClass()+user_id);
       else {
@@ -89,11 +89,18 @@ public class AuditorController {
             // System.out.println(getClass()+user_id);
             int result= reviewResultService.addReviewResult(user_id,reviewerId,"审核中");
             if(result==1){
-                return getUserInfo(user_id);
+                return makeUserInfo(user_id);
+            }
+            else return new JSONObject();
+        }}
+        else
+        {
+            int result= reviewResultService.addReviewResult(user_id,reviewerId,"审核中");
+            if(result==1){
+                return makeUserInfo(user_id);
             }
             else return new JSONObject();
         }
-        //String
 
     }
 
@@ -150,7 +157,7 @@ public class AuditorController {
 
     private String getStatusStringByStatusInt(String reviewStatus) {
         if (reviewStatus.equals("4")) {
-            reviewStatus = "未审核";
+            reviewStatus = "待审核";
         } else if (reviewStatus.equals("5")) {
             reviewStatus = "审核中";
         } else if (reviewStatus.equals("6")) {
@@ -350,11 +357,12 @@ public class AuditorController {
             }
         }
     }
-    private JSONObject getUserInfo(String user_id) {
+    private JSONObject makeUserInfo(String user_id) {
         JSONObject userInfoTemp = auditorService.getUserInfo(user_id);
         JSONArray userInfo = new JSONArray();
         parseUserInfo(user_id, userInfoTemp, userInfo);
         JSONObject jsonObject = auditorService.getUserInfoUnreviewed(user_id);
+        //jsonObject.put("userInfo",userInfo);
         jsonObject.put("userInfo", userInfo);
         jsonObject.put("code", AuditorConstants.MUCH_MSG);
         return jsonObject;
