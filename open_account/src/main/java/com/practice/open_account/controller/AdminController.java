@@ -21,6 +21,7 @@ import com.practice.open_account.service.AccountInfoService;
 import com.practice.open_account.service.AdminService;
 import com.practice.open_account.service.AuditorService;
 import com.practice.open_account.service.SecurityService;
+import com.practice.open_account.util.PasswordUtil;
 import com.practice.open_account.util.constants.LoginConstants;
 import com.sun.xml.internal.xsom.impl.scd.Iterators.Map;
 
@@ -49,25 +50,34 @@ public class AdminController {
     
     //	addAdmin
     @PostMapping(value = "/superadmin/addAdmin", produces = "application/json;charset=UTF-8")
-    public int addAdmin(@RequestBody JSONObject jsonObject) {
+    public ResponseEntity<Integer> addAdmin(@RequestBody JSONObject jsonObject) {
+    	String password = PasswordUtil.getMD5(jsonObject.getString("password")+jsonObject.getString("account"));
     	Employee admin = new Employee(null, 
     			jsonObject.getString("name"), 
     			jsonObject.getString("account"), 
-    			jsonObject.getString("password"),
+    			password,
     			"2",
     			jsonObject.getInteger("store"));
     	
-    	return adminService.addAdminEmployee(admin)&adminService.addAdminManage(admin);
+    	try {
+    		adminService.addAdminEmployee(admin);
+    		adminService.addAdminManage(admin);
+    		return ResponseEntity.status(200).body(new Integer(1));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    	return ResponseEntity.status(409).body(new Integer(0));
     }
     
     //	modifyAdmin
     @PutMapping(value = "/superadmin/modifyAdmin",produces = "application/json;charset=UTF-8")
     public int updateAdmin(@RequestBody JSONObject jsonObject) {
+    	String password = PasswordUtil.getMD5(jsonObject.getString("password")+jsonObject.getString("account"));
     	Employee admin = new Employee(
     			jsonObject.getInteger("admin_id"),
     			jsonObject.getString("name"),
     			jsonObject.getString("account"),
-    			jsonObject.getString("password"),
+    			password,
     			"2",
     			jsonObject.getInteger("store"));
     	return adminService.updateAdmin(admin);	
@@ -81,7 +91,7 @@ public class AdminController {
 				jsonObject.getString("store"), 
 				jsonObject.getJSONArray("address").getString(0),
 				jsonObject.getJSONArray("address").getString(1),
-				jsonObject.getString("contact_phone"));
+				jsonObject.getString("phone"));
     	return adminService.addSecurity(security);
     }
     
@@ -89,8 +99,13 @@ public class AdminController {
     //	addAuditor
 	@PostMapping(value = "/admin/addAuditor",produces = "application/json;charset=UTF-8")
 	public ResponseEntity<Integer> addAuditor(@RequestBody JSONObject jsonObject) {
+		String password = PasswordUtil.getMD5(jsonObject.getString("password")+jsonObject.getString("account"));
 		//	insert employee table
-		Employee employee = new Employee(null, jsonObject.getString("name"),jsonObject.getString("account"), jsonObject.getString("password"), "2",null);
+		Employee employee = new Employee(null, 
+				jsonObject.getString("name"),
+				jsonObject.getString("account"), 
+				password, 
+				"1",null);
 		try {
 			auditorService.insertEmployee(employee);
 		} catch (Exception e) {
@@ -108,15 +123,13 @@ public class AdminController {
 	//	modifyAuditor
 	@PutMapping(value = "/admin/modifyAuditor")
 	public int updateAuditor(@RequestBody JSONObject jsonObject) {
+		String password = PasswordUtil.getMD5(jsonObject.getString("password")+jsonObject.getString("account"));
 		return auditorService.updateEmployee(
 				jsonObject.getIntValue("auditor_id"),
 				jsonObject.getString("account"),
-				jsonObject.getString("password"),
+				password	,
 				"2",
 				jsonObject.getString("name"));
-//				&auditorService.updateAuditor(
-//				jsonObject.getIntValue("security_id"),
-//				jsonObject.getIntValue("auditor_id"));
 	}
 	
 	//	getuserByDate

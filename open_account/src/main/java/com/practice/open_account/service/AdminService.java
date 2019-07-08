@@ -12,7 +12,7 @@ public interface AdminService {
 	List<JSONObject> getSecurityIdBySuperAdmin();
 	Integer getSecurityIdByAdminId(Integer admin_id);
 //	List<Integer> getAuditorIdBySecurityId(Integer securityId);
-	Integer addAdminEmployee(Employee admin);
+	Integer addAdminEmployee(Employee admin) throws Exception;
 	Integer addAdminManage(Employee admin);
 	Integer updateAdmin(Employee admin);
 	Integer addSecurity(Security security);
