@@ -5,7 +5,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.practice.open_account.config.shiro.common.UserToken;
 import com.practice.open_account.dao.SuperAdminDAO;
+import com.practice.open_account.dao.AccountDisplayDAO;
 import com.practice.open_account.service.SuperAdminService;
+import com.practice.open_account.entity.FundAccount;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
@@ -26,6 +28,8 @@ import java.util.List;
 public class SuperAdminServiceImpl implements SuperAdminService {
     @Resource
     private SuperAdminDAO superAdminDAO;
+    @Resource
+    private AccountDisplayDAO accountDisplayDAO;
 
     @Override
     @Transactional
@@ -83,12 +87,32 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     @Transactional
     public int deleteUser(int user_id) {
         String customer_id = superAdminDAO.getCustomerId(user_id);
-        superAdminDAO.deleteUserInTradeAccount(customer_id);
-        superAdminDAO.deleteUserInFundAccount(customer_id);
-        superAdminDAO.deleteUserInCustomerAccount(user_id);
-        superAdminDAO.deleteUserInAccountInfo(user_id);
-        superAdminDAO.deleteUserInUser(user_id);
-        return 1;
+
+        System.out.println(customer_id);
+        List<FundAccount> fundAccounts = accountDisplayDAO.getFundAccountByCustomerId(customer_id);
+        boolean currencyFlag = false;
+        System.out.println(currencyFlag);
+        for (FundAccount fundAccount: fundAccounts) {
+            String fund_id = fundAccount.getFund_id();
+            List<JSONObject> currencyJss = accountDisplayDAO.getCurrencyByFundId(fund_id);
+            for (JSONObject currencyJs: currencyJss) {
+                if (currencyJs.getDouble("balance") != 0) {
+                    currencyFlag = true;
+                    break;
+                }
+            }
+        }
+        if (!currencyFlag) {
+            superAdminDAO.deleteUserInTradeAccount(customer_id);
+            superAdminDAO.deleteUserInFundAccount(customer_id);
+            superAdminDAO.deleteUserInCustomerAccount(user_id);
+            superAdminDAO.deleteUserInAccountInfo(user_id);
+            superAdminDAO.deleteUserInUser(user_id);
+            return 1;
+        }
+        else {
+            return 0;
+        }
     }
 
     @Override
