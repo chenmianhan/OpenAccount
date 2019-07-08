@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /****
@@ -88,12 +89,12 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     public int deleteUser(int user_id) {
         String customer_id = superAdminDAO.getCustomerId(user_id);
 
-        System.out.println(customer_id);
         List<FundAccount> fundAccounts = accountDisplayDAO.getFundAccountByCustomerId(customer_id);
+        List<String> fund_id_list = new ArrayList<>();
         boolean currencyFlag = false;
-        System.out.println(currencyFlag);
         for (FundAccount fundAccount: fundAccounts) {
             String fund_id = fundAccount.getFund_id();
+            fund_id_list.add(fund_id);
             List<JSONObject> currencyJss = accountDisplayDAO.getCurrencyByFundId(fund_id);
             for (JSONObject currencyJs: currencyJss) {
                 if (currencyJs.getDouble("balance") != 0) {
@@ -103,6 +104,9 @@ public class SuperAdminServiceImpl implements SuperAdminService {
             }
         }
         if (!currencyFlag) {
+            for (String fund_id: fund_id_list) {
+                superAdminDAO.deleteCurrencyUnderFund(fund_id);
+            }
             superAdminDAO.deleteUserInTradeAccount(customer_id);
             superAdminDAO.deleteUserInFundAccount(customer_id);
             superAdminDAO.deleteUserInCustomerAccount(user_id);

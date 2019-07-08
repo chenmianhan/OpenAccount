@@ -149,6 +149,10 @@
         delete from user where user_id = #{user_id}
     </delete>
 
+    <delete id="deleteCurrencyUnderFund">
+        delete from currency where fund_id = #{fund_id}
+    </delete>
+
     <delete id="deleteAdminInAdminManager">
         delete from admin_manager where admin_id = #{admin_id}
     </delete>
