@@ -22,9 +22,8 @@ public interface AuditorService  {
 
     JSONObject getUserInfoUnreviewed(String user_id);
     //List<Map<String,Object>>  gettoReviewUser_List(Integer type,String security_id);
-    //List<Map<String,Object>> getWaitForReview(String security_id);
-    List<Map<String, Object>> getAllUserByAuditorId( String security_id, String auditor_id, String start, String end);
-    int insertEmployee(Employee employee);
+
+    int insertEmployee(Employee employee) throws Exception;
     int insertAuditor(int security_id, int auditor_id);
     int updateEmployee(
             int employee_id,

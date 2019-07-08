@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.alibaba.fastjson.JSONArray;
@@ -86,17 +88,21 @@ public class AdminController {
     //	normal admin
     //	addAuditor
 	@PostMapping(value = "/admin/addAuditor",produces = "application/json;charset=UTF-8")
-	public int addAuditor(@RequestBody JSONObject jsonObject) {
+	public ResponseEntity<Integer> addAuditor(@RequestBody JSONObject jsonObject) {
 		//	insert employee table
 		Employee employee = new Employee(null, jsonObject.getString("name"),jsonObject.getString("account"), jsonObject.getString("password"), "2",null);
-		auditorService.insertEmployee(employee);
+		try {
+			auditorService.insertEmployee(employee);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(409).body(new Integer(0));
+		}
+		
 		//	before insert auditor_manage, get current admin_id
 		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
 		int security_id = adminService.getSecurityIdByAdminId(sessonJsonObject.getInteger("employee_id"));
-		return auditorService.insertAuditor(
-				security_id,
-				employee.getEmployee_id()
-				);
+		auditorService.insertAuditor(security_id,employee.getEmployee_id());
+		return ResponseEntity.status(200).body(new Integer(1));
 	}
 	
 	//	modifyAuditor
