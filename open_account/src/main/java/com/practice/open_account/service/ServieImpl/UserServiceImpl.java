@@ -50,7 +50,12 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public int addUser( String phone, String password)
     {
+        try{
         return userDao.addUser(phone,password);
+    }catch (Exception e)
+        {
+            e.printStackTrace();
+        }return -1;
     }
 
     @Override

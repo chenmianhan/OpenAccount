@@ -6,6 +6,7 @@ import com.practice.open_account.service.EmployeeService;
 import com.practice.open_account.service.ReviewResultService;
 import com.practice.open_account.service.UserService;
 import com.practice.open_account.util.CommonUtil;
+import com.practice.open_account.util.PasswordUtil;
 import com.practice.open_account.util.SessionUtil;
 import com.practice.open_account.util.constants.LoginConstants;
 import org.apache.shiro.SecurityUtils;
@@ -41,6 +42,8 @@ public class LoginController {
                             @RequestParam(value = "role") String role) {
         Subject currentUser = SecurityUtils.getSubject();
         Session session = currentUser.getSession();
+        password = PasswordUtil.getMD5(password+account);
+        System.out.println(password);
         //System.out.println("session.getAttribute(LoginConstants.SESSION_USER_INFO)"+session.getAttribute(LoginConstants.SESSION_USER_INFO));
         if(session.getAttribute(LoginConstants.SESSION_USER_INFO)!=null)
         {
@@ -52,6 +55,7 @@ public class LoginController {
             if(result==0){
                 try{
                    int a= userService.addUser(account,password);
+                   ///System.out.println("a:"+a);
                    if(a==1)
                    {
                        userService.checkLogin(account,password);
@@ -64,7 +68,6 @@ public class LoginController {
                 }
             }
             else {
-
                 result=userService.checkLogin(account,password);
                 if(result!=0)
                 {
@@ -107,10 +110,8 @@ public class LoginController {
 
         return accountInfoService.getNetNameAndUserName(user_id);
     }
-
     @RequestMapping(value="/checkInvalid", method=POST, produces = "application/json;charset=UTF-8")
     public String checkInvalid() {
-
         JSONObject sessionAttribute=SessionUtil.getSessionAttribute();
         if(sessionAttribute==null)
        // System.out.println(user_id);

@@ -108,4 +108,13 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 		// TODO Auto-generated method stub
 		return accountInfoDAO.updateRiskAssessmentMark(riskAssessmentMark,user_id);
 	}
+	@Override
+	public String getAllocTimeById(String use_id)
+	{
+		try{return accountInfoDAO.getAllocTimeById(use_id);}
+		catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

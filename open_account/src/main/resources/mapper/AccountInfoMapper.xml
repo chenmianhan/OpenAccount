@@ -146,7 +146,11 @@
 		      from account_info ai
 		      WHERE ai.security_id=#{security_id}
 	</select>
-
+<select id="getAllocTimeById" resultType="java.lang.String">
+	select  ai.allocated_time
+	FROM account_info ai
+	Where ai.user_id=#{user_id}
+</select>
 	<select id="getNetNameAndUserName" resultType="com.alibaba.fastjson.JSONObject">
 		select ai.name username,
 		       s.name netName
