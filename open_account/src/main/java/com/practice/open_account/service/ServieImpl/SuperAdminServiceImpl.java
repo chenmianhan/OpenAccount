@@ -36,9 +36,8 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     @Override
     @Transactional
     public int deleteStore(int store){
-        int admin_id = SessionUtil.getSessionAttribute().getIntValue("admin_id");
+        int admin_id = SessionUtil.getSessionAttribute().getIntValue("employee_id");
         int authority = superAdminDAO.getAuthority(admin_id);
-        System.out.println("admin_id-test" + admin_id);
         if (authority < 3) {
             return 0;
         }
@@ -101,7 +100,7 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     @Override
     @Transactional
     public int deleteAdmin(int admin_id) {
-        int superadmin = SessionUtil.getSessionAttribute().getIntValue("admin_id");
+        int superadmin = SessionUtil.getSessionAttribute().getIntValue("employee_id");
         int authority = superAdminDAO.getAuthority(superadmin);
         if (authority < 3) {
             return 0;
@@ -258,7 +257,7 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     @Override
     @Transactional
     public int changeMaxAuditorNum(int max_num) {
-        int superadmin = SessionUtil.getSessionAttribute().getIntValue("admin_id");
+        int superadmin = SessionUtil.getSessionAttribute().getIntValue("employee_id");
         int authority = superAdminDAO.getAuthority(superadmin);
         if (authority < 3) {
             return 0;
@@ -269,7 +268,7 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     @Override
     @Transactional
     public int changeExpireDate(Date expire_date) {
-        int superadmin = SessionUtil.getSessionAttribute().getIntValue("admin_id");
+        int superadmin = SessionUtil.getSessionAttribute().getIntValue("employee_id");
         int authority = superAdminDAO.getAuthority(superadmin);
         if (authority < 3) {
             return 0;
@@ -280,7 +279,7 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     @Override
     @Transactional
     public int changeMinScore(int min_score) {
-        int superadmin = SessionUtil.getSessionAttribute().getIntValue("admin_id");
+        int superadmin = SessionUtil.getSessionAttribute().getIntValue("employee_id");
         int authority = superAdminDAO.getAuthority(superadmin);
         if (authority < 3) {
             return 0;
