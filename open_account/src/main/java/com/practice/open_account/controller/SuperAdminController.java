@@ -30,15 +30,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 public class SuperAdminController{
-    //    @Resource
-//    SecurityDao securityDao;
+
     @Resource
     private SuperAdminService superAdminService;
-
-//    @RequestMapping(value = "/superadmin/get_securityUnderAdmins", method = GET, produces = "application/json;charset=UTF-8")
-//    public int getSecurityUnderAdmin(@RequestParam(value = "admin_id") int admin_id){
-//        return superAdminService.getSecurityUnderAdmin(admin_id);
-//    }
 
     @RequestMapping(value = "/deleteStore", method = POST, produces = "application/json;charset=UTF-8")
     public int deleteStore(@RequestBody JSONObject jsonObject){

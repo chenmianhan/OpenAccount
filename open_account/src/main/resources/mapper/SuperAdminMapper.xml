@@ -88,6 +88,11 @@
         where user_id=#{usrId}
     </select>
 
+    <select id="getAuthority" resultType="int">
+        select employee_type from employee
+        where employee_id = #{admin_id}
+    </select>
+
     <insert id="addAdminToEmployee">
         insert into employee
         (employee_id, employee_account, employee_password, employee_type, employee_name)
