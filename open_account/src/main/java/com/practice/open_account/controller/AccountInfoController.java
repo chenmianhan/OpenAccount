@@ -150,8 +150,8 @@ public class AccountInfoController {
 	@PostMapping(value = "/updateSecurity",produces = "application/json;charset=UTF-8")
 	public int updateSecurity(@RequestBody JSONObject jsonObject) {
 		Integer security_id = jsonObject.getInteger("security_id");
-		String[] arrayType = (String[])jsonObject.get("trade_type");
-		String trade_type = arrayType.length>1?"2":arrayType[0];
+		String arrayType = jsonObject.getString("trade_type");
+		String trade_type = arrayType.length()>1?"2":arrayType;
     	//	通过session获取user_id
     	JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
     	int user_id = sessonJsonObject.getIntValue("user_id");
