@@ -112,7 +112,9 @@ public class AuditorController {
                                       @RequestParam(value = "start") String start,
                                       @RequestParam(value = "end") String end){
         if(reviewerId.equals(""))
-            try{reviewerId=Long.toString((Long)(SessionUtil.getSessionAttribute().get("employee_id")));}
+            try{
+                reviewerId=Long.toString((Long)(SessionUtil.getSessionAttribute().get("employee_id")));
+            }
             catch (Exception e)
             {
                 e.printStackTrace();
@@ -138,7 +140,9 @@ public class AuditorController {
         JSONObject userInfoTemp = auditorService.getUserInfo(userId);
         String  reviewStatus=userService.getStatus(userId);
         reviewStatus = getStatusStringByStatusInt(reviewStatus);
+
         userInfoTemp.put("reviewStatus",reviewStatus);
+        userInfoTemp.put("userId",userId);
         JSONArray userInfo = new JSONArray();
         userInfo.add(userInfoTemp);
         return userInfo;
@@ -175,10 +179,23 @@ public class AuditorController {
             String  reviewStatus=userService.getStatus(userIdList.get(i));
             reviewStatus = getStatusStringByStatusInt(reviewStatus);
             userInfoTemp.put("reviewStatus",reviewStatus);
+            userInfoTemp.put("userId",userIdList.get(i));
             userInfo.add(userInfoTemp);
 
         }
         return userInfo;
+    }
+    @RequestMapping(value= "/reviewer/getReviewingNum", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONObject getReviewingNum()
+    {
+       String  reviewerId=Long.toString((Long)(SessionUtil.getSessionAttribute().get("employee_id")));
+        String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
+        List<Map<String,Object>> lsm=reviewResultService.getReviewing(reviewerId);
+        ArrayList<String> user_id_list=new ArrayList<>();
+        getUserIdList(lsm, user_id_list);
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("reviewingNum",user_id_list.size());
+        return jsonObject;
     }
 
     @RequestMapping(value="/reviewer/getUserByDate", method=POST, produces = "application/json;charset=UTF-8")
@@ -193,14 +210,6 @@ public class AuditorController {
         List<Map<String,Object>>lsm;
         if(status.equals("0"))
         {
-//            lsm=reviewResultService.getReviewed(reviewerId,start,end);
-//            List<Map<String,Object>>temp;
-//           // PageHelper.startPage(pageNum, pageSize,"user_id");
-//            temp=userService.getWaitForReview(security_id,start,end);
-//            for(int i=0;i<temp.size();i++)
-//            {
-//                lsm.add(temp.get(i));
-//            }
             lsm=auditorService.getAllUserByAuditorId(security_id,reviewerId,start,end);
             //System.out.println(lsm);
         }
@@ -212,8 +221,11 @@ public class AuditorController {
         {
             lsm=reviewResultService.getReviewFail(reviewerId,start,end);
         }
-        else {
+        else if(status.equals("3")){
             lsm=userService.getWaitForReview(security_id,start,end);
+        }
+        else {
+            lsm=reviewResultService.getReviewing(security_id);
         }
         ArrayList<String> userIdList=new ArrayList<>();
         getUserIdList(lsm,userIdList);
@@ -221,6 +233,7 @@ public class AuditorController {
         JSONArray jsonArray=new JSONArray();
         for(int i=0;i<userIdList.size();i++) {
             JSONObject temp=auditorService.getUserInfo(userIdList.get(i));
+            temp.put("userId",userIdList.get(i));
             if(temp.get("reviewStatus").equals("6")){
                 temp.remove("reviewStatus");
             temp.put("reviewStatus","未通过");}
@@ -228,7 +241,13 @@ public class AuditorController {
             {
                 temp.remove("reviewStatus");
                 temp.put("reviewStatus","待审核");
-temp.put("accTime",accountInfoService.getAllocTimeById(userIdList.get(i)));
+                temp.put("accTime",accountInfoService.getAllocTimeById(userIdList.get(i)));
+            }
+            else if(temp.get("reviewStatus").equals("5"))
+            {
+                temp.remove("reviewStatus");
+                temp.put("reviewStatus","审核中");
+                temp.put("accTime",reviewResultService.getReviewingTime(userIdList.get(i)));
             }
             else {
                 temp.remove("reviewStatus");

@@ -43,8 +43,6 @@ public class LoginController {
         Subject currentUser = SecurityUtils.getSubject();
         Session session = currentUser.getSession();
         password = PasswordUtil.getMD5(password+account);
-        System.out.println(password);
-        //System.out.println("session.getAttribute(LoginConstants.SESSION_USER_INFO)"+session.getAttribute(LoginConstants.SESSION_USER_INFO));
         if(session.getAttribute(LoginConstants.SESSION_USER_INFO)!=null)
         {
             currentUser.logout();
