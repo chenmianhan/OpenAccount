@@ -18,5 +18,7 @@ public interface ReviewResultService {
     String checkExitWaitForReviewByAuditor(String reviewerId);
     List<Map<String,Object>> getReviewSuccess(String auditor_id, String start, String end);
     List<Map<String,Object>> getReviewFail(String auditor_id, String start, String end);
+    List<Map<String,Object>> getReviewing(String auditor_id);
     List<Map<String,Object>> getReviewed(String auditor_id, String start, String end);
+    String getReviewingTime (String user_id);
 }

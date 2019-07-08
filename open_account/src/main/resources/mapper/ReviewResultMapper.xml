@@ -44,6 +44,20 @@ select distinct u.user_id
 		AND  r.update_time
 		BETWEEN #{start}  AND #{end};
     </select>
+	<select id="getReviewing" resultType="java.util.HashMap">
+select distinct u.user_id
+        from
+		account_info ai,user u
+		WHERE ai.user_id=u.user_id
+		AND u.status=5
+		AND ai.security_id=#{security_id}
+    </select>
+<select id="getReviewingTime" resultType="java.lang.String">
+	select r.update_time
+	from review r
+	where r.user_id=#{user_id}
+</select>
+
 <select id="checkExitWaitForReviewByAuditor" resultType="java.lang.String">
     select distinct r.user_id user_id
         from
@@ -60,5 +74,5 @@ WHERE
 	r.user_id = #{user_id}
 	AND r.auditor_id = #{auditor_id}
 </update>
-    
+
 </mapper>
