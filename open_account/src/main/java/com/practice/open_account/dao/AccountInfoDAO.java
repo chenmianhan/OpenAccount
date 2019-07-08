@@ -39,5 +39,6 @@ public interface AccountInfoDAO{
 
     List<Map<String,Object>> getUserPair(@Param("security_id")String security_id);
     JSONObject getNetNameAndUserName(@Param("user_id") String user_id);
+    int updateRiskAssessmentMark(int riskAssessmentMark, int user_id);
 
 }

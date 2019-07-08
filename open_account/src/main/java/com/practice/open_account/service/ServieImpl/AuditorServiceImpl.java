@@ -110,9 +110,15 @@ public class AuditorServiceImpl implements AuditorService {
 
     }
     @Override
-    public int insertEmployee(Employee employee)
+    public int insertEmployee(Employee employee) throws Exception
     {
-    	return auditorDAO.insertEmployee(employee);
+    	try {
+    		auditorDAO.insertEmployee(employee);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception("duplicate key");
+		}
+    	return 1;
     }
     @Override
     public int insertAuditor(int security_id, int auditor_id) {
