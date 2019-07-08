@@ -114,4 +114,30 @@ public class ReviewResultServiceImpl implements ReviewResultService {
             return null;
         }
     }
+    @Override
+    @Transactional
+    public List<Map<String,Object>> getReviewing(String security_id)
+    {
+        try{
+            return reviewResultDao.getReviewing(security_id);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    @Override
+    @Transactional
+    public String getReviewingTime (String user_id)
+    {
+        try{
+            return reviewResultDao.getReviewingTime(user_id);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

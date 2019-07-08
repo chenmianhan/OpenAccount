@@ -192,16 +192,30 @@ public class SuperAdminServiceImpl implements SuperAdminService {
 
         List<JSONObject> jsList = superAdminDAO.getAllAdmin();
         JSONArray res = new JSONArray();
-        for (int i = 0; i < jsList.size(); i++) {
-            JSONObject js = jsList.get(i);
-            int security_id = js.getInteger("security_id");
-            String store = superAdminDAO.getSecurity(security_id);
+        for (JSONObject js:jsList) {
             JSONObject resJs = new JSONObject();
             resJs.put("admin_id", js.getInteger("employee_id"));
             resJs.put("name", js.getString("employee_name"));
             resJs.put("account", js.getString("employee_account"));
             resJs.put("password", js.getString("employee_password"));
-            resJs.put("store", store);
+            resJs.put("store", js.getString("name"));
+            res.add(resJs);
+        }
+        return res;
+    }
+
+    @Override
+    @Transactional
+    public JSONArray getAllReviewers() {
+
+        List<JSONObject> jsList = superAdminDAO.getAllReviewers();
+        JSONArray res = new JSONArray();
+        for (JSONObject js:jsList) {
+            JSONObject resJs = new JSONObject();
+            resJs.put("reviewer_id", js.getInteger("employee_id"));
+            resJs.put("name", js.getString("employee_name"));
+            resJs.put("account", js.getString("employee_account"));
+            resJs.put("password", js.getString("employee_password"));
             res.add(resJs);
         }
         return res;
@@ -350,5 +364,19 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     @Transactional
     public JSONObject getMinScore() {
         return superAdminDAO.getMinScore();
+    }
+
+    @Override
+    @Transactional
+    public JSONObject getReviewerInfo(int reviewer_id) {
+        JSONObject js = superAdminDAO.getReviewerInfo(reviewer_id);
+
+        JSONObject resJs = new JSONObject();
+        resJs.put("reviewer_id", js.getInteger("employee_id"));
+        resJs.put("name", js.getString("employee_name"));
+        resJs.put("account", js.getString("employee_account"));
+        resJs.put("password", js.getString("employee_password"));
+
+        return resJs;
     }
 }

@@ -80,10 +80,16 @@ public class SuperAdminController{
         return superAdminService.getAllAdmin();
     }
 
+    @RequestMapping(value = "/admin/getAllReviewers", method = GET, produces = "application/json;charset=UTF-8")
+    public JSONArray getAllReviewers(){
+        return superAdminService.getAllReviewers();
+    }
+
     @RequestMapping(value = "/superadmin", method = GET, produces = "application/json;charset=UTF-8")
     public JSONObject getSuperAdminName() {
         return superAdminService.getSuperAdminName();
     }
+
     @RequestMapping(value="/admin/getUserInfo",method=POST,produces="application/json;charset=UTF-8")
     public JSONObject getUserInfo(@RequestBody JSONObject js){
         int usrId=js.getInteger("userId");
@@ -161,4 +167,11 @@ public class SuperAdminController{
     public JSONObject getMinScore(){
         return superAdminService.getMinScore();
     }
+
+    @RequestMapping(value="/admin/getReviewerInfo",method = POST,produces = "application/json;charset=UTF-8")
+    public JSONObject getReviewerInfo(@RequestBody JSONObject js){
+        int reviewerId = js.getInteger("reviewerId");
+        return superAdminService.getReviewerInfo(reviewerId);
+    }
+
 }

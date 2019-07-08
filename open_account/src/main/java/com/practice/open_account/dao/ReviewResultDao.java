@@ -26,4 +26,6 @@ public interface ReviewResultDao {
     List<Map<String,Object>> getReviewed(@Param("auditor_id")String auditor_id,
                                            @Param("start")String start,
                                            @Param("end")String end);
+    List<Map<String,Object>> getReviewing(@Param("security_id")String security_id);
+    String getReviewingTime (@Param("user_id")String user_id);
 }
