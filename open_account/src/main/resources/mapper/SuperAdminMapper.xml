@@ -56,8 +56,8 @@
     </select>
 
     <select id="getAllReviewers" resultType="com.alibaba.fastjson.JSONObject">
-        select * from employee, auditor_manager, security
-        where employee.employee_id = auditor_manager.auditor_id and auditor_manager.security_id = security.security_id
+        select * from employee
+        where employee.employee_type = 1
     </select>
 
     <select id="getSuperAdminName" resultType="String">
@@ -189,5 +189,10 @@
     </select>
     <select id="getMinScore" resultType="com.alibaba.fastjson.JSONObject">
         select min_score from common_param
+    </select>
+
+    <select id="getReviewerInfo" resultType="com.alibaba.fastjson.JSONObject">
+        select * from employee
+        where employee_id = #{reviewerId}
     </select>
 </mapper>

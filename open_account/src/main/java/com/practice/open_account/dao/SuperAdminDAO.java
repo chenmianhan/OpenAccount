@@ -84,4 +84,5 @@ public interface SuperAdminDAO {
     JSONObject getMinScore();
 
     int getAuthority(@Param("admin_id") int admin_id);
+    JSONObject getReviewerInfo(@Param("reviewerId") int reviewerId);
 }
