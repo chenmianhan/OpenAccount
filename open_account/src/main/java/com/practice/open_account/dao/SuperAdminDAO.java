@@ -81,4 +81,6 @@ public interface SuperAdminDAO {
     JSONObject getAuditorNum();
     JSONObject getExpireDate();
     JSONObject getMinScore();
+
+    int getAuthority(@Param("admin_id") int admin_id);
 }

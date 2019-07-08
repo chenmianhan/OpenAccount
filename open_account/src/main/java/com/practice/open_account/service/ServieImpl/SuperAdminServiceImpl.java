@@ -8,6 +8,7 @@ import com.practice.open_account.dao.SuperAdminDAO;
 import com.practice.open_account.dao.AccountDisplayDAO;
 import com.practice.open_account.service.SuperAdminService;
 import com.practice.open_account.entity.FundAccount;
+import com.practice.open_account.util.SessionUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
@@ -34,35 +35,12 @@ public class SuperAdminServiceImpl implements SuperAdminService {
 
     @Override
     @Transactional
-    public int getSecurityUnderAdmin(int admin_id){
-        return superAdminDAO.getSecurityUnderAdmin(admin_id);
-    }
-
-    @Override
-    @Transactional
-    public int addAdmin(String name, String account, String password, int store){
-        int max_id = superAdminDAO.getMaxId();
-        superAdminDAO.addAdminToEmployee(max_id+1, name, account, password);
-        superAdminDAO.addAdminToAdminManager(max_id+1, store);
-        return 1;
-    }
-
-    @Override
-    @Transactional
-    public int modifyAdmin(int employee_id, String name, String password, String account){
-        return superAdminDAO.modifyAdmin(employee_id, name, password, account);
-    }
-
-    @Override
-    @Transactional
-    public int addStore(){
-        // Aborting
-        return 0;
-    }
-
-    @Override
-    @Transactional
     public int deleteStore(int store){
+        int admin_id = SessionUtil.getSessionAttribute().getIntValue("employee_id");
+        int authority = superAdminDAO.getAuthority(admin_id);
+        if (authority < 3) {
+            return 0;
+        }
         int userNum = superAdminDAO.getUsersNumUnderStore(store);
         if (userNum > 0){
             return 0;
@@ -122,6 +100,11 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     @Override
     @Transactional
     public int deleteAdmin(int admin_id) {
+        int superadmin = SessionUtil.getSessionAttribute().getIntValue("employee_id");
+        int authority = superAdminDAO.getAuthority(superadmin);
+        if (authority < 3) {
+            return 0;
+        }
         superAdminDAO.deleteAdminInAdminManager(admin_id);
         superAdminDAO.deleteEmployee(admin_id);
         return 1;
@@ -206,6 +189,7 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     @Override
     @Transactional
     public JSONArray getAllAdmin() {
+
         List<JSONObject> jsList = superAdminDAO.getAllAdmin();
         JSONArray res = new JSONArray();
         for (int i = 0; i < jsList.size(); i++) {
@@ -273,18 +257,33 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     @Override
     @Transactional
     public int changeMaxAuditorNum(int max_num) {
+        int superadmin = SessionUtil.getSessionAttribute().getIntValue("employee_id");
+        int authority = superAdminDAO.getAuthority(superadmin);
+        if (authority < 3) {
+            return 0;
+        }
         return superAdminDAO.changeMaxAuditorNum(max_num);
     }
 
     @Override
     @Transactional
     public int changeExpireDate(Date expire_date) {
+        int superadmin = SessionUtil.getSessionAttribute().getIntValue("employee_id");
+        int authority = superAdminDAO.getAuthority(superadmin);
+        if (authority < 3) {
+            return 0;
+        }
         return superAdminDAO.changeExpireDate(expire_date);
     }
 
     @Override
     @Transactional
     public int changeMinScore(int min_score) {
+        int superadmin = SessionUtil.getSessionAttribute().getIntValue("employee_id");
+        int authority = superAdminDAO.getAuthority(superadmin);
+        if (authority < 3) {
+            return 0;
+        }
         return superAdminDAO.changeMinScore(min_score);
     }
     @Override
