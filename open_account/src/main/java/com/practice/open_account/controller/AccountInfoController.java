@@ -145,8 +145,9 @@ public class AccountInfoController {
     	AccountInfo modify = new AccountInfo();
     	Address modifAddress = new Address();
     	//	get user_id
-    	JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
-    	int user_id = sessonJsonObject.getIntValue("user_id");
+//    	JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+//    	int user_id = sessonJsonObject.getIntValue("user_id");
+    	int user_id = jsonObject.getIntValue("user_id");
     	modify.setUser_id(user_id);
     	//	get modified name
     	modify.setName(jsonObject.getString("name"));
