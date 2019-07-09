@@ -40,5 +40,9 @@ public interface AccountInfoDAO{
     List<Map<String,Object>> getUserPair(@Param("security_id")String security_id);
     JSONObject getNetNameAndUserName(@Param("user_id") String user_id);
     int updateRiskAssessmentMark(int riskAssessmentMark, int user_id);
-   String  getAllocTimeById(@Param("user_id") String user_id);
+    String  getAllocTimeById(@Param("user_id") String user_id);
+   	int uploadId(String image, int user_id);
+   	int uploadIdReverse(String image, int user_id);
+   	int uploadHeadShot(String image, int user_id);
+   	
 }

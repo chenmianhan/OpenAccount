@@ -15,7 +15,7 @@ import java.util.Map;
 public interface AccountInfoService {
     //	accountInfo CRUD
     //	add
-    int addAccountInfo(AccountInfo accountInfo);
+    int addAccountInfo(AccountInfo accountInfo) throws Exception;
     //	get
     AccountInfo getAccountInfoByUserId(Integer user_id);
     //	updateAll
@@ -45,5 +45,8 @@ public interface AccountInfoService {
     JSONObject getNetNameAndUserName(String user_id);
     String getAllocTimeById(String use_id);
     int updateRiskAssessmentMark(int riskAssessmentMark, int user_id);
-
+    //	upload image
+    int uploadId(String image, int user_id);
+   	int uploadIdReverse(String image, int user_id);
+   	int uploadHeadShot(String image, int user_id);
 }
