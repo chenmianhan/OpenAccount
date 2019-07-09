@@ -82,6 +82,7 @@ COMMIT WORK;
         FROM
        review  r
         WHERE r.user_id= #{user_id}
+        limit 1
     </select>
 
     <select id="getOtherInfo" resultType="com.alibaba.fastjson.JSONObject">

@@ -8,6 +8,7 @@ import com.practice.open_account.service.UserService;
 import com.practice.open_account.util.CommonUtil;
 import com.practice.open_account.util.PasswordUtil;
 import com.practice.open_account.util.SessionUtil;
+import com.practice.open_account.util.UcpaasUtil.client.JsonReqClient;
 import com.practice.open_account.util.constants.LoginConstants;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -116,10 +117,24 @@ public class LoginController {
         return LoginConstants.INVALID_CODE;
         else return LoginConstants.VALID_CODE;
     }
+    @RequestMapping(value="/test22", method=GET, produces = "application/json;charset=UTF-8")
+    public String  test22() {
+        String checkNum="2222";
+        String checkPhone="15813935101";
+
+        //String checkPhone="15920138470";
+       // String uid="";
+        //return SessionUtil.getSessionAttribute();
+        JsonReqClient jsonReqClient=new JsonReqClient();
+       String result= jsonReqClient.sendSms("37a490144f5a9c924d1bfe5901847973",
+                            "57e9b612d3cc1303f59a41f6bb08efe3",
+                "426324c3e49d4340bd71e1a47420b64f",
+                "483287",
+                checkNum,checkPhone);
+       return result;
+    }
     @RequestMapping(value="/test", method=GET, produces = "application/json;charset=UTF-8")
-    public JSONObject test() {
-
-        return SessionUtil.getSessionAttribute();
-
+    public JSONObject  test() {
+       return SessionUtil.getSessionAttribute();
     }
 }
