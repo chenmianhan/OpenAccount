@@ -31,7 +31,7 @@ public interface SuperAdminService {
     JSONArray getAdminByName(String admin_name);
 
     JSONArray getAllAdmin();
-    JSONObject getAllReviewers();
+    JSONArray getAllReviewers();
 
     JSONObject getSuperAdminName();
 
@@ -50,4 +50,6 @@ public interface SuperAdminService {
     JSONObject getAuditorNum();
     JSONObject getExpireDate();
     JSONObject getMinScore();
+
+    JSONArray getReviewerInfo(int reviewer_id);
 }

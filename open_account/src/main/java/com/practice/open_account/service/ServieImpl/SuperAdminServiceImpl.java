@@ -206,7 +206,7 @@ public class SuperAdminServiceImpl implements SuperAdminService {
 
     @Override
     @Transactional
-    public JSONObject getAllReviewers() {
+    public JSONArray getAllReviewers() {
 
         List<JSONObject> jsList = superAdminDAO.getAllReviewers();
         JSONArray res = new JSONArray();
@@ -216,12 +216,9 @@ public class SuperAdminServiceImpl implements SuperAdminService {
             resJs.put("name", js.getString("employee_name"));
             resJs.put("account", js.getString("employee_account"));
             resJs.put("password", js.getString("employee_password"));
-            resJs.put("store", js.getString("name"));
             res.add(resJs);
         }
-        JSONObject resJs = new JSONObject();
-        resJs.put("tableData", res);
-        return resJs;
+        return res;
     }
 
     @Override
@@ -367,5 +364,21 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     @Transactional
     public JSONObject getMinScore() {
         return superAdminDAO.getMinScore();
+    }
+
+    @Override
+    @Transactional
+    public JSONArray getReviewerInfo(int reviewer_id) {
+        JSONObject js = superAdminDAO.getReviewerInfo(reviewer_id);
+
+        JSONObject resJs = new JSONObject();
+        resJs.put("reviewer_id", js.getInteger("employee_id"));
+        resJs.put("name", js.getString("employee_name"));
+        resJs.put("account", js.getString("employee_account"));
+        resJs.put("password", js.getString("employee_password"));
+
+        JSONArray res = new JSONArray();
+        res.add(resJs);
+        return res;
     }
 }
