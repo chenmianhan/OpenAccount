@@ -57,6 +57,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/checkPhone","anon");
         filterChainDefinitionMap.put("/checkPassword","anon");
         filterChainDefinitionMap.put("/updatePassword", "anon");
+        filterChainDefinitionMap.put("/addUser", "anon");
         filterChainDefinitionMap.put("/**", "authc");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

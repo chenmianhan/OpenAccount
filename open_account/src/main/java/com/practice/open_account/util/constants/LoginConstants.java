@@ -31,6 +31,7 @@ public class LoginConstants {
 	public static final String UPDATESUCCESS="306";
 	public static final String EXCEPTION="307";
 	public  static final String SMSSUCCESS="308";
+	//public  static final String RIGISTERSUCCESS="309";
 	public static final String  SMSERROR="100015";
 	public static final String SESSION_USER_INFO = "userInfo";
 	public static final String SESSION_USER_PERMISSION = "userPermission";

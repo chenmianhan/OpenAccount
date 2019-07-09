@@ -52,23 +52,23 @@ public class LoginController {
         }
         int result;
         if(role.equals("0")){
-           result =userService.checkPhone(account);
-            if(result==0){
-                try{
-                   int a= userService.addUser(account,password);
-                   ///System.out.println("a:"+a);
-                   if(a==1)
-                   {
-                       userService.checkLogin(account,password);
-                    //System.out.println(SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO));
-                    return CommonUtil.getJson(LoginConstants.NEW_CODE);}
-                   else return CommonUtil.getJson(LoginConstants.ERROR_CODE);
-                }
-                catch(Exception e){
-                    return CommonUtil.getJson(LoginConstants.ERROR_CODE);
-                }
-            }
-            else {
+//           result =userService.checkPhone(account);
+//            if(result==0){
+//                try{
+//                   int a= userService.addUser(account,password);
+//                   ///System.out.println("a:"+a);
+//                   if(a==1)
+//                   {
+//                       userService.checkLogin(account,password);
+//                    //System.out.println(SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO));
+//                    return CommonUtil.getJson(LoginConstants.NEW_CODE);}
+//                   else return CommonUtil.getJson(LoginConstants.ERROR_CODE);
+//                }
+//                catch(Exception e){
+//                    return CommonUtil.getJson(LoginConstants.ERROR_CODE);
+//                }
+//            }
+//            else {
                 result=userService.checkLogin(account,password);
                 if(result!=0)
                 {
@@ -79,7 +79,7 @@ public class LoginController {
                     return CommonUtil.getJson(LoginConstants.FAIL_CODE);
                 }
             }
-        }
+//        }
         else
         {
             result=employeeService.login(account,password,role);
@@ -99,6 +99,24 @@ public class LoginController {
     public JSONObject logout()
     {
         return userService.logout();
+    }
+
+    @RequestMapping(value="/addUser", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONObject addUser(@RequestParam(value = "account") String account,
+                              @RequestParam(value = "password") String password)
+    {
+        try{
+                   int a= userService.addUser(account,password);
+                   if(a==1)
+                   {
+                   //    userService.checkLogin(account,password);
+                    //System.out.println(SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO));
+                    return CommonUtil.getJson(LoginConstants.NEW_CODE);}
+                   else return CommonUtil.getJson(LoginConstants.ERROR_CODE);
+                }
+                catch(Exception e){
+                    return CommonUtil.getJson(LoginConstants.ERROR_CODE);
+                }
     }
     @RequestMapping(value="/getReviewResult", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject getReviewResult() {
