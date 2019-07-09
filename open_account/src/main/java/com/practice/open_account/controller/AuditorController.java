@@ -66,12 +66,12 @@ public class AuditorController {
         }
         String security_id=auditorService.getSecutityIdbyAuditorId(reviewerId);
         if(user_id.equals(""))
-        {user_id=reviewResultService.checkExitWaitForReviewByAuditor(reviewerId);
+        {
+            user_id=reviewResultService.checkExitWaitForReviewByAuditor(reviewerId);
         if(user_id!=null)
         {
             return makeUserInfo(user_id);
         }
-        //System.out.println(getClass()+user_id);
       else {
             user_id=auditorService.getOneUserToReview(security_id);
             if(user_id==null)
@@ -86,7 +86,6 @@ public class AuditorController {
                 js.put("code",AuditorConstants.NONE_MSG);
                 return js;
             }
-            // System.out.println(getClass()+user_id);
             int result= reviewResultService.addReviewResult(user_id,reviewerId,"审核中");
             if(result==1){
                 return makeUserInfo(user_id);
@@ -311,31 +310,37 @@ public class AuditorController {
         temp.put("title","用户ID");
         temp.put("content",user_id);
         userInfo.add(temp);
-       // System.out.println(userInfo);
+
         temp=new JSONObject();
         temp.put("title","姓名");
         temp.put("content",userInfoTemp.get("userName"));
         userInfo.add(temp);
+
         temp=new JSONObject();
         temp.put("title","身份证号码");
         temp.put("content",userInfoTemp.get("idCardNum"));
         userInfo.add(temp);
-        System.out.println(userInfo);
+
         temp=new JSONObject();
         temp.put("title","证件有效期");
         temp.put("content",userInfoTemp.get("idValDate"));
         userInfo.add(temp);
+
         temp=new JSONObject();
         temp.put("title","发证机关");
         temp.put("content",userInfoTemp.get("idInstitute"));
         userInfo.add(temp);
+
         temp=new JSONObject();
         temp.put("title","职业");
         temp.put("content",userInfoTemp.get("userJob"));
         userInfo.add(temp);
+
+        temp=new JSONObject();
         temp.put("title","学历");
         temp.put("content",userInfoTemp.get("education"));
         userInfo.add(temp);
+
         temp=new JSONObject();
         temp.put("title","联系邮箱");
         temp.put("content",userInfoTemp.get("email"));

@@ -8,6 +8,7 @@
         FROM
            review r
         WHERE r.user_id = #{user_id}
+        limit 1
     </select>
     <insert id="addReviewResult">
     insert into  review(auditor_id,user_id,review_result)
