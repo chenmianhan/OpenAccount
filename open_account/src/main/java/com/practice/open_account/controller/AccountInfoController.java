@@ -215,25 +215,25 @@ public class AccountInfoController {
 				accountInfoService.getAccountInfoByUserId(user_id).getSecurity_id()
 				).getString("contact_phone"); 
 	}
-	@PostMapping(value = "/tt2")
-	public MultipartFile change(MultipartHttpServletRequest request) throws Exception {
-		MultipartFile file = request.getFile("upFile");
-		if(file.isEmpty()) {
-			throw new Exception("上传文件为空");
-		}
-    	final Base64.Decoder decoder = Base64.getDecoder();
-    	final Base64.Encoder encoder = Base64.getEncoder();
-    	try {
-			String imageData = encoder.encodeToString(file.getBytes());
-			System.out.println(imageData);
-			byte[] bytAfter = decoder.decode(imageData);
-			byte[] bytBefore = file.getBytes();
-			if(bytAfter.length!=bytBefore.length) return 0;
-			return 1;
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-    	return 0;
-	}
+//	@PostMapping(value = "/tt2")
+//	public MultipartFile change(MultipartHttpServletRequest request) throws Exception {
+//		MultipartFile file = request.getFile("upFile");
+//		if(file.isEmpty()) {
+//			throw new Exception("上传文件为空");
+//		}
+//    	final Base64.Decoder decoder = Base64.getDecoder();
+//    	final Base64.Encoder encoder = Base64.getEncoder();
+//    	try {
+//			String imageData = encoder.encodeToString(file.getBytes());
+//			System.out.println(imageData);
+//			byte[] bytAfter = decoder.decode(imageData);
+//			byte[] bytBefore = file.getBytes();
+//			if(bytAfter.length!=bytBefore.length) return 0;
+//			return 1;
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//    	return 0;
+//	}
 }
 // 22 11
