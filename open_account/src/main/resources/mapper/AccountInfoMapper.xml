@@ -143,6 +143,18 @@
 		risk_assessment_mark = #{riskAssessmentMark}
 		where user_id = #{user_id}
 	</update>
+	<update id="uploadId">
+		update account_info set
+		id_picture =#{image} where user_id = #{user_id}
+	</update>
+	<update id="uploadIdReverse">
+		update account_info set
+		id_card_inverse_side =#{image} where user_id = #{user_id}
+	</update>
+	<update id="uploadHeadShot">
+		update account_info set
+		heashot =#{image} where user_id = #{user_id}
+	</update>
 </mapper>
 
 

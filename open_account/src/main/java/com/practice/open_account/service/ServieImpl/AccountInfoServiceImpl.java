@@ -27,8 +27,14 @@ public class AccountInfoServiceImpl implements AccountInfoService {
     
     //account_info
 	@Override
-	public int addAccountInfo(AccountInfo accountInfo) {
-		return accountInfoDAO.addAccountInfo(accountInfo);
+	public int addAccountInfo(AccountInfo accountInfo) throws Exception {
+		try {
+			accountInfoDAO.addAccountInfo(accountInfo);
+			return 1;
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new Exception("insert fail");
+		}
 	}
 	@Override
 	public AccountInfo getAccountInfoByUserId(Integer user_id) {
@@ -117,5 +123,38 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	@Override
+	public int uploadHeadShot(String image, int user_id) {
+		// TODO Auto-generated method stub
+		try {
+			accountInfoDAO.uploadHeadShot(image, user_id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	@Override
+	public int uploadId(String image, int user_id) {
+		// TODO Auto-generated method stub
+		try {
+			accountInfoDAO.uploadId(image, user_id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	@Override
+	public int uploadIdReverse(String image, int user_id) {
+		// TODO Auto-generated method stub
+		try {
+			accountInfoDAO.uploadIdReverse(image, user_id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }
