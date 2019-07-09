@@ -56,7 +56,7 @@ public class AuditorController {
         return js;
         }
     @RequestMapping(value="/reviewer/getUserInfo", method=POST, produces = "application/json;charset=UTF-8")
-    public JSONObject getUserInfo(@RequestParam(value = "user_id")String user_id)
+    public JSONObject getUserInfo(@RequestParam(value = "userId")String user_id)
     {
         String reviewerId=null;
         try{reviewerId=Long.toString((Long)(SessionUtil.getSessionAttribute().get("employee_id")));}
