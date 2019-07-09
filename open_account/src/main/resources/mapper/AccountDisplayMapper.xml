@@ -50,4 +50,35 @@
 		from account_info ai
 		where ai.user_id=#{user_id}
 	</select>
+	<select id="getAccountInfo" resultType="com.alibaba.fastjson.JSONObject">
+		select * from account_info
+		where user_id = #{user_id}
+	</select>
+	<select id="getAddressByAId" resultType="com.alibaba.fastjson.JSONObject">
+		select * from address
+		where aid = #{aid}
+	</select>
+	<update id="updateUserInfo">
+		update account_info
+		set
+		name = #{name},
+		profession = #{profession},
+		id_issuance_date = #{valDateStart},
+		id_overdue_date = #{valDateEnd},
+		id_licensing_authority = #{idCardAuthority},
+		education = #{education},
+		email = #{email}
+		where
+		user_id = #{user_id}
+	</update>
+	<update id="updateAddress">
+		update address
+		set
+		province = #{province},
+		city = #{city},
+		street = #{street},
+		detail = #{detail}
+		where
+		aid = #{aid}
+	</update>
 </mapper>

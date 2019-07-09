@@ -14,4 +14,5 @@ public interface AccountDisplayService {
 	int addFundAccount(FundAccount fundAccount);
 	int deleteFundAccount(String fund_id);
 	String  getTradeType( String user_id);
+	JSONObject updateUserInfo(JSONObject info, int user_id);
 }

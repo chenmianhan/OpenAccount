@@ -1,24 +1,22 @@
 package com.practice.open_account.controller;
 
-import java.util.List;
+		import java.util.List;
 
-import com.practice.open_account.service.AccountDisplayService;
+		import com.practice.open_account.service.AccountDisplayService;
 
-import org.apache.shiro.SecurityUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+		import org.apache.shiro.SecurityUtils;
+		import org.springframework.beans.factory.annotation.Autowired;
+		import org.springframework.web.bind.annotation.*;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.practice.open_account.entity.AccountInfo;
-import com.practice.open_account.entity.FundAccount;
-import com.practice.open_account.service.AccountInfoService;
-import com.practice.open_account.service.SecurityService;
-import com.practice.open_account.util.constants.LoginConstants;
+		import com.alibaba.fastjson.JSONArray;
+		import com.alibaba.fastjson.JSONObject;
+		import com.practice.open_account.entity.AccountInfo;
+		import com.practice.open_account.entity.FundAccount;
+		import com.practice.open_account.service.AccountInfoService;
+		import com.practice.open_account.service.SecurityService;
+		import com.practice.open_account.util.constants.LoginConstants;
+
+		import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 public class  AccountDisplayController {
@@ -35,13 +33,13 @@ public class  AccountDisplayController {
 		String customer_id = accountDisplayService.getCustomerIdByUserId(user_id);
 		List<FundAccount> data = accountDisplayService
 				.getFundAccountByCustomerId(customer_id
-						);
+				);
 		JSONObject res = new JSONObject();
 		//	put sub elements into res
 		res.put("primaryAccount", new JSONObject(3));
 		res.put("secondaryAccount", new JSONArray());
 		res.put("netPoint", new JSONObject());
-		
+
 		JSONArray array = res.getJSONArray("secondaryAccount");
 		//	input
 		for(int i=0;i<data.size();i++) {
@@ -50,10 +48,10 @@ public class  AccountDisplayController {
 				JSONObject temp = res.getJSONObject("primaryAccount");
 				temp.put("id",Integer.valueOf(0));
 				temp.put("cardID", data.get(0).getBank_account());
-				List<JSONObject> currencyList = 
+				List<JSONObject> currencyList =
 						accountDisplayService.getCurrencyByFundId(
 								data.get(0).getFund_id()
-								);
+						);
 				temp.put("balance", currencyList.get(0));
 			}
 			//	secondaryAccount
@@ -61,10 +59,10 @@ public class  AccountDisplayController {
 				JSONObject temp = new JSONObject(3);
 				temp.put("id", Integer.valueOf(i));
 				temp.put("cardID", data.get(i).getBank_account());
-				List<JSONObject> currencyList = 
+				List<JSONObject> currencyList =
 						accountDisplayService.getCurrencyByFundId(
 								data.get(i).getFund_id()
-								);
+						);
 				if(currencyList.size()==0) {
 					JSONObject object = new JSONObject();
 					object.put("currency_type", "¥");
@@ -80,9 +78,9 @@ public class  AccountDisplayController {
 			AccountInfo info = accountInfoService.getAccountInfoByUserId(user_id);
 			Integer security_id = info.getSecurity_id();
 
-			res.getJSONObject("netPoint").put("netpoint", 
+			res.getJSONObject("netPoint").put("netpoint",
 					security_id==null?"":
-					securityService.getSecurityBySecurityId(security_id).getString("name"));
+							securityService.getSecurityBySecurityId(security_id).getString("name"));
 			String tradeType=accountDisplayService.getTradeType(Integer.toString(user_id));
 			String  tradeType1="";
 			String  tradeType2="";
@@ -104,10 +102,10 @@ public class  AccountDisplayController {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		
+
 		return res;
 	}
-	
+
 	@PostMapping(value = "/account/addFundAccount",produces = "application/json;charset=UTF-8")
 	public int addFundAccount(@RequestBody JSONObject jsonObject) {
 		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
@@ -145,17 +143,17 @@ public class  AccountDisplayController {
 			String nextFundId = prefix.append(number.toString()).toString();
 			return accountDisplayService.addFundAccount(
 					new FundAccount(
-							customer_id, 
+							customer_id,
 							nextFundId,
-							jsonObject.getString("bank_account"), 
-							jsonObject.getString("bank"), 
+							jsonObject.getString("bank_account"),
+							jsonObject.getString("bank"),
 							"1")
-					);
+			);
 		}
 		return 0;
-		
+
 	}
-	
+
 	@GetMapping(value = "/account/deleteFundAccount",produces = "application/json;charset=UTF-8")
 	public int deleteFundAccount(@RequestParam int id) {
 		//	get user_id
@@ -170,8 +168,16 @@ public class  AccountDisplayController {
 			return accountDisplayService.
 					deleteFundAccount(
 							fundAccount.get(id).getFund_id()
-							);
+					);
 		}
 		return 0;
 	}
+
+	@RequestMapping(value = "/user/updateUserInfo", method = POST, produces = "application/json;charset=UTF-8")
+	public JSONObject updateUserInfo(@RequestBody JSONObject info) {
+		JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+		int user_id = sessonJsonObject.getIntValue("user_id");
+		return accountDisplayService.updateUserInfo(info, user_id);
+	}
+
 }

@@ -1,5 +1,7 @@
 package com.practice.open_account.service.ServieImpl;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import com.practice.open_account.service.AccountDisplayService;
@@ -8,7 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.practice.open_account.dao.AccountDisplayDAO;
+import com.practice.open_account.dao.AccountInfoDAO;
 import com.practice.open_account.entity.FundAccount;
+
+import javax.annotation.Resource;
 
 @Service
 public class AccountDisplayServiceImpl implements AccountDisplayService {
@@ -54,5 +59,90 @@ public class AccountDisplayServiceImpl implements AccountDisplayService {
 		catch (Exception e)
 		{e.printStackTrace();}
 		return null;
+	}
+	@Override
+	public JSONObject updateUserInfo(JSONObject info, int user_id) {
+		JSONObject res = new JSONObject();
+		JSONObject preInfo = accountDisplayDAO.getAccountInfo(user_id);
+		System.out.println(preInfo);
+		JSONObject preContactAddress = accountDisplayDAO.getAddressByAId(preInfo.getInteger("contact_address_id"));
+		JSONObject prePostAddress = accountDisplayDAO.getAddressByAId(preInfo.getInteger("postal_address_id"));
+
+		String name = info.getString("name");
+		String profession = info.getString("profession");
+		Date valDateStart = info.getSqlDate("valDateStart");
+		Date valDateEnd = info.getSqlDate("valDateEnd");
+		String idCardAuthority = info.getString("idCardAuthority");
+		String education = info.getString("education");
+		String email = info.getString("email");
+		JSONObject contactAddress = info.getJSONObject("contactAddress");
+		String contactAddressProvince = contactAddress.getString("province");
+		String contactAddressCity = contactAddress.getString("city");
+		String contactAddressStreet = contactAddress.getString("street");
+		String contactAddressDetail = contactAddress.getString("detail");
+		JSONObject postAddress = info.getJSONObject("postAddress");
+		String postAddressProvince = postAddress.getString("province");
+		String postAddressCity = postAddress.getString("city");
+		String postAddressStreet = postAddress.getString("street");
+		String postAddressDetail = postAddress.getString("detail");
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+
+
+		if (name == null) {
+			name = preInfo.getString("name");
+		}
+		if (profession == null) {
+			profession = preInfo.getString("profession");
+		}
+		if (valDateStart == null) {
+			valDateStart = preInfo.getSqlDate("id_issuance_date");
+		}
+		if (valDateEnd == null) {
+			valDateEnd = preInfo.getSqlDate("id_overdue_date");
+		}
+		if (idCardAuthority == null) {
+			idCardAuthority = preInfo.getString("id_licensing_authority");
+		}
+		if (education == null) {
+			education = preInfo.getString("education");
+		}
+		if (email == null) {
+			email = preInfo.getString("email");
+		}
+		if (contactAddressProvince == null) {
+			contactAddressProvince = preContactAddress.getString("province");
+		}
+		if (contactAddressCity == null) {
+			contactAddressCity = preContactAddress.getString("city");
+		}
+		if (contactAddressStreet == null) {
+			contactAddressStreet = preContactAddress.getString("street");
+		}
+		if (contactAddressDetail == null) {
+			contactAddressDetail = preContactAddress.getString("detail");
+		}
+		if (postAddressProvince == null) {
+			postAddressProvince = prePostAddress.getString("province");
+		}
+		if (postAddressCity == null) {
+			postAddressCity = prePostAddress.getString("city");
+		}
+		if (postAddressStreet == null) {
+			postAddressStreet = prePostAddress.getString("street");
+		}
+		if (postAddressDetail == null) {
+			postAddressDetail = prePostAddress.getString("detail");
+		}
+
+		int status;
+		status = accountDisplayDAO.updateUserInfo(user_id, name, profession, valDateStart, valDateEnd, idCardAuthority, education, email);
+		status = status * accountDisplayDAO.updateAddress(preInfo.getInteger("contact_address_id"), contactAddressProvince, contactAddressCity, contactAddressStreet, contactAddressDetail);
+		status = status * accountDisplayDAO.updateAddress(preInfo.getInteger("postal_address_id"), postAddressProvince, postAddressCity, postAddressStreet, postAddressDetail);
+
+		res.put("code", 101-status);
+		return res;
+
 	}
 }

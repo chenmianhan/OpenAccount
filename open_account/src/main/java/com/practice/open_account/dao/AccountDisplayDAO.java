@@ -1,5 +1,6 @@
 package com.practice.open_account.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
@@ -14,4 +15,8 @@ public interface AccountDisplayDAO {
 	int addFundAccount(FundAccount fundAccount);
 	int deleteFundAccount(String fund_id);
 	String  getTradeType(@Param("user_id") String user_id);
+	JSONObject getAccountInfo(int user_id);
+	JSONObject getAddressByAId(int aid);
+	int updateUserInfo(int user_id, String name, String profession, Date valDateStart, Date valDateEnd, String idCardAuthority, String education, String email);
+	int updateAddress(int aid, String province, String city, String street, String detail);
 }
