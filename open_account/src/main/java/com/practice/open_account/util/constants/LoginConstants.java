@@ -18,7 +18,22 @@ public class LoginConstants {
 	public static final String VALID_CODE="800";
 	public static final String INVALID_CODE="801";
 	//session中存放用户信息的key值xx
-
+	//302-验证码正确，303-验证码错误
+	//300-未被注册301-已被注册
+	//304-密码错误305-密码正确
+	//306-修改成功307-异常
+	public  static final String USEREXIST="300";
+	public  static final String USERNOTEXIST="301";
+	public  static final String CHECKNUMTRUE="302";
+	public  static final String CHECKNUMFALSE="303";
+	public static final String PASSWORDFALSE="304";
+	public static final String PASSWORDTRUE="305";
+	public static final String UPDATESUCCESS="306";
+	public static final String EXCEPTION="307";
+	public  static final String SMSSUCCESS="308";
+	public static final String  SMSERROR="100015";
 	public static final String SESSION_USER_INFO = "userInfo";
 	public static final String SESSION_USER_PERMISSION = "userPermission";
+	public static final String SESSION_CHECKNUM = "checkNum";
+
 }

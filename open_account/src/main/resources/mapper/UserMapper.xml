@@ -5,7 +5,7 @@
     <insert id="addUser" >
         insert into user(phone,password,status) values(#{phone}, #{password}, 0)
     </insert>
-    <select id="checkLogin" resultType="java.lang.Integer">
+    <select id="checkPassword" resultType="java.lang.Integer">
         SELECT
         count(*)
         FROM
@@ -61,4 +61,10 @@
     And u.user_id=ac.user_id
     AND ac.name=#{name}
     </select>
+    <update id="updatePassword">
+        update user
+    	set
+    	password=#{password}
+    	where phone=#{phone}
+    </update>
 </mapper>
