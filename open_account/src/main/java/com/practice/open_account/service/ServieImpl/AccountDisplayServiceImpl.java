@@ -1,6 +1,7 @@
 package com.practice.open_account.service.ServieImpl;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -151,7 +152,10 @@ public class AccountDisplayServiceImpl implements AccountDisplayService {
 	public int recharge(JSONObject js) {
 		String fund_id = js.getString("fund_id");
 		double amount = js.getDouble("amount");
-		return accountDisplayDAO.recharge(fund_id, amount);
+		int status = accountDisplayDAO.recharge(fund_id, amount);
+		String customer_id = accountDisplayDAO.getCustomerId(fund_id);
+		Timestamp datetime = new Timestamp(System.currentTimeMillis());
+		return status * accountDisplayDAO.addTransaction(customer_id, amount, "充值", datetime);
 	}
 
 	@Override
@@ -163,7 +167,10 @@ public class AccountDisplayServiceImpl implements AccountDisplayService {
 		if (amount > balance) {
 			return 0;
 		}
-		return accountDisplayDAO.withdrawal(fund_id, amount);
+		int status = accountDisplayDAO.withdrawal(fund_id, amount);
+		String customer_id = accountDisplayDAO.getCustomerId(fund_id);
+		Timestamp datetime = new Timestamp(System.currentTimeMillis());
+		return status * accountDisplayDAO.addTransaction(customer_id, -amount, "提现", datetime);
 	}
 	@Override
 	public int checkFund(String trade_password,String user_id)
