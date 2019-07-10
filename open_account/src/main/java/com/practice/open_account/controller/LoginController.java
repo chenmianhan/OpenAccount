@@ -215,10 +215,12 @@ public class LoginController {
     }
 
     @RequestMapping(value="/updatePassword", method=GET, produces = "application/json;charset=UTF-8")
-    public JSONObject updatePassword(
+    public JSONObject updatePassword(@RequestParam(value ="phone")String phone,
                                      @RequestParam(value ="newPassword")String password)
     {
-        String phone=SessionUtil.getSessionAttribute().getString("phone");
+        if(phone.equals("")){
+            phone=SessionUtil.getSessionAttribute().getString("phone");
+    }
         JSONObject jsonObject=new JSONObject();
         if(phone==null)jsonObject.put("code",LoginConstants.EXCEPTION);
         else {
