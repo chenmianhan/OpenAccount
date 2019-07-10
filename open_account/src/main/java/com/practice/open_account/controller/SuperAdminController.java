@@ -121,7 +121,9 @@ public class SuperAdminController{
     @RequestMapping(value="/admin/getUserId",method = GET,produces = "application/json;charset=UTF-8")
     public JSONObject getUserList()
     {
-        return superAdminService.getUserList();
+        JSONObject sessonJsonObject = (JSONObject) SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+        int admin_id = sessonJsonObject.getIntValue("employee_id");
+        return superAdminService.getUserList(admin_id);
     }
 
     @RequestMapping(value="/superadmin/changeMaxNum",method = POST,produces = "application/json;charset=UTF-8")

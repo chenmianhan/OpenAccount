@@ -73,6 +73,7 @@
     <select id="getUserList" resultType="com.alibaba.fastjson.JSONObject">
         select name,user_id
         from account_info
+        where security_id = #{security_id}
     </select>
 
     <select id="getUserInfo"  resultType="com.alibaba.fastjson.JSONObject">
