@@ -311,7 +311,7 @@ public class SuperAdminServiceImpl implements SuperAdminService {
         for(int i=0;i<tmp.size();i++){
             jstmp1=tmp.getJSONObject(i);
             //idtmp=jstmp1.getInteger("user_id");
-            addr=getAddressInfo(jstmp1.getInteger("id_address_id"));
+            addr=getAddressInfo(jstmp1.getInteger("contact_address_id"));
             anstmp.put("user_id",jstmp1.getInteger("user_id"));
             anstmp.put("name",jstmp1.getString("name"));
             anstmp.put("id_num",jstmp1.getString("id_number"));
@@ -335,7 +335,7 @@ public class SuperAdminServiceImpl implements SuperAdminService {
         for(int i=0;i<tmp.size();i++){
             jstmp1=tmp.getJSONObject(i);
             //idtmp=jstmp1.getInteger("user_id");
-            addr=getAddressInfo(jstmp1.getInteger("id_address_id"));
+            addr=getAddressInfo(jstmp1.getInteger("contact_address_id"));
             anstmp.put("user_id",jstmp1.getInteger("user_id"));
             anstmp.put("name",jstmp1.getString("name"));
             anstmp.put("id_num",jstmp1.getString("id_number"));
