@@ -63,6 +63,14 @@
 		where user_id=#{user_id}
 	</update>
 	
+	<update id="updatePicture">
+		update account_info set
+		id_picture=#{idPicture},
+		id_card_inverse_side=#{idPictureInverse},
+		heashot=#{headShot}
+		where user_id = #{user_id}
+	</update>
+	
 	<update id="updateSecurity">
 		update account_info
 		set 
@@ -76,7 +84,8 @@
 		set
 		deposit_bank =#{deposit_bank},
 		deposit_account = #{deposit_account},
-		deposit_password = #{deposit_password}
+		deposit_password = #{deposit_password},
+		trade_password = #{trade_password}
 		where user_id = #{user_id}
 	</update>
 	

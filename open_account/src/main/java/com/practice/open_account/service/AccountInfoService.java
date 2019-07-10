@@ -20,10 +20,12 @@ public interface AccountInfoService {
     AccountInfo getAccountInfoByUserId(Integer user_id);
     //	updateAll
     int updateAccountInfo(AccountInfo accountInfo);
+    //	updatePicture
+    int updatePicture(String idPicture, String idPictureInverse, String headShot, Integer user_id);
     //	updateSecurity
     int updateSecurity(Integer user_id, Integer security_id, String trade_type);
     //	updateDeposit
-    int updateDeposit(Integer user_id, String deposit_bank, String deposit_account, String deposit_password);
+    int updateDeposit(Integer user_id, String deposit_bank, String deposit_account, String deposit_password,String trade_password);
     //	delete
     int deleteAccountInfoByUserId(Integer user_id);
 

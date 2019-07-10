@@ -22,9 +22,11 @@ public interface AccountInfoDAO{
     
     int updateAccountInfo(AccountInfo accountInfo);
     
+    int updatePicture(String idPicture, String idPictureInverse, String headShot,Integer user_id);
+    
     int updateSecurity(Integer user_id, Integer security_id, String trade_type);
     
-    int updateDeposit(Integer user_id, String deposit_bank, String deposit_account, String deposit_password);
+    int updateDeposit(Integer user_id, String deposit_bank, String deposit_account, String deposit_password,String trade_password);
     
     int deleteAccountInfoByUserId(Integer user_id);
     

@@ -45,13 +45,24 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 		return accountInfoDAO.updateAccountInfo(accountInfo);
 	}
 	@Override
+	public int updatePicture(String idPicture, String idPictureInverse, String headShot, Integer user_id) {
+		// TODO Auto-generated method stub
+		try {
+			accountInfoDAO.updatePicture(idPicture, idPictureInverse, headShot,user_id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return 1;
+	}
+	@Override
 	public int updateSecurity(Integer user_id, Integer security_id, String trade_type) {
 		// TODO Auto-generated method stub
 		return accountInfoDAO.updateSecurity(user_id, security_id, trade_type);
 	}
 	@Override
-	public int updateDeposit(Integer user_id, String deposit_bank, String deposit_account, String deposit_password) {
-		return accountInfoDAO.updateDeposit(user_id, deposit_bank, deposit_account, deposit_password);
+	public int updateDeposit(Integer user_id, String deposit_bank, String deposit_account, String deposit_password,String trade_password) {
+		return accountInfoDAO.updateDeposit(user_id, deposit_bank, deposit_account, deposit_password,trade_password);
 	}
 	@Override
 	public int deleteAccountInfoByUserId(Integer user_id) {

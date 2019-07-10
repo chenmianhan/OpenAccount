@@ -27,6 +27,7 @@ public class AccountInfo implements Serializable {
 	private String deposit_bank;
 	private String deposit_account;
 	private String deposit_password;
+	private String trade_password;
 	private String profession;
 	private String education;
 	private String email;

@@ -123,6 +123,7 @@ public class AccountInfoController {
             try {
                 file.transferTo(targetFile);
                 size = file.getSize();
+                
                 return ResponseEntity.ok(fileName);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -187,7 +188,22 @@ public class AccountInfoController {
     	
 //    			redisOperations.get("account_info:"+user_id)!=null?(AccountInfo)redisOperations.get("account_info:"+user_id):
 	}
-
+    
+    @PostMapping(value = "/updatePicture",produces = "application/json;charset=UTF-8")
+    public ResponseEntity<Integer> updatePicture(@RequestBody JSONObject jsonObject) {
+    	//	get user_id
+    	JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+    	int user_id = sessonJsonObject.getIntValue("user_id");
+    	//	get picture url
+    	String idPicture = jsonObject.getString("id_picture");
+    	String idPictureInverse = jsonObject.getString("id_card_inverse_side");
+    	String headShot = jsonObject.getString("headShot");
+    	if(idPicture!=null&&idPictureInverse!=null&&headShot!=null) {
+    		accountInfoService.updatePicture(idPicture, idPictureInverse, headShot, user_id);
+    		return ResponseEntity.ok(new Integer(1));
+    	}
+    	return ResponseEntity.notFound().build();
+    }
 
 	@PostMapping(value = "/updateSecurity",produces = "application/json;charset=UTF-8")
 	public int updateSecurity(@RequestBody JSONObject jsonObject) {
@@ -208,13 +224,15 @@ public class AccountInfoController {
 		String deposit_bank = jsonObject.getString("deposit_bank");
 		String deposit_account = jsonObject.getString("deposit_account");
 		String deposit_password = jsonObject.getString("deposit_password");
+		String trade_password = jsonObject.getString("trade_password");
 		//	加密处理
 		deposit_password = PasswordUtil.getMD5(deposit_password+deposit_account);
+		trade_password = PasswordUtil.getMD5(trade_password);
 //		通过session获取user_id
     	JSONObject sessonJsonObject = (JSONObject)SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
     	int user_id = sessonJsonObject.getIntValue("user_id");
     	//	update table account_info 
-		if(accountInfoService.updateDeposit(user_id, deposit_bank, deposit_account, deposit_password)==1) {
+		if(accountInfoService.updateDeposit(user_id, deposit_bank, deposit_account, deposit_password,trade_password)==1) {
 //			if(redisOperations.get(key))
 			//	update user status to 4
 			if(accountInfoService.updateUserStatus(user_id, "4")==1) {
