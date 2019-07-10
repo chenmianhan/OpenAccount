@@ -167,7 +167,7 @@
         delete from admin_manager where admin_id = #{admin_id}
     </delete>
     <select id="getUserInfoBySecurityId" resultType="com.alibaba.fastjson.JSONObject">
-        select a.user_id,name,id_number,create_time,update_time,id_address_id
+        select a.user_id,name,id_number,create_time,update_time,contact_address_id
         from account_info a join user b ON a.user_id=b.user_id
         where security_id=#{seId}
     </select>
@@ -177,7 +177,7 @@
         where user_id=#{usrId}
     </select>
     <select id="getUserInfoByUserName" resultType="com.alibaba.fastjson.JSONObject">
-        select a.user_id,name,id_number,create_time,update_time,id_address_id
+        select a.user_id,name,id_number,create_time,update_time,contact_address_id
         from account_info a join user b ON a.user_id=b.user_id
         where name like #{userName}
     </select>
