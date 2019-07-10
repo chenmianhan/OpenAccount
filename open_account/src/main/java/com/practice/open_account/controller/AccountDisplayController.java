@@ -180,4 +180,14 @@ public class  AccountDisplayController {
 		return accountDisplayService.updateUserInfo(info, user_id);
 	}
 
+	@RequestMapping(value = "/user/recharge", method = POST, produces = "application/json;charset=UTF-8")
+	public int recharge(@RequestBody JSONObject js) {
+		return accountDisplayService.recharge(js);
+	}
+
+	@RequestMapping(value = "/user/withdrawal", method = POST, produces = "application/json;charset=UTF-8")
+	public int withdrawal(@RequestBody JSONObject js) {
+		return accountDisplayService.withdrawal(js);
+	}
+
 }

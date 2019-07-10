@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import com.practice.open_account.service.AccountDisplayService;
+import org.apache.http.annotation.Obsolete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -144,5 +145,24 @@ public class AccountDisplayServiceImpl implements AccountDisplayService {
 		res.put("code", 101-status);
 		return res;
 
+	}
+
+	@Override
+	public int recharge(JSONObject js) {
+		String fund_id = js.getString("fund_id");
+		double amount = js.getDouble("amount");
+		return accountDisplayDAO.recharge(fund_id, amount);
+	}
+
+	@Override
+	public int withdrawal(JSONObject js) {
+		String fund_id = js.getString("fund_id");
+		double amount = js.getDouble("amount");
+		List<JSONObject> currencyList = accountDisplayDAO.getCurrencyByFundId(fund_id);
+		double balance = currencyList.get(0).getDouble("balance");
+		if (amount > balance) {
+			return 0;
+		}
+		return accountDisplayDAO.withdrawal(fund_id, amount);
 	}
 }

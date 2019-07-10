@@ -19,4 +19,6 @@ public interface AccountDisplayDAO {
 	JSONObject getAddressByAId(int aid);
 	int updateUserInfo(int user_id, String name, String profession, Date valDateStart, Date valDateEnd, String idCardAuthority, String education, String email);
 	int updateAddress(int aid, String province, String city, String street, String detail);
+	int recharge(String fund_id, double amount);
+	int withdrawal(String fund_id, double amount);
 }

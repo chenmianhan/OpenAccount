@@ -15,4 +15,6 @@ public interface AccountDisplayService {
 	int deleteFundAccount(String fund_id);
 	String  getTradeType( String user_id);
 	JSONObject updateUserInfo(JSONObject info, int user_id);
+	int recharge(JSONObject js);
+	int withdrawal(JSONObject js);
 }

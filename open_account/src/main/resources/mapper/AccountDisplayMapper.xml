@@ -81,4 +81,18 @@
 		where
 		aid = #{aid}
 	</update>
+	<update id="recharge">
+		update currency
+		set
+		balance = balance + #{amount}
+		where
+		fund_id = #{fund_id}
+	</update>
+	<update id="withdrawal">
+		update currency
+		set
+		balance = balance - #{amount}
+		where
+		fund_id = #{fund_id}
+	</update>
 </mapper>
