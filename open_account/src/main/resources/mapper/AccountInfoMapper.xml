@@ -8,7 +8,7 @@
 	 useGeneratedKeys="true" keyProperty="account_info_id">
 		insert into account_info
 		( 
-		  user_id,name,id_type,
+		  user_id,name,
 		  id_number,
 		  id_address_id,id_issuance_date,id_overdue_date,id_licensing_authority,
 		  contact_address_id,
@@ -28,7 +28,6 @@
 		  values(
 		      #{user_id},
 		  	  #{name},
-			  #{id_type},
 			  #{id_number},
 			  #{id_address_id},
 			  #{id_issuance_date},
