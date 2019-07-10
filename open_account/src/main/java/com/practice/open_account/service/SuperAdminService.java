@@ -31,11 +31,11 @@ public interface SuperAdminService {
     JSONArray getAdminByName(String admin_name);
 
     JSONArray getAllAdmin();
-    JSONArray getAllReviewers();
+    JSONArray getAllReviewers(int admin_id);
 
     JSONObject getSuperAdminName();
 
-    JSONObject getUserList();
+    JSONObject getUserList(int admin_id);
     JSONObject getUserInfo(int usrId);
     String getAddressInfo(int aId);
     JSONObject getPhoneAndTime(int usrId);

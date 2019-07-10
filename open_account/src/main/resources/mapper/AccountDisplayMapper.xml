@@ -50,6 +50,11 @@
 		#{type},#{password}
 		)
 	</insert>
+	<insert id="addTransaction">
+		insert into transactions
+		(customer_id, value, message, createtime)
+		values(#{customer_id}, #{value}, #{message}, #{create_time})
+	</insert>
 	<delete id="deleteFundAccount" >
 		delete from fund_account where fund_id = #{fund_id}
 	</delete>
@@ -70,6 +75,10 @@
 		select fa.fund_id from fund_account fa
 		where fa.bank_account=#{bank_account}
 		limit 1
+	</select>
+	<select id="getCustomerId" resultType="java.lang.String">
+		select customer_id from fund_account
+		where fund_id = #{fund_id}
 	</select>
 	<update id="updateUserInfo">
 		update account_info
@@ -113,7 +122,7 @@
 		(fund_id,
 		currency_type,
 		balance)
-		
+
 		values(
 		#{fund_id},
 		#{currency_type},

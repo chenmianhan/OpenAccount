@@ -3,6 +3,8 @@ package com.practice.open_account.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.practice.open_account.dao.SecurityDao;
 import com.practice.open_account.service.SuperAdminService;
+import com.practice.open_account.util.constants.LoginConstants;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -82,7 +84,9 @@ public class SuperAdminController{
 
     @RequestMapping(value = "/admin/getAllReviewers", method = GET, produces = "application/json;charset=UTF-8")
     public JSONArray getAllReviewers(){
-        return superAdminService.getAllReviewers();
+        JSONObject sessonJsonObject = (JSONObject) SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+        int admin_id = sessonJsonObject.getIntValue("employee_id");
+        return superAdminService.getAllReviewers(admin_id);
     }
 
     @RequestMapping(value = "/superadmin", method = GET, produces = "application/json;charset=UTF-8")
@@ -117,7 +121,9 @@ public class SuperAdminController{
     @RequestMapping(value="/admin/getUserId",method = GET,produces = "application/json;charset=UTF-8")
     public JSONObject getUserList()
     {
-        return superAdminService.getUserList();
+        JSONObject sessonJsonObject = (JSONObject) SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO);
+        int admin_id = sessonJsonObject.getIntValue("employee_id");
+        return superAdminService.getUserList(admin_id);
     }
 
     @RequestMapping(value="/superadmin/changeMaxNum",method = POST,produces = "application/json;charset=UTF-8")

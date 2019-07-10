@@ -206,9 +206,10 @@ public class SuperAdminServiceImpl implements SuperAdminService {
 
     @Override
     @Transactional
-    public JSONArray getAllReviewers() {
+    public JSONArray getAllReviewers(int admin_id) {
 
-        List<JSONObject> jsList = superAdminDAO.getAllReviewers();
+        int security_id = superAdminDAO.getSecurityIdByAdminId(admin_id);
+        List<JSONObject> jsList = superAdminDAO.getAllReviewers(security_id);
         JSONArray res = new JSONArray();
         for (JSONObject js:jsList) {
             JSONObject resJs = new JSONObject();
@@ -231,10 +232,11 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     }
 
     @Override
-    public JSONObject getUserList()
+    public JSONObject getUserList(int admin_id)
     {
+        int security_id = superAdminDAO.getSecurityIdByAdminId(admin_id);
         JSONArray ans=new JSONArray();
-        List<JSONObject> tmp=superAdminDAO.getUserList();
+        List<JSONObject> tmp=superAdminDAO.getUserList(security_id);
         for (int i = 0; i < tmp.size(); i++) {
             JSONObject js = tmp.get(i);
             JSONObject ansJs = new JSONObject();

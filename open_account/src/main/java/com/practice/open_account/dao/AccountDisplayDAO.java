@@ -1,6 +1,7 @@
 package com.practice.open_account.dao;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
@@ -26,4 +27,6 @@ public interface AccountDisplayDAO {
 	int addCurrency(String fund_id,
 					String currency_type,
 					String balance);
+	String getCustomerId(String fund_id);
+	int addTransaction(String customer_id, double value, String message, Timestamp create_time);
 }
