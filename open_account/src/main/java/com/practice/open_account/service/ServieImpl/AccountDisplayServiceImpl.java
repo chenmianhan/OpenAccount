@@ -8,6 +8,7 @@ import com.practice.open_account.service.AccountDisplayService;
 import org.apache.http.annotation.Obsolete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
 import com.practice.open_account.dao.AccountDisplayDAO;
@@ -21,10 +22,12 @@ public class AccountDisplayServiceImpl implements AccountDisplayService {
 	@Autowired
 	private AccountDisplayDAO accountDisplayDAO;
 	@Override
+	@Transactional
 	public String getCustomerIdByUserId(int user_id) {
 		return accountDisplayDAO.getCustomerIdByUserId(user_id);
 	}
 	@Override
+	@Transactional
 	public List<FundAccount> getFundAccountByCustomerId(String customer_id) {
 		try {return accountDisplayDAO.getFundAccountByCustomerId(customer_id);}
 		catch(Exception e)
@@ -34,20 +37,24 @@ public class AccountDisplayServiceImpl implements AccountDisplayService {
 		}
 	}
 	@Override
+	@Transactional
 	public List<JSONObject> getCurrencyByFundId(String fund_id) {
 		return accountDisplayDAO.getCurrencyByFundId(fund_id);
 	}
 	@Override
+	@Transactional
 	public String getMaxFundId() {
 		// TODO Auto-generated method stub
 		return accountDisplayDAO.getMaxFundId();
 	}
 	@Override
+	@Transactional
 	public int addFundAccount(FundAccount fundAccount) {
 		// TODO Auto-generated method stub
 		return accountDisplayDAO.addFundAccount(fundAccount);
 	}
 	@Override
+	@Transactional
 	public int deleteFundAccount(String fund_id) {
 		// TODO Auto-generated method stub
 		return accountDisplayDAO.deleteFundAccount(fund_id);

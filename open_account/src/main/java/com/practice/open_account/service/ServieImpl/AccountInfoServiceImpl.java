@@ -27,6 +27,7 @@ public class AccountInfoServiceImpl implements AccountInfoService {
     
     //account_info
 	@Override
+	@Transactional
 	public int addAccountInfo(AccountInfo accountInfo) throws Exception {
 		try {
 			accountInfoDAO.addAccountInfo(accountInfo);
@@ -37,14 +38,17 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 		}
 	}
 	@Override
+	@Transactional
 	public AccountInfo getAccountInfoByUserId(Integer user_id) {
 		return accountInfoDAO.getAccountInfoByUserId(user_id);
 	}
 	@Override
+	@Transactional
 	public int updateAccountInfo(AccountInfo accountInfo) {
 		return accountInfoDAO.updateAccountInfo(accountInfo);
 	}
 	@Override
+	@Transactional
 	public int updatePicture(String idPicture, String idPictureInverse, String headShot, Integer user_id) {
 		// TODO Auto-generated method stub
 		try {
@@ -56,15 +60,18 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 		return 1;
 	}
 	@Override
+	@Transactional
 	public int updateSecurity(Integer user_id, Integer security_id, String trade_type) {
 		// TODO Auto-generated method stub
 		return accountInfoDAO.updateSecurity(user_id, security_id, trade_type);
 	}
 	@Override
+	@Transactional
 	public int updateDeposit(Integer user_id, String deposit_bank, String deposit_account, String deposit_password,String trade_password) {
 		return accountInfoDAO.updateDeposit(user_id, deposit_bank, deposit_account, deposit_password,trade_password);
 	}
 	@Override
+	@Transactional
 	public int deleteAccountInfoByUserId(Integer user_id) {
 		return accountInfoDAO.deleteAccountInfoByUserId(user_id);
 	}
@@ -72,29 +79,35 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 	
 	//	address
 	@Override
+	@Transactional
 	public int addAddress(Address address) {
 		return accountInfoDAO.addAddress(address);
 	}
 	@Override
+	@Transactional
 	public Address getAddressByAId(Integer aid) {
 		return accountInfoDAO.getAddressByAId(aid);
 	}
 	@Override
+	@Transactional
 	public int deleteAddressByAid(Integer aid) {
 		return accountInfoDAO.deleteAddressByAid(aid);
 	}
 	@Override
+	@Transactional
 	public int updateAddress(Address address) {
 		return accountInfoDAO.updateAddress(address);
 	}
 	
 	//	user status
 	@Override
+	@Transactional
 	public int updateUserStatus(Integer user_id, String status) {
 		// TODO Auto-generated method stub
 		return accountInfoDAO.updateUserStatus(user_id, status);
 	}
 	@Override
+	@Transactional
 	public List<Map<String,Object>> getUserPair(String security_id)
 	{
 		try
@@ -122,11 +135,13 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 		return null;
 	}
 	@Override
+	@Transactional
 	public int updateRiskAssessmentMark(int riskAssessmentMark, int user_id) {
 		// TODO Auto-generated method stub
 		return accountInfoDAO.updateRiskAssessmentMark(riskAssessmentMark,user_id);
 	}
 	@Override
+	@Transactional
 	public String getAllocTimeById(String use_id)
 	{
 		try{return accountInfoDAO.getAllocTimeById(use_id);}
@@ -136,6 +151,7 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 		}
 	}
 	@Override
+	@Transactional
 	public int uploadHeadShot(String image, int user_id) {
 		// TODO Auto-generated method stub
 		try {
@@ -147,6 +163,7 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 		return 0;
 	}
 	@Override
+	@Transactional
 	public int uploadId(String image, int user_id) {
 		// TODO Auto-generated method stub
 		try {
@@ -158,6 +175,7 @@ public class AccountInfoServiceImpl implements AccountInfoService {
 		return 0;
 	}
 	@Override
+	@Transactional
 	public int uploadIdReverse(String image, int user_id) {
 		// TODO Auto-generated method stub
 		try {
