@@ -29,13 +29,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.Blob;
 import java.util.Date;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.shiro.SecurityUtils;
@@ -131,6 +134,40 @@ public class AccountInfoController {
         }
             return ResponseEntity.status(409).body("Fail");
     }
+    
+//    @RequestMapping(value="download.json")
+//    public boolean download(HttpServletResponse res) throws IOException {
+//    	String path =File.separator+"Users"+File.separator+"iot"+File.separator+"Desktop"+File.separator+"pic"+File.separator;
+//    	String fileName = ""
+//    			+ "";
+//    	File file = new File(path+fileName);
+//        res.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+//        byte[] buff = new byte[1024];
+//        BufferedInputStream bis = null;
+//        OutputStream os = null;
+//        try {
+//          os = res.getOutputStream();
+//          bis = new BufferedInputStream(new FileInputStream(file));
+//          int i = bis.read(buff);
+//          while (i != -1) {
+//            os.write(buff, 0, buff.length);
+//            os.flush();
+//            i = bis.read(buff);
+//          }
+//        } catch (IOException e) {
+//          e.printStackTrace();
+//        } finally {
+//          if (bis != null) {
+//            try {
+//              bis.close();
+//            } catch (IOException e) {
+//              e.printStackTrace();
+//            }
+//          }
+//        }
+//        System.out.println("success");
+//        return false;
+//        }
     
     @GetMapping(value = "/getAccountInfo",produces = "application/json;charset=UTF-8")
     public AccountInfoDto getAccountInfoByUserId
