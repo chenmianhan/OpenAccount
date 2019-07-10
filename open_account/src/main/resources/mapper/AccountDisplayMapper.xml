@@ -122,7 +122,7 @@
 		(fund_id,
 		currency_type,
 		balance)
-		
+
 		values(
 		#{fund_id},
 		#{currency_type},
