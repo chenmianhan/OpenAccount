@@ -31,7 +31,7 @@ public interface SuperAdminService {
     JSONArray getAdminByName(String admin_name);
 
     JSONArray getAllAdmin();
-    JSONArray getAllReviewers();
+    JSONArray getAllReviewers(int admin_id);
 
     JSONObject getSuperAdminName();
 
