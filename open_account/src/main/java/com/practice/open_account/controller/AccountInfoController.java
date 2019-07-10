@@ -13,6 +13,8 @@ import com.practice.open_account.util.PasswordUtil;
 import com.practice.open_account.util.constants.LoginConstants;
 
 import java.util.Base64;
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.data.redis.core.ValueOperations;
@@ -25,18 +27,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Blob;
 import java.util.Date;
+import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
+import org.hibernate.Hibernate;
 
 /****
  *@author:cmh
@@ -100,17 +104,31 @@ public class AccountInfoController {
 //		return 0;
     	}
     @PostMapping("/upload")
-    public ResponseEntity<String> upload(MultipartHttpServletRequest request) {
-        MultipartFile file = request.getFile("upfile");
-        File distFile = new File(request.getSession().getServletContext().getRealPath("/") + "template/" + file.getOriginalFilename());
-        distFile.renameTo(new File("u"+new Date().toString()));//更新文件名
-        try {
-            file.transferTo(distFile);//把文件写到服务器
-            return ResponseEntity.ok("Success");
-        } catch (IllegalStateException | IOException e1) {
-            e1.printStackTrace();
+    public ResponseEntity<String> upload(@RequestParam MultipartFile file) throws IOException {
+//    	Calendar currTime = Calendar.getInstance();
+    	String path = File.separator+"hujoe"+File.separator+"picture";
+//        String time = String.valueOf(currTime.get(Calendar.YEAR))+String.valueOf((currTime.get(Calendar.MONTH)+1));
+//        String path =File.separator+"Users"+File.separator+"iot"+File.separator+"Desktop"+File.separator+"pic";
+//        MultipartFile file = request.getFile("upfile");
+        String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        suffix = suffix.toLowerCase();
+        if(suffix.equals(".jpg") || suffix.equals(".jpeg") || suffix.equals(".png") ){
+            String fileName = UUID.randomUUID().toString()+suffix;
+            File targetFile = new File(path, fileName);
+            if(!targetFile.getParentFile().exists()){ //注意，判断父级路径是否存在
+                targetFile.getParentFile().mkdirs();
+            }
+            long size = 0;
+            //保存
+            try {
+                file.transferTo(targetFile);
+                size = file.getSize();
+                return ResponseEntity.ok(fileName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        return ResponseEntity.status(409).body("Fail");
+            return ResponseEntity.status(409).body("Fail");
     }
     
     @GetMapping(value = "/getAccountInfo",produces = "application/json;charset=UTF-8")
