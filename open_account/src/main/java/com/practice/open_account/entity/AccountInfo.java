@@ -12,7 +12,6 @@ public class AccountInfo implements Serializable {
 	private Integer account_info_id;
 	private Integer user_id;
 	private String name;
-	private String id_type;
 	private String id_number;
 	private Integer id_address_id;
 	private String id_issuance_date;
