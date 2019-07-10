@@ -17,9 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -323,7 +324,9 @@ public class AuditorController {
 
         temp=new JSONObject();
         temp.put("title","证件有效期");
-        temp.put("content",userInfoTemp.get("idValDate"));
+
+            temp.put("content",userInfoTemp.get("idValDate"));
+
         userInfo.add(temp);
 
         temp=new JSONObject();

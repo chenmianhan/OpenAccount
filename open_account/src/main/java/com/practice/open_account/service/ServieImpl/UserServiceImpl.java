@@ -111,4 +111,31 @@ public class UserServiceImpl implements UserService {
       return null;
     }
 
+    @Override
+    @Transactional
+    public int checkPassword(String phone, String password)
+    {
+        try {
+            return userDao.checkPassword(phone, password);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    @Override
+    @Transactional
+    public int updatePassword(String phone, String password)
+    {
+       // System.out.println(phone);
+        try{
+            return userDao.updatePassword(phone, password);
+        }
+        catch (Exception e)
+        {
+           // System.out.println(phone);
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

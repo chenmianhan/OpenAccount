@@ -13,10 +13,9 @@ import java.util.Map;
  */
 public interface UserDao {
     int checkPhone(@Param("phone") String phone);
-    // int checkLogin(@Param("phone") String phone, @Param("password") String password);
-
+    int checkPassword(@Param("phone") String phone, @Param("password") String password);
     int addUser(@Param("phone") String phone, @Param("password") String password);
-
+    int updatePassword(@Param("phone") String phone, @Param("password") String password);
     JSONObject getUser(@Param("phone") String phone, @Param("password") String password);
 
     String getStatus(@Param("user_id") String user_id);

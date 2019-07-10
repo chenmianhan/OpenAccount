@@ -23,4 +23,6 @@ public interface AdminService {
 	Map<Integer, String> getAllOpenDate();
 	String getAdminNameByAdminId(Integer admin_id);
 //	int updateAdminSecurity(Employee employee);
+	int deleteReviewerInEmployee(int auditor_id) throws Exception;
+	int deleteReviewInAuditorManager(int auditor_id)throws Exception;
 }

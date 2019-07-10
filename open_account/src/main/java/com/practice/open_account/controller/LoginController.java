@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+import java.util.Random;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -50,23 +52,23 @@ public class LoginController {
         }
         int result;
         if(role.equals("0")){
-           result =userService.checkPhone(account);
-            if(result==0){
-                try{
-                   int a= userService.addUser(account,password);
-                   ///System.out.println("a:"+a);
-                   if(a==1)
-                   {
-                       userService.checkLogin(account,password);
-                    //System.out.println(SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO));
-                    return CommonUtil.getJson(LoginConstants.NEW_CODE);}
-                   else return CommonUtil.getJson(LoginConstants.ERROR_CODE);
-                }
-                catch(Exception e){
-                    return CommonUtil.getJson(LoginConstants.ERROR_CODE);
-                }
-            }
-            else {
+//           result =userService.checkPhone(account);
+//            if(result==0){
+//                try{
+//                   int a= userService.addUser(account,password);
+//                   ///System.out.println("a:"+a);
+//                   if(a==1)
+//                   {
+//                       userService.checkLogin(account,password);
+//                    //System.out.println(SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO));
+//                    return CommonUtil.getJson(LoginConstants.NEW_CODE);}
+//                   else return CommonUtil.getJson(LoginConstants.ERROR_CODE);
+//                }
+//                catch(Exception e){
+//                    return CommonUtil.getJson(LoginConstants.ERROR_CODE);
+//                }
+//            }
+//            else {
                 result=userService.checkLogin(account,password);
                 if(result!=0)
                 {
@@ -77,7 +79,7 @@ public class LoginController {
                     return CommonUtil.getJson(LoginConstants.FAIL_CODE);
                 }
             }
-        }
+//        }
         else
         {
             result=employeeService.login(account,password,role);
@@ -98,6 +100,24 @@ public class LoginController {
     {
         return userService.logout();
     }
+
+    @RequestMapping(value="/addUser", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONObject addUser(@RequestParam(value = "account") String account,
+                              @RequestParam(value = "password") String password)
+    {
+        try{
+                   int a= userService.addUser(account,password);
+                   if(a==1)
+                   {
+                   //    userService.checkLogin(account,password);
+                    //System.out.println(SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_USER_INFO));
+                    return CommonUtil.getJson(LoginConstants.NEW_CODE);}
+                   else return CommonUtil.getJson(LoginConstants.ERROR_CODE);
+                }
+                catch(Exception e){
+                    return CommonUtil.getJson(LoginConstants.ERROR_CODE);
+                }
+    }
     @RequestMapping(value="/getReviewResult", method=POST, produces = "application/json;charset=UTF-8")
     public JSONObject getReviewResult() {
         String user_id= SessionUtil.getSessionAttribute().getString("user_id");
@@ -117,24 +137,124 @@ public class LoginController {
         return LoginConstants.INVALID_CODE;
         else return LoginConstants.VALID_CODE;
     }
-    @RequestMapping(value="/test22", method=GET, produces = "application/json;charset=UTF-8")
-    public String  test22() {
-        String checkNum="2222";
-        String checkPhone="15813935101";
-
-        //String checkPhone="15920138470";
-       // String uid="";
-        //return SessionUtil.getSessionAttribute();
+    @RequestMapping(value="/askForCheckSum", method=POST, produces = "application/json;charset=UTF-8")
+    public JSONObject  askForCheckSum(@RequestParam(value = "phone") String phone) {
+        String checkNum=getFourRandom();
+        SecurityUtils.getSubject().getSession().setAttribute(LoginConstants.SESSION_CHECKNUM, checkNum);
+        System.out.println(SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_CHECKNUM).toString());
+        String checkPhone=phone;
         JsonReqClient jsonReqClient=new JsonReqClient();
        String result= jsonReqClient.sendSms("37a490144f5a9c924d1bfe5901847973",
                             "57e9b612d3cc1303f59a41f6bb08efe3",
                 "426324c3e49d4340bd71e1a47420b64f",
                 "483287",
                 checkNum,checkPhone);
-       return result;
+       JSONObject jsonObject=JSONObject.parseObject(result);
+       result=(String)jsonObject.get("code");
+       System.out.println(result);
+       JSONObject returnObject=new JSONObject();
+       if(result.equals("000000"))
+       {
+           returnObject.put("code",LoginConstants.SMSSUCCESS);
+       }
+       else
+           {
+               returnObject.put("code", LoginConstants.SMSERROR);
+           }
+       return returnObject;
+
+    }
+    @RequestMapping(value="/checkNum", method=GET, produces = "application/json;charset=UTF-8")
+    public JSONObject checkNum(@RequestParam(value ="checkNum")String checkNum) {
+        JSONObject jsonObject=new JSONObject();
+        if(checkNum.equals( SecurityUtils.getSubject().getSession().getAttribute(LoginConstants.SESSION_CHECKNUM)))
+        {
+            jsonObject.put("code",LoginConstants.CHECKNUMTRUE);
+        }
+        else
+            {
+                jsonObject.put("code",LoginConstants.CHECKNUMFALSE);
+            }
+        return jsonObject;
+       // return SessionUtil.getSessionAttribute();
+    }
+
+    @RequestMapping(value="/checkPhone", method=GET, produces = "application/json;charset=UTF-8")
+    public JSONObject checkPhone(@RequestParam(value ="phone")String phone) {
+        JSONObject jsonObject=new JSONObject();
+       int  result =userService.checkPhone(phone);
+      // System.out.println(result);
+        if(result==0){
+            jsonObject.put("code",LoginConstants.USERNOTEXIST);
+        }
+        else
+        {
+            jsonObject.put("code",LoginConstants.USEREXIST);
+        }
+        return jsonObject;
+        // return SessionUtil.getSessionAttribute();
+    }
+
+    @RequestMapping(value="/checkPassword", method=GET, produces = "application/json;charset=UTF-8")
+    public JSONObject  checkPassword(@RequestParam(value ="phone")String phone,
+                                     @RequestParam(value ="password")String password)
+    {
+        JSONObject jsonObject=new JSONObject();
+        password=PasswordUtil.getMD5(password+phone);
+       int result= userService.checkPassword(phone, password);
+        if(result==0)
+        {
+            jsonObject.put("code",LoginConstants.PASSWORDFALSE);
+        }
+        else
+            {
+                jsonObject.put("code",LoginConstants.PASSWORDTRUE);
+            }
+        return jsonObject;
+    }
+
+    @RequestMapping(value="/updatePassword", method=GET, produces = "application/json;charset=UTF-8")
+    public JSONObject updatePassword(@RequestParam(value ="phone")String phone,
+                                     @RequestParam(value ="newPassword")String password)
+    {
+        if(phone.equals(""))
+        {
+            phone=SessionUtil.getSessionAttribute().getString("phone");
+        }
+        System.out.println(phone);
+        JSONObject jsonObject=new JSONObject();
+        password=PasswordUtil.getMD5(password+phone);
+       // System.out.println(phone);
+        int result= userService.updatePassword(phone, password);
+       // System.out.println(phone);
+        if(result==0)
+        {
+            jsonObject.put("code",LoginConstants.EXCEPTION);
+        }
+        else
+        {
+            jsonObject.put("code",LoginConstants.UPDATESUCCESS);
+        }
+        return jsonObject;
     }
     @RequestMapping(value="/test", method=GET, produces = "application/json;charset=UTF-8")
     public JSONObject  test() {
        return SessionUtil.getSessionAttribute();
     }
+
+    /**
+     * 产生4位随机数(0000-9999)
+     * @return 4位随机数
+     */
+    public  String getFourRandom() {
+        Random random = new Random();
+        String fourRandom = random.nextInt(10000) + "";
+        int randLength = fourRandom.length();
+        if (randLength < 4) {
+            for (int i = 1; i <= 4 - randLength; i++)
+                fourRandom = "0"+fourRandom;
+        }
+        return fourRandom;
+    }
+
 }

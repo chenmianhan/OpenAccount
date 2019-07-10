@@ -278,4 +278,15 @@ public class AdminController {
 		}
 		return tableData;
 	}
+	@PostMapping(value = "/admin/deleteReviewer",produces = "application/json;charset=UTF-8")
+	public ResponseEntity<Integer> deleteReviewer(@RequestBody JSONObject jsonObject) throws Exception{
+		Integer reviewer_id = jsonObject.getInteger("reviewer_id");
+		if(reviewer_id!=null) {
+			adminService.deleteReviewerInEmployee(reviewer_id);
+			adminService.deleteReviewInAuditorManager(reviewer_id);
+			return ResponseEntity.ok(new Integer(1));
+		}
+		return ResponseEntity.status(406).body(new Integer(0));
+		
+	}
 }

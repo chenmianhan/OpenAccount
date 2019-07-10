@@ -24,5 +24,7 @@ public interface AdminDAO {
 	String getAdminNameByAdminId(Integer admin_id);
 	Integer getMaxEmployeeId();
 //	int updateAdminSecurity(Employee employee);
+	int deleteReviewerInEmployee(int auditor_id);
+	int deleteReviewInAuditorManager(int auditor_id);
 	
 }
