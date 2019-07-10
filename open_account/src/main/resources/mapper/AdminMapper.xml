@@ -87,6 +87,13 @@
 			where security_id=
 			#{security_id}
 			);
- 
 	</select>
+	<delete id="deleteReviewerInEmployee">
+		delete from employee where employee_id = #{auditor_id}
+	</delete>
+	<delete id="deleteReviewInAuditorManager">
+		delete from auditor_manager
+		where auditor_id = #{auditor_id}
+	</delete>
+	
 </mapper>

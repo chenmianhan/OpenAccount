@@ -88,4 +88,28 @@ public class AdminServiceImpl implements AdminService{
 //		// TODO Auto-generated method stub
 //		return adminDAO.getAuditorIdBySecurityId(SecurityId);
 //	}
+	@Override
+	public int deleteReviewerInEmployee(int auditor_id) {
+		// TODO Auto-generated method stub
+		try {
+			adminDAO.deleteReviewerInEmployee(auditor_id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw e;
+		}
+		return 1;
+	}
+	@Override
+	public int deleteReviewInAuditorManager(int auditor_id) {
+		// TODO Auto-generated method stub
+		try {
+			adminDAO.deleteReviewInAuditorManager(auditor_id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw e;
+		}
+		return 1;
+	}
 }
