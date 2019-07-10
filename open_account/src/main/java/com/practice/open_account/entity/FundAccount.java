@@ -17,4 +17,5 @@ public class FundAccount implements	Serializable{
 	private String bank_account;
 	private String bank;
 	private String type;
+	private String password;
 }

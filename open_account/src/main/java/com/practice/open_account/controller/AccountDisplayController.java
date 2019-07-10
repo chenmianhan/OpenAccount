@@ -4,6 +4,9 @@ package com.practice.open_account.controller;
 
 		import com.practice.open_account.service.AccountDisplayService;
 
+		import com.practice.open_account.util.PasswordUtil;
+		import com.practice.open_account.util.SessionUtil;
+		import com.practice.open_account.util.constants.AuditorConstants;
 		import org.apache.shiro.SecurityUtils;
 		import org.springframework.beans.factory.annotation.Autowired;
 		import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,7 @@ package com.practice.open_account.controller;
 		import com.practice.open_account.service.SecurityService;
 		import com.practice.open_account.util.constants.LoginConstants;
 
+		import static org.springframework.web.bind.annotation.RequestMethod.GET;
 		import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
@@ -141,13 +145,14 @@ public class  AccountDisplayController {
 				prefix.append("0");
 			}
 			String nextFundId = prefix.append(number.toString()).toString();
+			System.out.println(jsonObject.getString("password"));
 			return accountDisplayService.addFundAccount(
 					new FundAccount(
 							customer_id,
 							nextFundId,
 							jsonObject.getString("bank_account"),
 							jsonObject.getString("bank"),
-							"1")
+							"1", PasswordUtil.getMD5(jsonObject.getString("password")))
 			);
 		}
 		return 0;
@@ -188,6 +193,25 @@ public class  AccountDisplayController {
 	@RequestMapping(value = "/user/withdrawal", method = POST, produces = "application/json;charset=UTF-8")
 	public int withdrawal(@RequestBody JSONObject js) {
 		return accountDisplayService.withdrawal(js);
+	}
+	@RequestMapping(value="/checkFund", method=GET, produces = "application/json;charset=UTF-8")
+	public JSONObject  checkFund(@RequestParam(value ="password")String password)
+	{
+		JSONObject jsonObject=new JSONObject();
+		password=PasswordUtil.getMD5(password);
+		String user_id= SessionUtil.getSessionAttribute().getString("user_id");
+		int result= accountDisplayService.checkFund( password,user_id);
+		System.out.println(result);
+		if(result==0)
+		{
+			jsonObject.put("code",AuditorConstants.FAIL_MSG);
+		}
+		else
+		{
+			jsonObject.put("code", AuditorConstants.SUCCESS_MSG);
+
+		}
+		return jsonObject;
 	}
 
 }

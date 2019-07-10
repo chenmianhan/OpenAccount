@@ -165,4 +165,18 @@ public class AccountDisplayServiceImpl implements AccountDisplayService {
 		}
 		return accountDisplayDAO.withdrawal(fund_id, amount);
 	}
+	@Override
+	public int checkFund(String trade_password,String user_id)
+	{
+		try{
+			int i= accountDisplayDAO.checkFund(trade_password, user_id);
+			System.out.println(i);
+			return  i;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return 0;
+		}
+	}
 }

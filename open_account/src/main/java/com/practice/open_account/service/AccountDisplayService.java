@@ -17,4 +17,6 @@ public interface AccountDisplayService {
 	JSONObject updateUserInfo(JSONObject info, int user_id);
 	int recharge(JSONObject js);
 	int withdrawal(JSONObject js);
+	int checkFund(String password,String user_id);
+
 }

@@ -25,7 +25,15 @@
 	<select id="getMaxFundId" resultType = "java.lang.String">
 		SELECT max(fund_id) FROM fund_account;
 	</select>
-	
+
+	<select id="checkFund" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+       account_info ai
+        WHERE ai.trade_password=#{trade_password}
+        AND ai.user_id = #{user_id}
+    </select>
 	<!-- insertFundAccount -->
 	<insert id="addFundAccount">
 		insert into fund_account
@@ -33,13 +41,13 @@
 		fund_id,
 		bank_account,
 		bank,
-		type)
+		type,password)
 		values(
 		#{customer_id},
 		#{fund_id},
 		#{bank_account},
 		#{bank},
-		#{type}
+		#{type},#{password}
 		)
 	</insert>
 	<delete id="deleteFundAccount" >
