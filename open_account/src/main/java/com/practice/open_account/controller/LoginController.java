@@ -105,6 +105,7 @@ public class LoginController {
     public JSONObject addUser(@RequestParam(value = "account") String account,
                               @RequestParam(value = "password") String password)
     {
+        password=PasswordUtil.getMD5(password+account);
         try{
                    int a= userService.addUser(account,password);
                    if(a==1)
@@ -214,15 +215,19 @@ public class LoginController {
     }
 
     @RequestMapping(value="/updatePassword", method=GET, produces = "application/json;charset=UTF-8")
-    public JSONObject updatePassword(@RequestParam(value ="phone")String phone,
+    public JSONObject updatePassword(
                                      @RequestParam(value ="newPassword")String password)
     {
+        String phone=SessionUtil.getSessionAttribute().getString("phone");
+        JSONObject jsonObject=new JSONObject();
+        if(phone==null)jsonObject.put("code",LoginConstants.EXCEPTION);
+        else {
         if(phone.equals(""))
         {
             phone=SessionUtil.getSessionAttribute().getString("phone");
         }
         System.out.println(phone);
-        JSONObject jsonObject=new JSONObject();
+
         password=PasswordUtil.getMD5(password+phone);
        // System.out.println(phone);
         int result= userService.updatePassword(phone, password);
@@ -234,7 +239,7 @@ public class LoginController {
         else
         {
             jsonObject.put("code",LoginConstants.UPDATESUCCESS);
-        }
+        }}
         return jsonObject;
     }
     @RequestMapping(value="/test", method=GET, produces = "application/json;charset=UTF-8")
