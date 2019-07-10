@@ -208,7 +208,6 @@ public class SuperAdminServiceImpl implements SuperAdminService {
     @Transactional
     public JSONArray getAllReviewers(int admin_id) {
 
-        System.out.println(admin_id);
         int security_id = superAdminDAO.getSecurityIdByAdminId(admin_id);
         List<JSONObject> jsList = superAdminDAO.getAllReviewers(security_id);
         JSONArray res = new JSONArray();
