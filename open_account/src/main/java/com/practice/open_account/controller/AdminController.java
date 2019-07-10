@@ -128,7 +128,7 @@ public class AdminController {
 				jsonObject.getIntValue("auditor_id"),
 				jsonObject.getString("account"),
 				password,
-				"2",
+				"1",
 				jsonObject.getString("name"));
 	}
 	
