@@ -66,6 +66,11 @@
 		select * from address
 		where aid = #{aid}
 	</select>
+	<select id="getFundId" resultType="java.lang.String">
+		select fa.fund_id from fund_account fa
+		where fa.bank_account=#{bank_account}
+		limit 1
+	</select>
 	<update id="updateUserInfo">
 		update account_info
 		set
@@ -103,4 +108,16 @@
 		where
 		fund_id = #{fund_id}
 	</update>
+	<insert id="addCurrency">
+		insert into currency
+		(fund_id,
+		currency_type,
+		balance)
+		
+		values(
+		#{fund_id},
+		#{currency_type},
+		#{balance}
+		)
+	</insert>
 </mapper>

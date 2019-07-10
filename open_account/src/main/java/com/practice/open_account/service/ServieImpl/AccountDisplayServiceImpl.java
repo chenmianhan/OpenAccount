@@ -179,4 +179,22 @@ public class AccountDisplayServiceImpl implements AccountDisplayService {
 			return 0;
 		}
 	}
+    @Override
+    public  String getFundId(String bank_account)
+    {
+        return accountDisplayDAO.getFundId(bank_account);
+    }
+    @Override
+    public int addCurrency(String fund_id,
+                    String currency_type,
+                    String balance)
+    {
+    	try{
+        return accountDisplayDAO.addCurrency(fund_id, currency_type, balance);}
+    	catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+    	return 0;
+    }
 }

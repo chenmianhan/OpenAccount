@@ -146,6 +146,7 @@ public class  AccountDisplayController {
 			}
 			String nextFundId = prefix.append(number.toString()).toString();
 			System.out.println(jsonObject.getString("password"));
+			accountDisplayService.addCurrency(nextFundId,"$","0");
 			return accountDisplayService.addFundAccount(
 					new FundAccount(
 							customer_id,
@@ -187,11 +188,15 @@ public class  AccountDisplayController {
 
 	@RequestMapping(value = "/user/recharge", method = POST, produces = "application/json;charset=UTF-8")
 	public int recharge(@RequestBody JSONObject js) {
+        String fund_id=accountDisplayService.getFundId(js.getString("account"));
+        js.put("fund_id",fund_id);
 		return accountDisplayService.recharge(js);
 	}
 
 	@RequestMapping(value = "/user/withdrawal", method = POST, produces = "application/json;charset=UTF-8")
 	public int withdrawal(@RequestBody JSONObject js) {
+	   String fund_id=accountDisplayService.getFundId(js.getString("account"));
+	   js.put("fund_id",fund_id);
 		return accountDisplayService.withdrawal(js);
 	}
 	@RequestMapping(value="/checkFund", method=GET, produces = "application/json;charset=UTF-8")

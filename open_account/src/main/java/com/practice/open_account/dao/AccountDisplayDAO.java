@@ -21,5 +21,9 @@ public interface AccountDisplayDAO {
 	int updateAddress(int aid, String province, String city, String street, String detail);
 	int recharge(String fund_id, double amount);
 	int withdrawal(String fund_id, double amount);
+	String getFundId(String bank_account);
 	int checkFund(String trade_password,String user_id);
+	int addCurrency(String fund_id,
+					String currency_type,
+					String balance);
 }

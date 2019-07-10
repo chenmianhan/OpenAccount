@@ -18,5 +18,8 @@ public interface AccountDisplayService {
 	int recharge(JSONObject js);
 	int withdrawal(JSONObject js);
 	int checkFund(String password,String user_id);
-
+	String getFundId(String bank_account);
+	int addCurrency(String fund_id,
+					String currency_type,
+					String balance);
 }
