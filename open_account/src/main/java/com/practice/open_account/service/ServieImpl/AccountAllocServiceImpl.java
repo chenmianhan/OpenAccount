@@ -146,7 +146,7 @@ public class AccountAllocServiceImpl implements AccountAllocService {
         return bdans.toString();
     }
     @Override
-    public boolean openAccount(int usrId)
+     public synchronized boolean openAccount(int usrId)
     {
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date tmp=new Date();

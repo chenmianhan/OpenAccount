@@ -61,5 +61,8 @@
         from trade_account
         where account_type='0'
     </select>
-
+    <insert id="insCur">
+        insert into currency(fund_id,currency_type,balance)
+        values(#{fundId},#{curType},#{balance})
+    </insert>
 </mapper>

@@ -32,21 +32,21 @@ public class AccountAllocController{
     public boolean getNewCusAcc(@RequestBody JSONObject info)throws Exception
     {
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date tmp=new Date();
-        Date openDate=simpleDateFormat.parse(simpleDateFormat.format(tmp));
-        tmp.setTime(1000*60*60*24*365*52);
-        Date insDate=simpleDateFormat.parse(simpleDateFormat.format(tmp));
-        int usrId=info.getInteger("user_id");
+         Date tmp=new Date();
+          Date openDate=simpleDateFormat.parse(simpleDateFormat.format(tmp));
+          tmp.setTime(1000*60*60*24*365*52);
+         Date insDate=simpleDateFormat.parse(simpleDateFormat.format(tmp));
+          int usrId=info.getInteger("user_id");
        // int auditorId=info.getInteger("auditor_id");
-        JSONObject cusInfo=accountAllocService.getInfo(usrId);
-        String cusAcc=accountAllocService.getNewCusAcc();
+         JSONObject cusInfo=accountAllocService.getInfo(usrId);
+         String cusAcc=accountAllocService.getNewCusAcc();
         String fundAcc=accountAllocService.getNewFundAcc();
-        accountAllocService.insertCurrency(fundAcc,"0",0);
-        System.out.println("1");
+         accountAllocService.insertCurrency(fundAcc,"0",0);
+
         String bankAcc=cusInfo.getString("deposit_account");
-        System.out.println("2");
+
         String bank=cusInfo.getString("deposit_bank");
-        System.out.println("3");
+
 
         int nSecurityId=-1;
 
