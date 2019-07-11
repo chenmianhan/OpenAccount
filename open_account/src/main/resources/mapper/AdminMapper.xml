@@ -54,9 +54,12 @@
 	</insert>
 	<select id="getServeralUserBySecurityId" resultType="com.practice.open_account.entity.AccountInfo"
 	>
-		select user_id,name,id_number,contact_address_id
-		from account_info
-		where security_id = #{security_id}
+		select ai.user_id,
+		ai.name,
+		ai.id_number,
+		ai.contact_address_id from 
+		account_info ai, customer_account ca 
+		where security_id = #{security_id} and ai.user_id=ca.user_id;
 	</select>
 	<select id="getOpenDate" resultType="java.lang.String">
 		select open_date from customer_account
